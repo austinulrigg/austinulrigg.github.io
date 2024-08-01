@@ -12,5 +12,5 @@ This is a paper I wrote describing the Maximum Cut problem and the Goemanns-Will
     This browser does not support PDFs. Please download the PDF to view it: <a href="{{ site.baseurl }}/assets/MATH336_Paper (23).pdf">Download PDF</a>.
 </iframe>
 
-<p>If you have trouble viewing the solutions, you can download them here:</p>
+<p>If you have trouble viewing the paper, you can download it here:</p>
 <a href="{{ site.baseurl }}/assets/MATH336_Paper (23).pdf" class="btn btn-primary">Download Guide</a>
