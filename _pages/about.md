@@ -7,7 +7,7 @@ redirect_from:
   - /about.html
 ---
 
-I am a second-year student studying mathematics at the University of Washington.  My current interests are in graph rotations and graph embeddings, but I am excited to learn and explore lots of fields of mathematics (Currently taking a second year in abstract algebra and starting topology).
+I am a second-year student studying mathematics at the University of Washington.  My current interests are in graph rotations and graph embeddings, but I am excited to learn and explore many fields of mathematics (Currently taking a second year in abstract algebra and starting topology).
 
 I embrace Federico Ardila-Mantilla's axioms
 ======
