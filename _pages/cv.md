@@ -11,9 +11,9 @@ redirect_from:
 
 Curriculum Vitae
 ======
-<iframe src="{{ site.baseurl }}/assets/Austin_Ulrigg (5).pdf" width="100%" height="600px">
-    This browser does not support PDFs. Please download the PDF to view it: <a href="{{ site.baseurl }}/assets/Austin_Ulrigg (5).pdf">Download PDF</a>.
+<iframe src="{{ site.baseurl }}/assets/Austin_Ulrigg (6).pdf" width="100%" height="600px">
+    This browser does not support PDFs. Please download the PDF to view it: <a href="{{ site.baseurl }}/assets/Austin_Ulrigg (6).pdf">Download PDF</a>.
 </iframe>
 
 <p>If you have trouble viewing the CV, you can download it here:</p>
-<a href="{{ site.baseurl }}/assets/Austin_Ulrigg (5).pdf" class="btn btn-primary">Download CV</a>
+<a href="{{ site.baseurl }}/assets/Austin_Ulrigg (6).pdf" class="btn btn-primary">Download CV</a>
