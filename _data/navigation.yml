@@ -3,13 +3,8 @@ main:
   - title: "CV"
     url: /cv/
     
-  - title: "Teaching and Service"
-    url: /teaching-and-service/    
+  - title: "Teaching"
+    url: /teaching/    
         
   - title: "Blog Posts"
     url: /year-archive/
-
-  - title: "Tutoring"
-    url: /tutoring/    
-
-    
