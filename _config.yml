@@ -212,7 +212,9 @@ collections:
   talks:
     output: true
     permalink: /:collection/:path/
-
+  tutoring:
+    output: true
+    permalink: /:collection/:path/
 
 # Defaults
 defaults:
@@ -253,6 +255,15 @@ defaults:
       share: true
       comments: true
   # _portfolio
+  - scope:
+      path: ""
+      type: portfolio
+    values:
+      layout: single
+      author_profile: true
+      share: true
+      comment: true
+  # _tutoring
   - scope:
       path: ""
       type: portfolio
