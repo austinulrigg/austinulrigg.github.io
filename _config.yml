@@ -21,7 +21,7 @@ repository               : "academicpages/austinulrigg.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.png"
+  avatar           : "prof_pic_color.png"
   name             : "Austin Ulrigg"
   pronouns         : # example: 
   bio              : "Undergraduate"
