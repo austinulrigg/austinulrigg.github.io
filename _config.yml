@@ -27,7 +27,7 @@ author:
   bio              : "Undergraduate"
   location         : "Seattle, Washington"
   employer         : "University of Washington"
-  uri              : "https://www.instagram.com/austinulrigg/?hl=en"
+  uri              : #
   email            : "austinul@uw.edu" 
 
   # Academic websites
@@ -55,7 +55,7 @@ author:
   goodreads        : # Username
   google_plus      : # Username
   keybase          : # Username
-  instagram        : # "austinulrigg"
+  Instagram        : "https://www.instagram.com/austinulrigg/?hl=en"
   lastfm           : # Username
   linkedin         : # Username
   mastodon         : # URL
