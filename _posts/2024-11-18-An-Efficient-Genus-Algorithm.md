@@ -6,7 +6,8 @@ tags:
   - Graph Theory 
 ---
 
-With Alexander Metzger I co-authored this article about an algorithm which, For an arbitrary graph \(G\) with \(n\) vertices, this algorithm determines the orientable genus in \(\mathcal{O}\left(\frac{2^{n^2+3n}}{n^{n+1}}\right)\) steps.
+With Alexander Metzger I co-authored this paper about an algorithm which, for an arbitrary graph \(G\) with \(n\) vertices, this algorithm determines the orientable genus in \(\mathcal{O}\left(\frac{2^{n^2+3n}}{n^{n+1}}\right)\) steps. You can access the paper [here](https://arxiv.org/pdf/2411.07347).
+
 
 
 <iframe src="{{ site.baseurl }}/assets/An_Efficient_Genus_Algorithm_Based_on_Graph_Rotations.pdf" width="100%" height="600px">
