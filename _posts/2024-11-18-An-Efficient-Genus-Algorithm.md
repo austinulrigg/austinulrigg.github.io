@@ -1,7 +1,7 @@
 ---
 title: 'An Efficient Genus Algorithm Based on Graph Rotations'
 date: 2024-11-18
-permalink: /posts/2024/06/2024-11-18-An-Efficient-Genus-Algorithm.md/
+permalink: /posts/2024/06/2024-11-18-An-Efficient-Genus-Algorithm/
 tags:
   - Graph Theory 
 ---
