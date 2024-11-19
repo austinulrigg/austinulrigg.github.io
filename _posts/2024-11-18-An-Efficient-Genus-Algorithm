@@ -3,7 +3,7 @@ title: 'An Efficient Genus Algorithm Based on Graph Rotations'
 date: 2024-11-18
 permalink: /posts/2024/06/2024-11-18-An-Efficient-Genus-Algorithm-Based-On-Graph-Rotations/
 tags:
-  - Graph Theory
+  - Graph Theory 
 ---
 
 With Alexander Metzger I co-authored this article about an algorithm which, for an arbitrary graph $G$ with $n$ vertices, determines the orientable genus of $G$ in  $\mathcal{O}({2^{(n^2+3n)}}/{n^{(n+1)}})$ steps.
