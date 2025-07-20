@@ -46,7 +46,7 @@ Online or in-person near UW (U District) if convenient. Session length is flexib
 
 ## Rates
 
-I keep it simple. I adjust within a small range based on course level and prep time, and I don’t go above **$50/hr**.
+I adjust within a small range based on course level and prep time, and I don’t go above **$30-50/hr**.
 
 - Intro / early high school refresh: **$30–$35/hr**
 - AP Calc / standard lower-division (124–209): **$30–$40/hr**
