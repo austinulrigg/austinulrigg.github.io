@@ -8,7 +8,6 @@ classes: wide
 ---
 
 # Advanced High School & Undergraduate Math Tutoring  
-**Proofs, problem-solving, and conceptual clarity.**
 
 <div class="cta-buttons">
 <a class="btn btn--primary" href="mailto:austinul@uw.edu?subject=Tutoring%20Inquiry&body=Hi%20Austin,%0A%0ACourse(s):%0AGoals / pain points:%0ATimeline (exam dates, etc.):%0AWeekly availability:%0AIn-person or online:%0ABackground / last math class:%0AAnything else:%0A">Request a Session</a>
@@ -16,7 +15,7 @@ classes: wide
 <a class="btn" href="#contact">Contact</a>
 </div>
 
-I help motivated students master core ideas faster, write cleaner proofs, and bridge background gaps that traditional courses sometimes gloss over. (Seattle / UW area & online.)
+I help students master core ideas faster, write cleaner proofs, and bridge background gaps that traditional courses sometimes gloss over. (Seattle / UW area & online.)
 
 ## Why Work With Me
 
@@ -52,8 +51,7 @@ I adjust within a small range based on course level and prep time, and never abo
 - AP Calc / standard lower-division (124–209): **$30–$40/hr**
 - Upper-division proof / honors (334–336, 300, 402–404, 441–443, etc.): **$40–$50/hr**
 
-If someone’s financial situation is a barrier, we can talk and find something workable. Just reach out—there’s no commitment until we both agree it’s a good fit.
-
+If someone’s financial situation is a barrier, we can talk and find something workable. Just reach out.
 Cancellation: please give me **≥ 12 hours notice** (emergencies are fine).
 
 ## How It Works
