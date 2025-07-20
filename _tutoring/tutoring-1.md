@@ -15,7 +15,7 @@ classes: wide
 <a class="btn" href="#contact">Contact</a>
 </div>
 
-I help students master core ideas faster, write cleaner proofs, and bridge background gaps that traditional courses sometimes gloss over. (Seattle / UW area & online.)
+I help students master core ideas faster, write cleaner proofs, and bridge background gaps. 
 
 ## Why Work With Me
 
@@ -51,13 +51,14 @@ I adjust within a small range based on course level and prep time, and never abo
 - AP Calc / standard lower-division (124–209): **$30–$40/hr**
 - Upper-division proof / honors (334–336, 300, 402–404, 441–443, etc.): **$40–$50/hr**
 
-If someone’s financial situation is a barrier, we can talk and find something workable. Just reach out.
+If your financial situation is a barrier, we can talk and find something workable. Just reach out!
+
 Cancellation: please give me **≥ 12 hours notice** (emergencies are fine).
 
 ## How It Works
 
 1. Reach out (email or form) with course + goals.  
-2. Free consult chat.  
+2. Free consultation chat.  
 3. Plan: milestones, exam timeline, proof skill targets.  
 4. Sessions: active problem solving + teaching, or planned lessons.  
 
@@ -70,10 +71,10 @@ Cancellation: please give me **≥ 12 hours notice** (emergencies are fine).
 **A:** No.
 
 **Q:** Online session logistics?  
-**A:** Shared whiteboard / screen, LaTeX snippets, optional brief recap.
+**A:** Shared whiteboard/screen, LaTeX snippets, optional brief recap.
 
 **Q:** Topic not listed?  
-**A:** Ask—I’ll be clear if it’s outside scope.
+**A:** Ask.
 
 ## Contact  {#contact}
 
