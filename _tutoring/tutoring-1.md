@@ -3,11 +3,12 @@ layout: single
 title: "Tutoring"
 permalink: /tutoring/
 author_profile: true
+show_date: false
 classes: wide
 ---
 
 # Advanced High School & Undergraduate Math Tutoring  
-**Proofs, problem-solving, and conceptual clarity—without gatekeeping.**
+**Proofs, problem-solving, and conceptual clarity.**
 
 <div class="cta-buttons">
 <a class="btn btn--primary" href="mailto:austinul@uw.edu?subject=Tutoring%20Inquiry&body=Hi%20Austin,%0A%0ACourse(s):%0AGoals / pain points:%0ATimeline (exam dates, etc.):%0AWeekly availability:%0AIn-person or online:%0ABackground / last math class:%0AAnything else:%0A">Request a Session</a>
@@ -15,75 +16,60 @@ classes: wide
 <a class="btn" href="#contact">Contact</a>
 </div>
 
-I help motivated students—advanced high school through upper-division undergraduates—master core ideas faster, write cleaner proofs, and bridge background gaps that traditional courses sometimes gloss over. (Seattle / UW area & online.)
+I help motivated students master core ideas faster, write cleaner proofs, and bridge background gaps that traditional courses sometimes gloss over. (Seattle / UW area & online.)
 
 ## Why Work With Me
 
 - **Depth + breadth:** Completed the full UW B.S. math requirements *and* multiple graduate PhD-level sequences (Abstract Algebra 504–506, Combinatorics 563, Linear Algebra 582–583) as an undergraduate.  
-- **Real teaching experience:** ~5+ years across high school, community college, university CLUE tutoring, and 2 years as a UW MATH 209 Teaching Assistant.  
-- **Research mindset:** Active in topological graph theory research—helps me show *why* techniques work, not only *how*.  
-- **Inclusive & student-centered:** I build independence, confidence, and joyful engagement—grounded in the belief that mathematical potential is broadly and equally distributed.  
-- **Adaptive approach:** Quickly diagnose missing foundations, then layer rigorous reasoning + strategic practice so students don’t just “get through homework,” they *own* the material.
+- **Real teaching experience:** ~5+ years across high school, community college, university tutoring, and 2 years as a UW MATH 209 Teaching Assistant.  
+- **Inclusive & student-centered:** I build independence, confidence, and joyful engagement with math.
 
 ## Services & Subjects  {#services}
 
 ### High School / Early College
-AP / Honors Calculus (AB/BC), Precalculus refresh for acceleration, Differential Equations intro, Linear Algebra intro, Enrichment for contest-curious students.
+AP / Honors Calculus (AB/BC), Precalculus refresh for acceleration, Differential Equations intro, Linear Algebra intro.
 
 ### Core Undergraduate (UW codes)
 Calculus: MATH 124–126  
 Differential Equations: MATH 207  
-Linear Algebra & Analysis: MATH 208, 209, 340  
-Introduction to Proofs / Transitions: MATH 300  
+Linear Algebra & Linear Analysis: MATH 208, 209, 340  
+Introduction to Proofs: MATH 300  
 
 ### Advanced / Proof & Honors
 Honors Accelerated Advanced Calculus: MATH 334–336  
-Abstract Algebra: MATH 402–404 (and grad 504–506 perspectives)  
+Abstract Algebra: MATH 402–404
 Topology & Differential Geometry: MATH 441, 442–443  
-Additional topics on request (ask—if I’m not the right fit I’ll tell you quickly).
+Additional topics on request.
 
 ### Format
-Online (preferred for flexibility & shared whiteboard) or in-person near UW (U District) if convenient. Session length is flexible (most students choose 60 or 90 minutes; longer for exam prep “deep dives”).
-
-## Approach & Philosophy
-
-I assume *every* student can do meaningful mathematics. Sessions focus on conceptual models first, then layered problem families, then reflective synthesis. I probe with “why does this step hold?” questions to cultivate proof fluency and independent checking. We deliberately surface and repair background gaps rather than skating past them. I’m selective: the first meeting is also for me to confirm I can deliver outsized value—if not, I’ll recommend an alternative.
+Online or in-person near UW (U District) if convenient. Session length is flexible.
 
 ## Rates
 
-Sliding structure reflecting course level & prep:
+I keep it simple. I adjust within a small range based on course level and prep time, and I don’t go above **$50/hr**.
 
-- **Foundational / Early HS reinforcement:** from **$30+/hr**
-- **AP / Honors Calculus, standard lower-division (124–209):** typical **$40–$55/hr**
-- **Upper-division proof / honors / graduate-adjacent (334–336, 402–404, 441–443, etc.):** typically **$55–$70/hr**
+- Intro / early high school refresh: **$30–$35/hr**
+- AP Calc / standard lower-division (124–209): **$30–$40/hr**
+- Upper-division proof / honors (334–336, 300, 402–404, 441–443, etc.): **$40–$50/hr**
 
-Need-based adjustments considered—access matters. No exact number until we scope your situation; email or form for a fast quote. Cancellation: ≥12 hours notice (emergencies excepted).
+If someone’s financial situation is a barrier, we can talk and find something workable. Just reach out—there’s no commitment until we both agree it’s a good fit.
+
+Cancellation: please give me **≥ 12 hours notice** (emergencies are fine).
 
 ## How It Works
 
 1. Reach out (email or form) with course + goals.  
-2. Free fit & diagnostic chat (mutual).  
+2. Free consult chat.  
 3. Plan: milestones, exam timeline, proof skill targets.  
-4. Sessions: active problem solving + teach-back.  
-5. Feedback loop: adjust based on mini-assessments.
-
-## Results & Social Proof
-
-> *“Placeholder: After 6 weeks I stopped memorizing and started **understanding**—my quiz scores jumped.”*  
-> *“Placeholder: Proof writing felt impossible; now I draft clean arguments without panic.”*
-
-(Add real quotes as you collect them; remove this line.)
+4. Sessions: active problem solving + teaching, or planned lessons.  
 
 ## FAQs
 
-**Q:** Do you assign extra work?  
-**A:** Only high-leverage drills—quality over volume.
-
 **Q:** Last-minute exam prep?  
-**A:** Possible if I have a slot; earlier is better.
+**A:** Possible if I have a slot, earlier is better.
 
 **Q:** Will you do my graded work?  
-**A:** No—integrity + learning first. I help you internalize methods.
+**A:** No.
 
 **Q:** Online session logistics?  
 **A:** Shared whiteboard / screen, LaTeX snippets, optional brief recap.
