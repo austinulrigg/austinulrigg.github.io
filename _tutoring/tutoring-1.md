@@ -15,13 +15,13 @@ classes: wide
 <a class="btn" href="#contact">Contact</a>
 </div>
 
-I help students master core ideas faster, write cleaner proofs, and bridge background gaps. 
+Do you need help with math?
 
-## Why Work With Me
+## Work With Me!
 
-- **Depth + breadth:** Completed the full UW B.S. math requirements *and* multiple graduate PhD-level sequences (Abstract Algebra 504–506, Combinatorics 563, Linear Algebra 582–583) as an undergraduate.  
+- **Depth + breadth:** I've completed the full UW B.S. math requirements *and* multiple graduate level sequences (Abstract Algebra 504–506, Combinatorics 563, Linear Algebra 582–583).  
 - **Real teaching experience:** ~5+ years across high school, community college, university tutoring, and 2 years as a UW MATH 209 Teaching Assistant.  
-- **Inclusive & student-centered:** I build independence, confidence, and joyful engagement with math.
+- **1-on-1 Student-centered tutoring**
 
 ## Services & Subjects  {#services}
 
