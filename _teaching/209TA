@@ -4,7 +4,8 @@ collection: teaching
 type: "Teaching Assistant"
 permalink: /_teaching/209-TA
 venue: "University of Washington"
-date: 2024-09-15
+date: 2025-07-15   # keep an actual date for sorting (start date)
+date_display: "2024–2026"
 location: Seattle, Washington
 ---
 
