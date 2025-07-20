@@ -7,12 +7,12 @@ classes: wide
 ---
 
 # Advanced High School & Undergraduate Math Tutoring  
-**Proofs, problem-solving, and conceptual clarity—without gatekeeping.**  <!-- benefit-focused -->
+**Proofs, problem-solving, and conceptual clarity—without gatekeeping.**
 
 <div class="cta-buttons">
 <a class="btn btn--primary" href="mailto:austinul@uw.edu?subject=Tutoring%20Inquiry&body=Hi%20Austin,%0A%0ACourse(s):%0AGoals / pain points:%0ATimeline (exam dates, etc.):%0AWeekly availability:%0AIn-person or online:%0ABackground / last math class:%0AAnything else:%0A">Request a Session</a>
 <a class="btn" href="#services">Subjects</a>
-<a class="btn" href="#form">Quick Form</a>
+<a class="btn" href="#contact">Contact</a>
 </div>
 
 I help motivated students—advanced high school through upper-division undergraduates—master core ideas faster, write cleaner proofs, and bridge background gaps that traditional courses sometimes gloss over. (Seattle / UW area & online.)
@@ -51,44 +51,56 @@ I assume *every* student can do meaningful mathematics. Sessions focus on concep
 
 ## Rates
 
-I use a sliding structure reflecting course level & preparation required:
+Sliding structure reflecting course level & prep:
 
 - **Foundational / Early HS reinforcement:** from **$30+/hr**
 - **AP / Honors Calculus, standard lower-division (124–209):** typical **$40–$55/hr**
 - **Upper-division proof / honors / graduate-adjacent (334–336, 402–404, 441–443, etc.):** typically **$55–$70/hr**
 
-Need-based adjustments considered—access matters. I’d rather craft a sustainable plan than have you under-resource your learning. No exact price listed here until we scope your situation; email or form for a fast quote. Cancellation: please give ≥12 hours notice (emergencies excepted).
+Need-based adjustments considered—access matters. No exact number until we scope your situation; email or form for a fast quote. Cancellation: ≥12 hours notice (emergencies excepted).
 
 ## How It Works
 
-1. **Reach out** (email or quick form) with course + goals.  
-2. **Fit & diagnostic chat (free)** – short call / Zoom: confirm alignment, surface key gaps.  
-3. **Plan** – outline targets (exam timeline, concept milestones, proof skill focus).  
-4. **Sessions** – active problem solving, targeted mini-explanations, structured “teach-back.”  
-5. **Feedback loop** – periodic micro-assessments & adaptation; exam strategy refinement.  
+1. Reach out (email or form) with course + goals.  
+2. Free fit & diagnostic chat (mutual).  
+3. Plan: milestones, exam timeline, proof skill targets.  
+4. Sessions: active problem solving + teach-back.  
+5. Feedback loop: adjust based on mini-assessments.
 
-**Q:** Can you help right before an exam?  
-**A:** Yes, but earlier engagement yields deeper gains. Short-notice exam triage is possible if openings remain.
+## Results & Social Proof
+
+> *“Placeholder: After 6 weeks I stopped memorizing and started **understanding**—my quiz scores jumped.”*  
+> *“Placeholder: Proof writing felt impossible; now I draft clean arguments without panic.”*
+
+(Add real quotes as you collect them; remove this line.)
+
+## FAQs
+
+**Q:** Do you assign extra work?  
+**A:** Only high-leverage drills—quality over volume.
+
+**Q:** Last-minute exam prep?  
+**A:** Possible if I have a slot; earlier is better.
 
 **Q:** Will you do my graded work?  
-**A:** No. I’ll model reasoning, then you do authentic practice so integrity—and learning—stay intact.
+**A:** No—integrity + learning first. I help you internalize methods.
 
-**Q:** How do online sessions work?  
-**A:** Shared whiteboard / screen + LaTeX snippets as needed; summary pointers afterward on request.
+**Q:** Online session logistics?  
+**A:** Shared whiteboard / screen, LaTeX snippets, optional brief recap.
 
-**Q:** Do you tutor subjects not listed?  
-**A:** Ask. If it’s outside my lane, I’ll be candid.
+**Q:** Topic not listed?  
+**A:** Ask—I’ll be clear if it’s outside scope.
 
-## Contact & Next Step  {#form}
+## Contact  {#contact}
 
 <div class="cta-buttons">
-<a class="btn btn--primary" href="mailto:austinul@uw.edu?subject=Tutoring%20Inquiry&body=Hi%20Austin,%0A%0ACourse(s):%0AGoals:%0AExam dates / deadlines:%0AAvailability (days/times):%0AOnline or in-person:%0AAny background gaps you suspect:%0A">Email Me</a>
+<a class="btn btn--primary" href="mailto:austinul@uw.edu?subject=Tutoring%20Inquiry&body=Hi%20Austin,%0A%0ACourse(s):%0AGoals / pain points:%0AExam dates / deadlines:%0AAvailability (days/times):%0AOnline or in-person:%0ABackground gaps you suspect:%0A">Email Me</a>
 </div>
 
-**Quick Inquiry Form**
+### Quick Inquiry Form
 
-<form action="[https://formspree.io/f/your-temp-id](https://formspree.io/f/mpwlqdka)" method="POST">
-   <label>Name<br><input type="text" name="name" required></label><br>
+<form action="https://formspree.io/f/mpwlqdka" method="POST">
+  <label>Name<br><input type="text" name="name" required></label><br>
   <label>Email<br><input type="email" name="_replyto" required></label><br>
   <label>Course / Topic<br><input type="text" name="course" required></label><br>
   <label>Goals / Pain Points<br><textarea name="goals" rows="4"></textarea></label><br>
@@ -99,12 +111,10 @@ Need-based adjustments considered—access matters. I’d rather craft a sustain
   <input type="hidden" name="_next" value="https://austinulrigg.github.io/tutoring/#thanks">
 </form>
 
-<div id="thanks" style="margin-top:2rem;">
-  <strong>Thanks—your inquiry was sent. I’ll reply soon.</strong>
-</div>
+<!-- Thank-you message hidden until anchor is targeted -->
+<style>
+#thanks { display:none; }
+:target#thanks { display:block; margin-top:2rem; font-weight:600; }
+</style>
+<div id="thanks">Thanks—your inquiry was sent. I’ll reply soon.</div>
 
-> Prefer email? Use the button above. I reply quickly (often same day).
-
----
-
-*Not sure yet?* Skim a blog post or two, then reach out—momentum beats waiting for the “perfect” time.
