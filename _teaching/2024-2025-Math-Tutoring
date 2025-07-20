@@ -4,7 +4,8 @@ collection: teaching
 type: "Tutoring"
 permalink: /_teaching/2024-2025-Math-Tutoring
 venue: "University of Washington"
-date: 2024-04-03
+date: 2024-09-15   # keep an actual date for sorting (start date)
+date_display: "2024–2025"
 location: Seattle, Washington
 ---
 
