@@ -11,6 +11,9 @@ redirect_from:
 
 Curriculum Vitae
 ======
+If you’d like to read my undergraduate honors thesis, you can download it here:
+[Honors Thesis: Graph Genera and Minors](/files/Ulrigg_Honors_Thesis_2025.pdf).
+
 <iframe src="{{ site.baseurl }}/assets/AustinUlriggCV (24).pdf" width="100%" height="600px">
     This browser does not support PDFs. Please download the PDF to view it: <a href="{{ site.baseurl }}/assets/AustinUlriggCV (24).pdf">Download PDF</a>.
 </iframe>
