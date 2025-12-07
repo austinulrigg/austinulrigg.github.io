@@ -10,4 +10,4 @@ I recently finished my undergraduate honors thesis in mathematics at the Univers
 supervised by François Clément.
 
 You can download the full PDF here:
-[Honors Thesis (PDF)](/files/Undergraduate_Honors_Thesis_Submission_(3).pdf).
+[Honors Thesis (PDF)](/files/Undergraduate_Honors_Thesis_Submission_ (3).pdf).
