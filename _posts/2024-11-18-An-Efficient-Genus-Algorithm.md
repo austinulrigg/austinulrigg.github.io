@@ -10,7 +10,7 @@ With Alexander Metzger, I co-authored this paper about an algorithm which, for a
 
 
 
-<iframe src="{{ site.baseurl }}/assets/An_Efficient_Genus_Algorithm_Based_on_Graph_Rotations.pdf" width="100%" height="600px">
+<iframe src="{{ site.baseurl }}/assets/_V2_An_Efficient_Genus_Algorithm_Based_on_Graph_Rotations (3).pdf" width="100%" height="600px">
     This browser does not support PDFs. Please download the PDF to view it: <a href="{{ site.baseurl }}/assets/_V2_An_Efficient_Genus_Algorithm_Based_on_Graph_Rotations (3).pdf">Download PDF</a>.
 </iframe>
 
