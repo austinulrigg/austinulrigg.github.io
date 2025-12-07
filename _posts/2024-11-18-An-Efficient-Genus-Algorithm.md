@@ -11,8 +11,8 @@ With Alexander Metzger, I co-authored this paper about an algorithm which, for a
 
 
 <iframe src="{{ site.baseurl }}/assets/An_Efficient_Genus_Algorithm_Based_on_Graph_Rotations.pdf" width="100%" height="600px">
-    This browser does not support PDFs. Please download the PDF to view it: <a href="{{ site.baseurl }}/assets/An_Efficient_Genus_Algorithm_Based_on_Graph_Rotations.pdf">Download PDF</a>.
+    This browser does not support PDFs. Please download the PDF to view it: <a href="{{ site.baseurl }}/assets/_V2_An_Efficient_Genus_Algorithm_Based_on_Graph_Rotations (3).pdf">Download PDF</a>.
 </iframe>
 
 <p>If you have trouble viewing the paper, you can download it here:</p>
-<a href="{{ site.baseurl }}/assets/An_Efficient_Genus_Algorithm_Based_on_Graph_Rotations.pdf" class="btn btn-primary">Download Guide</a>
+<a href="{{ site.baseurl }}/assets/_V2_An_Efficient_Genus_Algorithm_Based_on_Graph_Rotations (3).pdf" class="btn btn-primary">Download Guide</a>
