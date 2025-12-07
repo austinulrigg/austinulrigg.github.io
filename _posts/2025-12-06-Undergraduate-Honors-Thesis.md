@@ -8,6 +8,5 @@ tags:
 
 I recently finished my undergraduate honors thesis in mathematics at the University of Washington,
 supervised by François Clément.
-
 You can download the full PDF here:
 [Honors Thesis (PDF)](/files/Undergraduate_Honors_Thesis_Submission_ (3).pdf).
