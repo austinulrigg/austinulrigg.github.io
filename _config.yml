@@ -11,7 +11,7 @@ locale                   : "en-US"
 title                    : "Austin Ulrigg"
 title_separator          : "-"
 name                     : &name "Austin Ulrigg"
-description              : &description "Mathematics student at the University of Washington interested in topological graph theory, graph embeddings, and mathematical education."
+description              : &description "Austin Ulrigg is a mathematics student at the University of Washington interested in topological graph theory, graph embeddings, graph genus algorithms, and mathematical education."
 url                      : https://austinulrigg.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "austinulrigg/austinulrigg.github.io"
@@ -24,21 +24,21 @@ author:
   avatar           : "prof_pic_color.png"
   name             : "Austin Ulrigg"
   pronouns         : # example: 
-  bio              : "Mathematics student"
+  bio              : "Mathematics student at the University of Washington"
   location         : "Seattle, Washington"
   employer         : "University of Washington"
-  uri              : #
+  uri              : "https://austinulrigg.github.io/"
   email            : "austinul@uw.edu" 
   tutoring         : "/tutoring/"
 
   # Academic websites
-  arxiv            : # URL - Update with the correct link to your profile
+  arxiv            : "https://arxiv.org/search/cs?searchtype=author&query=Ulrigg%2C+A"
   googlescholar    : 
   impactstory      : # URL
   orcid            : 
   semantic         : # URL
   pubmed           : 
-  researchgate     : # URL
+  researchgate     : "https://www.researchgate.net/profile/Austin-Ulrigg"
 
   # Repositories and software development
   bitbucket        : # Username - Update with your username on the site
@@ -135,7 +135,7 @@ social:
   name                   : "Austin Ulrigg"
   links:
     - "https://github.com/austinulrigg"
-    - "https://www.instagram.com/austinulrigg"
+    - "https://www.researchgate.net/profile/Austin-Ulrigg"
 
 
 # Analytics

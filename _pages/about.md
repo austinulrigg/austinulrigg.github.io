@@ -1,16 +1,20 @@
 ---
 permalink: /
-title: "About Me"
+title: "Austin Ulrigg"
+seo_title: "Austin Ulrigg | Mathematics, Graph Theory, University of Washington"
 author_profile: true
-excerpt: "Mathematics student at the University of Washington interested in topological graph theory, graph embeddings, and math education."
+description: "Austin Ulrigg is a mathematics student at the University of Washington interested in topological graph theory, graph embeddings, graph genus algorithms, teaching, and mathematical community."
+excerpt: "Austin Ulrigg is a mathematics student at the University of Washington interested in topological graph theory, graph embeddings, graph genus algorithms, teaching, and mathematical community."
 redirect_from: 
   - /about/
   - /about.html
 ---
 
-I am a mathematics student at the University of Washington. My current interests are in topological graph theory, graph embeddings, and the ways people learn and do mathematics together.
+I am Austin Ulrigg, a mathematics student at the University of Washington. My current interests are in topological graph theory, graph embeddings, graph genus algorithms, and the ways people learn and do mathematics together.
 
-My recent work includes an undergraduate honors thesis on graph genera and minors, expository writing in graph theory, and a joint paper with Alexander Metzger on algorithms for graph genus.
+This site is the main home for my research, writing, teaching, and tutoring. My recent work includes an undergraduate honors thesis on graph genera and minors, expository writing in graph theory, and a joint paper with Alexander Metzger on algorithms for graph genus.
+
+<p><a class="btn btn--primary" href="/research/">Read about my research</a></p>
 
 <div class="home-tutoring-callout">
   <strong>Math tutoring:</strong> I offer one-on-one tutoring for advanced high school and undergraduate mathematics, including calculus, linear algebra, differential equations, proof-based courses, and selected upper-division topics.
