@@ -1,0 +1,66 @@
+/* ==========================================================================
+   Site-specific refinements
+   ========================================================================== */
+
+.home-tutoring-callout,
+.tutoring-summary {
+  margin: 1.5em 0;
+  padding: 1em 1.25em;
+  border-left: 4px solid $primary-color;
+  background: mix(#fff, $primary-color, 94%);
+}
+
+.home-tutoring-callout p:last-child,
+.tutoring-summary p:last-child {
+  margin-bottom: 0;
+}
+
+.cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin: 1em 0 1.5em;
+}
+
+.cta-buttons .btn {
+  margin-bottom: 0;
+}
+
+.tutoring-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1em;
+  margin: 1.25em 0;
+}
+
+.tutoring-panel {
+  padding: 1em;
+  border: 1px solid $lighter-gray;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.tutoring-panel h3 {
+  margin-top: 0;
+}
+
+.tutoring-form {
+  margin-top: 1em;
+}
+
+.tutoring-form label {
+  font-weight: 600;
+}
+
+.tutoring-form input,
+.tutoring-form textarea {
+  margin-top: 0.25em;
+}
+
+#thanks {
+  display: none;
+}
+
+#thanks:target {
+  display: block;
+}

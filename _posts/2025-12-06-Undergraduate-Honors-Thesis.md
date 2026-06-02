@@ -9,4 +9,4 @@ tags:
 I recently finished my undergraduate honors thesis in mathematics at the University of Washington,
 supervised by François Clément.
 You can download the full PDF here:
-[Download the thesis (PDF)](/files/Ulrigg_Honors_Thesis.pdf.pdf).
+[Download the thesis (PDF)](/files/Ulrigg_Honors_Thesis_2025.pdf).

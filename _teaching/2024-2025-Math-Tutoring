@@ -2,9 +2,11 @@
 title: "Mathematics Tutoring"
 collection: teaching
 type: "Tutoring"
-permalink: /_teaching/2024-2025-Math-Tutoring
+permalink: /teaching/2024-2026-math-tutoring/
+redirect_from:
+  - /_teaching/2024-2025-Math-Tutoring
 venue: "University of Washington"
-date: 2025-07-15   # keep an actual date for sorting (start date)
+date: 2024-09-01
 location: Seattle, Washington
 ---
 **Dates:** Fall 2024 - Spring 2026

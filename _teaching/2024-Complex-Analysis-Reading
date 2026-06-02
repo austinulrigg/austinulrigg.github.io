@@ -2,7 +2,9 @@
 title: "Complex Analysis Reading Group for Undergraduates"
 collection: teaching
 type: "Reading Group"
-permalink: /teaching/2024-Complex-Analysis-Reading
+permalink: /teaching/2024-complex-analysis-reading-group/
+redirect_from:
+  - /teaching/2024-Complex-Analysis-Reading
 venue: "University of Washington"
 date: 2024-03-01
 location: 

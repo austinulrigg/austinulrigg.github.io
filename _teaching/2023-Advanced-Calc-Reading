@@ -2,7 +2,9 @@
 title: "Advanced Calculus Reading Group for Undergraduates"
 collection: teaching
 type: "Reading Group"
-permalink: /_teaching/2023-Advanced-Calc-Reading
+permalink: /teaching/2023-advanced-calculus-reading-group/
+redirect_from:
+  - /_teaching/2023-Advanced-Calc-Reading
 venue: "University of Washington"
 date: 2023-07-01
 location: 
