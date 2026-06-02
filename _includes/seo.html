@@ -16,12 +16,17 @@
 
 {% if page.seo_title %}
   {% assign seo_title = page.seo_title %}
+  {% assign seo_title_is_custom = true %}
 {% elsif page.title %}
   {% assign seo_title = page.title | append: " " | append: site.title_separator | append: " " | append: site.title %}
 {% endif %}
 
 {% if seo_title %}
-  {% assign seo_title = seo_title | markdownify | strip_html | strip_newlines | escape_once %}
+  {% if seo_title_is_custom %}
+    {% assign seo_title = seo_title | strip_html | strip_newlines | escape_once %}
+  {% else %}
+    {% assign seo_title = seo_title | markdownify | strip_html | strip_newlines | escape_once %}
+  {% endif %}
 {% endif %}
 
 {% if site.url %}
