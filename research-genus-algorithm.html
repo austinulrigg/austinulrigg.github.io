@@ -31,8 +31,8 @@
       <div class="kicker">Paper &middot; with Alexander Metzger</div>
       <h1 class="headline">An Efficient Genus Algorithm Based on Graph Rotations</h1>
       <div class="prose">
-        <p>With Alexander Metzger, I co-authored a paper presenting <strong>PAGE</strong>, an algorithm that determines the orientable genus of an arbitrary finite connected graph using graph rotation systems. Computing graph genus is notoriously hard, and many existing algorithms struggle with the placement of bridges; PAGE sidesteps that difficulty entirely.</p>
-        <p>The algorithm is designed to be useful in practice: it is simple to implement, it outputs the faces of an optimal embedding, it produces a proof certificate that can be independently verified, and it can be used to obtain both upper and lower bounds on the genus. We illustrate it by determining previously unknown genera &mdash; most notably showing that the $(3,12)$-cage has genus $17$.</p>
+        <p>This is joint work with Alexander Metzger. The question behind it is easy to state: given a graph, what is the fewest number of handles a surface needs so the graph can be drawn on it with no edges crossing? That number is the graph&rsquo;s genus, and it is genuinely hard to compute &mdash; most algorithms get tangled up in where to route the &ldquo;bridges.&rdquo;</p>
+        <p>Our algorithm, PAGE (Practical Algorithm for Graph Embedding), gets around that by working directly with rotation systems. We built it to actually be usable: it is simple to implement, it hands back the faces of an optimal embedding, and it narrows the upper and lower bounds on the genus as it runs. We used it to determine genera that were not previously known &mdash; for instance, the $(3,12)$-cage turns out to have genus $17$.</p>
         <div class="btn-row">
           <a class="btn btn--primary" href="https://arxiv.org/abs/2411.07347" target="_blank" rel="noopener">View on arXiv &rarr;</a>
           <a class="btn" href="https://arxiv.org/pdf/2411.07347" target="_blank" rel="noopener">Download PDF</a>
