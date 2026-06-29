@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://austinulrigg.github.io/sitemap.xml
