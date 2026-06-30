@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rotations — Austin Ulrigg</title>
+<title>Rotations, Austin Ulrigg</title>
 
 <!-- Site fonts: Fraunces (display) + Inter Tight (body) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,7 +32,7 @@
 .lab-intro .headline { max-width: 16ch; }
 .lab-intro .blurb { margin-bottom: 18px; }
 
-/* MathJax sizes inline math to the surrounding text automatically — no overrides,
+/* MathJax sizes inline math to the surrounding text automatically, no overrides,
    and graph SVGs are targeted by direct-child selectors so they never catch
    MathJax's own inline <svg> output. */
 
@@ -208,7 +208,7 @@
 .polysvg { width: 100%; height: auto; display: block; max-width: 258px; margin: 4px auto 0; }
 .polylab { font: 700 13px 'Inter Tight', sans-serif; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: #fff; stroke-width: 3.2px; }
 
-/* ---- Embedding — glue the fundamental polygons (checkpoint 6) ---- */
+/* ---- Embedding, glue the fundamental polygons (checkpoint 6) ---- */
 .embed-block { margin-top: 12px; }
 #glueSvg { width: 100%; height: 450px; display: block; max-width: 760px; margin: 0 auto; }
 .dartlab { font: 600 10.5px 'Inter Tight', sans-serif; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: #fff; stroke-width: 3px; }
@@ -267,7 +267,7 @@
       <p class="kicker">Interactive</p>
       <h1 class="headline">Graph rotation systems</h1>
       <p class="blurb">
-        An interactive explorer for rotation systems in topological graph theory —
+        An interactive explorer for rotation systems in topological graph theory,
         edit a graph's local rotations, generate the resulting facial walks dart by dart,
         and watch the fundamental polygons take shape. The full interaction is built out
         here for $K_{3,3}$, $K_5$, $K_5 \setminus e$, and the octahedral graph.
@@ -288,7 +288,7 @@
 
     <!-- ===== 1 · Rotation-system editor ===== -->
     <section class="editor-block" id="editor">
-      <h2 class="section-head" id="editorTitle"><span class="step-num">1</span>Rotation system — $K_{3,3}$</h2>
+      <h2 class="section-head" id="editorTitle"><span class="step-num">1</span>Rotation system, $K_{3,3}$</h2>
       <div class="editor">
         <div class="epanel">
           <h3>Local rotations &sigma;<sub>v</sub></h3>
@@ -328,7 +328,7 @@
     <!-- ===== 4 · Fundamental polygons ===== -->
     <section class="fundpoly-block" id="fundpoly" hidden>
       <h2 class="section-head"><span class="step-num">3</span>Fundamental polygons</h2>
-      <p class="hint poly-intro">Each face opens out into a polygon whose sides are its facial walk. Sides sharing a letter (and color) are the same edge — glue them, matching the arrows, and the polygons reassemble the surface.</p>
+      <p class="hint poly-intro">Each face opens out into a polygon whose sides are its facial walk. Sides sharing a letter (and color) are the same edge, glue them, matching the arrows, and the polygons reassemble the surface.</p>
       <div class="poly-grid" id="polyGrid"></div>
     </section>
 
@@ -341,7 +341,7 @@
       </div>
 
       <div id="emb2dPanel">
-        <p class="hint poly-intro">Identify a shared edge {a,b} with its reverse {b,a} to merge the face polygons into one. Once they're a single fundamental polygon, the leftover boundary edges are identified in pairs (arrows) — those identifications determine the surface.</p>
+        <p class="hint poly-intro">Identify a shared edge {a,b} with its reverse {b,a} to merge the face polygons into one. Once they're a single fundamental polygon, the leftover boundary edges are identified in pairs (arrows), those identifications determine the surface.</p>
         <div class="walk-controls" style="margin: 2px 0 12px;">
           <button class="btn" id="glueBtn">Glue ▶</button>
           <button class="btn" id="glueRestart">Restart</button>
@@ -366,7 +366,7 @@
         <p class="hint" id="emb3dStatus"></p>
         <div id="emb3dCanvas" class="emb3d-canvas"></div>
         <p class="hint" id="emb3dExplain"></p>
-        <p class="hint" id="emb3dNote" hidden>The 3D surface view is built for K₃,₃ for now — switch to K₃,₃ to use it.</p>
+        <p class="hint" id="emb3dNote" hidden>The 3D surface view is built for K₃,₃ for now, switch to K₃,₃ to use it.</p>
       </div>
     </section>
 
@@ -392,7 +392,7 @@
   // Left column (part A) = 1,3,5 ; right column (part B) = 2,4,6.
   const EKEY = (a, b) => Math.min(a, b) + '-' + Math.max(a, b);
 
-  // angular (CCW) cyclic order of each vertex's neighbours — a clean default rotation
+  // angular (CCW) cyclic order of each vertex's neighbours, a clean default rotation
   function angularRot(pos, edges, order) {
     const adj = {}; order.forEach(v => { adj[v] = []; });
     edges.forEach(([a, b]) => { adj[a].push(b); adj[b].push(a); });
@@ -501,7 +501,7 @@
   }
 
   function render() {
-    // left panel rows — σ_v = ( a b c ), with a flip control
+    // left panel rows, σ_v = ( a b c ), with a flip control
     const ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a8 8 0 1 1-2.4-5.7"/><path d="M20 4.5v4h-4"/></svg>';
     let rows = '';
     ORDER.forEach(v => {
@@ -640,10 +640,10 @@
       walkStatus.textContent = `Complete: ${faces.length} ${faces.length === 1 ? 'face' : 'faces'}, ` +
         (Number.isInteger(genus) ? `genus ${genus}.` : `Euler characteristic ${chi}.`);
     } else if (last && last.type === 'done') {
-      walkStatus.textContent = `Face ${last.fi + 1} cycle formed — step to continue.`;
+      walkStatus.textContent = `Face ${last.fi + 1} cycle formed, step to continue.`;
     } else {
       const dr = revealed.reduce((a, b) => a + b, 0);
-      walkStatus.textContent = `Dart ${dr} of ${dartTotal} — keep stepping.`;
+      walkStatus.textContent = `Dart ${dr} of ${dartTotal}, keep stepping.`;
     }
     let html = '';
     faces.forEach((face, fi) => {
@@ -790,17 +790,17 @@
     for (let fi = merged; fi < F.length; fi++) sep[fi].forEach(acc);
     const pad = 46; glueSvg.setAttribute('viewBox', `${(mnx - pad).toFixed(0)} ${(mny - pad).toFixed(0)} ${(mxx - mnx + 2 * pad).toFixed(0)} ${(mxy - mny + 2 * pad).toFixed(0)}`);
     // caption
-    if (glueStep === 0) glueStatus.textContent = `Start with the ${F.length} face polygons — each side is a dart {a,b}. Press Glue ▶.`;
-    else if (glueStep <= M) { const d = embLayout.tree[glueStep - 1].pInc.d; glueStatus.textContent = `Identify ${dartStr(d)} with ${dartStr([d[1], d[0]])} — merge the polygons.`; }
+    if (glueStep === 0) glueStatus.textContent = `Start with the ${F.length} face polygons, each side is a dart {a,b}. Press Glue ▶.`;
+    else if (glueStep <= M) { const d = embLayout.tree[glueStep - 1].pInc.d; glueStatus.textContent = `Identify ${dartStr(d)} with ${dartStr([d[1], d[0]])}, merge the polygons.`; }
     else if (glueStep < GMAX) { const dd = embLayout.nonTree[idsShown - 1].darts; glueStatus.textContent = `Identify ${dartStr(dd[0])} with ${dartStr(dd[1])}.`; }
-    else glueStatus.textContent = `All edges identified — the fundamental polygon closes into the surface.`;
+    else glueStatus.textContent = `All edges identified, the fundamental polygon closes into the surface.`;
     glueResult.innerHTML = glueStep >= GMAX
       ? `<div class="glue-result">${surfaceSVG(genus)}<p>&chi; = V − E + F = ${ORDER.length} − ${EDGES.length} + ${faces.length} = ${chi}, so genus = (2 − &chi;) / 2 = <strong>${genus}</strong>. The surface is ${surfaceName(genus)}.</p></div>`
       : '';
     glueBtn.disabled = glueStep >= GMAX;
   }
 
-  // ===== 3D embedding viewer (K_{3,3}) — client-side port of the reference's trace stage =====
+  // ===== 3D embedding viewer (K_{3,3}), client-side port of the reference's trace stage =====
   const TDFC = [0xec4899, 0x14b8a6, 0x8b5cf6, 0x0ea5e9, 0xf43f5e, 0xfacc15];
   const TD_SURFACE_URL = 'wss://genus.fly.dev/stream_calc_genus';
   // my vertex labels are 1..n; the solver uses 0..n-1, so the maps are just -1 / +1
@@ -893,8 +893,8 @@
   function tdExplain() {
     const exp = document.getElementById('emb3dExplain'), st = document.getElementById('emb3dStatus'), T = td.timeline.length;
     if (td.step === 0) { exp.textContent = 'Choose a starting dart, then follow each vertex’s rotation to walk the faces.'; st.textContent = `genus ${td.genus} · ${td.faces.length} faces`; return; }
-    if (td.step > T) { exp.textContent = `The faces lift apart. Step ▶ to fetch the real genus-${td.genus} surface from Alexander Metzger's solver and morph the faces onto it.`; st.textContent = 'Faces lifted — ▶ for the surface'; return; }
-    if (td.step === T) { exp.textContent = 'Every dart is used — these are the faces of the embedding. Step forward to lift them into 3D.'; st.textContent = 'Trace complete'; return; }
+    if (td.step > T) { exp.textContent = `The faces lift apart. Step ▶ to fetch the real genus-${td.genus} surface from Alexander Metzger's solver and morph the faces onto it.`; st.textContent = 'Faces lifted, ▶ for the surface'; return; }
+    if (td.step === T) { exp.textContent = 'Every dart is used, these are the faces of the embedding. Step forward to lift them into 3D.'; st.textContent = 'Trace complete'; return; }
     const s = td.timeline[td.step - 1], x = s.to, y = s.from, r = rot[x], z = r[(r.indexOf(y) + 1) % r.length];
     exp.textContent = `Entered ${x} from ${y}, so the next neighbor after ${y} in ${x}’s rotation is ${z}.`;
     st.textContent = `Tracing face ${s.fi + 1} / ${td.faces.length} · dart ${td.step} / ${T}`;
@@ -1032,7 +1032,7 @@
       let ws;
       try { ws = new WebSocket(TD_SURFACE_URL); } catch (e) { reject(e); return; }
       let done = false;
-      const timer = setTimeout(() => { if (!done) { done = true; try { ws.close(); } catch (e) {} reject(new Error('timed out — the server may be waking up; try again')); } }, 30000);
+      const timer = setTimeout(() => { if (!done) { done = true; try { ws.close(); } catch (e) {} reject(new Error('timed out, the server may be waking up; try again')); } }, 30000);
       ws.onopen = () => ws.send(JSON.stringify({ alg: 'none', outputFormat: '3d_raw', adj }));
       ws.onmessage = (ev) => {
         const i = ev.data.indexOf(':'), type = i === -1 ? ev.data : ev.data.slice(0, i), body = i === -1 ? '' : ev.data.slice(i + 1);
@@ -1286,7 +1286,7 @@
     td.animating = false; td.step = td.timeline.length + 2;
     tdClear(td.trace); tdSetFlatOpacity(0);
     tdSetCameraSurface();
-    st.textContent = 'Surface — drag to rotate, scroll to zoom';
+    st.textContent = 'Surface, drag to rotate, scroll to zoom';
     exp.textContent = '';
     if (td.controls) td.controls.enableRotate = true;
   }
@@ -1311,7 +1311,7 @@
     glueStep = 0;
     renderEmbed();
     embedView.hidden = false;
-    // embedding section: 2D fundamental polygons + 3D surface (tabbed) — both work for all graphs
+    // embedding section: 2D fundamental polygons + 3D surface (tabbed), both work for all graphs
     document.getElementById('embTab3d').classList.remove('is-disabled');
     document.getElementById('emb3dLaunch').hidden = false;
     document.getElementById('emb3dNote').hidden = true;
@@ -1351,7 +1351,7 @@
     const v = +b.dataset.v;
     cycleRotation(v);
     render();
-    // any generated output is now stale — collapse until regenerated
+    // any generated output is now stale, collapse until regenerated
     if (!walksView.hidden) walksView.hidden = true;
     if (!polyView.hidden) polyView.hidden = true;
     if (!embedView.hidden) embedView.hidden = true;
@@ -1363,7 +1363,7 @@
     const G = GRAPHS[key];
     currentGraphKey = key;
     const titleEl = document.getElementById('editorTitle');
-    if (titleEl) { titleEl.innerHTML = '<span class="step-num">1</span>Rotation system — ' + GRAPH_NAMES[key]; if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([titleEl]).catch(() => {}); }
+    if (titleEl) { titleEl.innerHTML = '<span class="step-num">1</span>Rotation system, ' + GRAPH_NAMES[key]; if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([titleEl]).catch(() => {}); }
     V = G.pos; ORDER = G.order; EDGES = G.edges; partFn = G.color;
     rot = {}; ORDER.forEach(v => { rot[v] = G.rot0[v].slice(); });
     edgeIndex = {}; EDGES.forEach((e, i) => { edgeIndex[EKEY(e[0], e[1])] = i; });
