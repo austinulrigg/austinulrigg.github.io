@@ -413,3 +413,51 @@ body.theme-comics { background: linear-gradient(135deg, #edeef3 0%, #e7eaf0 50%,
 .strip-foot { display: flex; flex-direction: column; gap: 8px; padding-top: 12px; }
 .strip-foot .strip-meta { gap: 8px; }
 .strip-foot .strip-caption { margin: 0 2px; }
+
+/* =========================================================
+   Writing blog — feed (posts + comics) and native posts
+   ========================================================= */
+.feed { max-width: 770px; margin: 8px auto 0; display: flex; flex-direction: column; gap: 24px; }
+
+/* Post entry card */
+.post-card {
+  display: block; padding: 24px 28px; border-radius: 16px;
+  background: var(--glass); border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px); text-decoration: none; color: inherit;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.post-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); background: var(--glass-strong); }
+.post-meta { display: flex; flex-wrap: wrap; gap: 10px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 9px; }
+.post-card h2 { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 500; line-height: 1.15; margin: 0 0 9px; }
+.post-excerpt { font-size: 16.5px; line-height: 1.55; color: var(--ink-soft); margin: 0 0 12px; }
+.post-readmore { font-size: 15px; font-weight: 500; color: var(--accent); }
+
+/* Comic entry */
+.comic-item { border-radius: 16px; overflow: hidden; border: 1px solid var(--glass-border); background: #fbfbf8; box-shadow: var(--shadow); }
+.comic-item img { width: 100%; display: block; }
+.comic-cap { display: flex; gap: 11px; align-items: baseline; padding: 13px 17px; font-family: 'Fraunces', serif; font-style: italic; font-size: 14.5px; line-height: 1.45; color: var(--ink-soft); }
+.comic-badge { flex-shrink: 0; font-family: 'Inter Tight', sans-serif; font-style: normal; font-size: 10.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; background: var(--accent); padding: 3px 9px; border-radius: 999px; }
+
+/* Native post page */
+.post-head { max-width: 80ch; margin-bottom: 6px; }
+.post-figure { margin: 26px 0; }
+.post-figure img { width: 100%; border-radius: 12px; border: 1px solid var(--glass-border); box-shadow: var(--shadow); }
+.post-figure figcaption { margin-top: 9px; font-size: 14px; color: var(--ink-faint); font-style: italic; }
+.callout { border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; margin: 22px 0; color: var(--ink-soft); }
+
+/* Native post: centered reading column + figure sizing + alignment fixes */
+.post-wrap { max-width: 768px; margin: 0 auto; }
+.post-wrap .prose, .post-wrap .post-head { max-width: 100%; }
+.post-head .headline { font-size: clamp(30px, 5vw, 46px); max-width: none; line-height: 1.12; }
+.post-figure { margin: 30px auto; text-align: center; }
+.post-figure img, .post-figure svg { display: inline-block; max-width: 560px; width: 100%; height: auto; }
+.post-figure figcaption { text-align: center; margin-top: 9px; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 6px 2px; }
+
+/* Figures sit on a deliberate white "plate" so their background doesn't clash with the page */
+.post-figure img, .post-figure svg {
+  background: #fff; padding: 16px; border-radius: 14px;
+  border: 1px solid rgba(22,24,58,0.10); box-shadow: var(--shadow);
+}
+/* Figures blend into the page: transparent, no plate */
+.post-figure img, .post-figure svg { background: transparent; padding: 0; border: none; box-shadow: none; }

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Writing | Austin Ulrigg</title>
-  <meta name="description" content="Expository mathematical writing and solution guides by Austin Ulrigg, in graph theory and combinatorics.">
+  <meta name="description" content="Expository mathematical writing, solution guides, the honors thesis, and math comics by Austin Ulrigg.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
@@ -22,26 +22,73 @@
         <a class="tab" href="tutoring.html">Tutoring</a>
         <a class="tab" href="cv.html">CV</a>
         <a class="tab" href="rotations.html">Rotations</a>
-        <a class="tab" href="comics.html">Comics</a>
       </nav>
     </header>
     <main class="main">
-      <div class="kicker">Expository notes &amp; solutions</div>
+      <div class="kicker">Writing &amp; comics</div>
       <h1 class="headline">Writing</h1>
-      <p class="blurb">Expository mathematical writing and solution guides &mdash; mostly in graph theory and combinatorics. Each piece has its own page with the full document.</p>
-      <div class="cards">
-        <a class="card" href="writing-max-cut.html">
-          <div class="card-tag">Expository paper</div>
-          <div class="card-title">Maximum Cut and the Goemans&ndash;Williamson Algorithm</div>
-          <div class="card-body">An introduction to the Maximum Cut problem and the Goemans&ndash;Williamson approximation algorithm, written for MATH 336.</div>
-          <span class="card-arrow">&rarr;</span>
+      <p class="blurb">Expository math, solution guides, my thesis, and the occasional comic &mdash; newest first.</p>
+      <div class="feed">
+        <figure class="comic-item">
+          <img src="images/comics/comic-schrodinger-genus.jpg" alt="Math comic" loading="lazy">
+          <figcaption class="comic-cap"><span class="comic-badge">Comic</span>The Balaban (3,11)-cage&rsquo;s genus is known to sit between 15 and 17 &mdash; nobody knows which.</figcaption>
+        </figure>
+        <a class="post-card" href="post-thesis.html">
+          <div class="post-meta">Honors thesis &middot; 2025</div>
+          <h2>Graph Genera and Minors</h2>
+          <p class="post-excerpt">My undergraduate honors thesis on embedding graphs on surfaces &mdash; rotation systems, genus, and the forbidden toroidal minors.</p>
+          <span class="post-readmore">Read post &rarr;</span>
         </a>
-        <a class="card" href="writing-pearls.html">
-          <div class="card-tag">Solution guide</div>
-          <div class="card-title">Pearls in Graph Theory &mdash; Solutions</div>
-          <div class="card-body">A worked solution guide for selected sections (10.1&ndash;10.3) of <em>Pearls in Graph Theory</em>, meant for checking your own work.</div>
-          <span class="card-arrow">&rarr;</span>
+        <figure class="comic-item">
+          <img src="images/comics/comic-planar-bouncer.jpg" alt="Math comic" loading="lazy">
+          <figcaption class="comic-cap"><span class="comic-badge">Comic</span>Kuratowski at the door: K₅ and K₃,₃ are barred from the plane; the torus has a handle for that.</figcaption>
+        </figure>
+        <a class="post-card" href="post-genus-algorithm.html">
+          <div class="post-meta">Paper &middot; with A. Metzger &middot; 2024</div>
+          <h2>An Efficient Genus Algorithm Based on Graph Rotations</h2>
+          <p class="post-excerpt">PAGE, a rotation-system algorithm for the orientable genus of any graph &mdash; and how it settled the genus of the (3,12)-cage.</p>
+          <span class="post-readmore">Read post &rarr;</span>
         </a>
+        <figure class="comic-item">
+          <img src="images/comics/comic-forbidden-minor.jpg" alt="Math comic" loading="lazy">
+          <figcaption class="comic-cap"><span class="comic-badge">Comic</span>A graph is nonplanar exactly when K₅ or K₃,₃ hides inside it as a minor.</figcaption>
+        </figure>
+        <figure class="comic-item">
+          <img src="images/comics/comic-finitely-many.jpg" alt="Math comic" loading="lazy">
+          <figcaption class="comic-cap"><span class="comic-badge">Comic</span>Robertson&ndash;Seymour: a finite list of forbidden minors characterizes every minor-closed family.</figcaption>
+        </figure>
+        <a class="post-card" href="post-max-cut.html">
+          <div class="post-meta">Expository &middot; MATH 336 &middot; 2024</div>
+          <h2>Maximum Cut and the Goemans&ndash;Williamson Algorithm</h2>
+          <p class="post-excerpt">Relax Max-Cut into a semidefinite program, then round with a random hyperplane to land within ~88% of the best possible cut.</p>
+          <span class="post-readmore">Read post &rarr;</span>
+        </a>
+        <figure class="comic-item">
+          <img src="images/comics/comic-one-more-handle.jpg" alt="Math comic" loading="lazy">
+          <figcaption class="comic-cap"><span class="comic-badge">Comic</span>Genus is the <em>minimum</em> number of handles a surface needs.</figcaption>
+        </figure>
+        <figure class="comic-item">
+          <img src="images/comics/comic-turn-me.jpg" alt="Math comic" loading="lazy">
+          <figcaption class="comic-cap"><span class="comic-badge">Comic</span>A rotation system &mdash; the cyclic order of edges at each vertex &mdash; decides which surface a graph embeds on.</figcaption>
+        </figure>
+        <a class="post-card" href="post-pearls.html">
+          <div class="post-meta">Solutions &middot; 2024</div>
+          <h2>Pearls in Graph Theory &mdash; Solutions</h2>
+          <p class="post-excerpt">A worked solution guide to selected sections of <em>Pearls in Graph Theory</em> &mdash; for checking your own work, not copying it.</p>
+          <span class="post-readmore">Read post &rarr;</span>
+        </a>
+        <figure class="comic-item">
+          <img src="images/comics/comic-euler-faces.jpg" alt="Math comic" loading="lazy">
+          <figcaption class="comic-cap"><span class="comic-badge">Comic</span>Euler&rsquo;s formula: V &minus; E + F = 2 for a connected planar graph.</figcaption>
+        </figure>
+        <figure class="comic-item">
+          <img src="images/comics/comic-handle-dealer.jpg" alt="Math comic" loading="lazy">
+          <figcaption class="comic-cap"><span class="comic-badge">Comic</span>One handle is all a nonplanar graph needs to shed its crossings.</figcaption>
+        </figure>
+        <figure class="comic-item">
+          <img src="images/comics/comic-everything-matches.jpg" alt="Math comic" loading="lazy">
+          <figcaption class="comic-cap"><span class="comic-badge">Comic</span>Cospectral graphs can match on every spectral invariant and still not be the same graph.</figcaption>
+        </figure>
       </div>
     </main>
     <footer class="footer">
