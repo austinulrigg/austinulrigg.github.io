@@ -408,3 +408,8 @@ body.theme-comics { background: linear-gradient(135deg, #edeef3 0%, #e7eaf0 50%,
 @media (max-width: 460px) {
   .comics-daily-grid { grid-template-columns: 1fr; }
 }
+
+/* Comics: caption foot under each strip */
+.strip-foot { display: flex; flex-direction: column; gap: 8px; padding-top: 12px; }
+.strip-foot .strip-meta { gap: 8px; }
+.strip-foot .strip-caption { margin: 0 2px; }
