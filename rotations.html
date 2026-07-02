@@ -1250,15 +1250,153 @@
     return { group, setOpacity, pathsByEdge, vertexPositions };
   }
 
+  // ----- generalized precomputed layouts for genus >= 2 (any graph) -----
+  // Static files next to this page: layouts/index.json lists, per graph key and
+  // genus, the available class layouts (one per orbit of rotation systems under
+  // Aut(G) x reflection). Each layout stores the representative rotation plus
+  // vertex positions and edge polylines in the solver OBJ's raw coordinate frame.
+  const TD_LAYOUT_BASE = 'layouts/';
+  let tdLayoutIndex = null, tdLayoutIndexP = null;
+  const tdLayoutCache = new Map();
+  function tdLoadLayoutIndex() {
+    if (!tdLayoutIndexP) tdLayoutIndexP = fetch(TD_LAYOUT_BASE + 'index.json')
+      .then(r => (r.ok ? r.json() : {})).catch(() => ({}))
+      .then(j => { tdLayoutIndex = j || {}; return tdLayoutIndex; });
+    return tdLayoutIndexP;
+  }
+  function tdGraphAutomorphisms(order, edges) {
+    // brute force over vertex permutations (n <= 6 here), keep edge-preserving ones
+    const es = new Set(edges.map(([a, b]) => EKEY(a, b)));
+    const out = [], perm = order.slice();
+    const rec = (i, used) => {
+      if (i === order.length) {
+        const p = {}; order.forEach((v, k) => { p[v] = perm[k]; });
+        if (edges.every(([a, b]) => es.has(EKEY(p[a], p[b])))) out.push(p);
+        return;
+      }
+      for (const v of order) {
+        if (used.has(v)) continue;
+        perm[i] = v; used.add(v); rec(i + 1, used); used.delete(v);
+      }
+    };
+    rec(0, new Set());
+    return out;
+  }
+  function tdCyclicEq(a, b) { return a.length === b.length && b.some((_, s) => a.every((x, i) => x === b[(i + s) % b.length])); }
+  const tdAutCache = new Map();
+  function tdMatchLayout(entry) {
+    // find (automorphism p, reflected?) with p(representative) == current rot.
+    // p maps representative labels -> current labels; reflected mirrors the layout.
+    const rep = entry.representative;
+    if (!tdAutCache.has(currentGraphKey)) tdAutCache.set(currentGraphKey, tdGraphAutomorphisms(ORDER, EDGES));
+    const auts = tdAutCache.get(currentGraphKey);
+    for (const refl of [false, true]) {
+      for (const p of auts) {
+        const ok = ORDER.every(v => {
+          let r = rep[String(v)].map(u => p[u]);
+          if (refl) r = [r[0]].concat(r.slice(1).reverse());
+          return tdCyclicEq(r, rot[p[v]]);
+        });
+        if (ok) return { p, refl };
+      }
+    }
+    return null;
+  }
+  function tdFindLayoutEntry() {
+    if (!tdLayoutIndex) return null;
+    const list = (tdLayoutIndex[currentGraphKey] || {})[String(td.genus)] || [];
+    for (const entry of list) {
+      const m = tdMatchLayout(entry);
+      if (m) return { entry, m };
+    }
+    return null;
+  }
+  async function tdBuildLayoutSurface(found) {
+    const { entry, m } = found;
+    let layout = tdLayoutCache.get(entry.file);
+    if (!layout) {
+      const r = await fetch(TD_LAYOUT_BASE + entry.file);
+      if (!r.ok) throw new Error('layout fetch failed');
+      layout = await r.json(); tdLayoutCache.set(entry.file, layout);
+    }
+    // the canonical genus-g surface: a precomputed static mesh, identical for
+    // every rotation system of the same genus (layout coordinates are already
+    // in this frame — no live-solver dependency for genus >= 2)
+    let surfMesh = tdLayoutCache.get(`__surface_g${td.genus}`);
+    if (!surfMesh) {
+      const r = await fetch(TD_LAYOUT_BASE + `surface_g${td.genus}.json`);
+      if (!r.ok) throw new Error('surface mesh fetch failed');
+      surfMesh = await r.json(); tdLayoutCache.set(`__surface_g${td.genus}`, surfMesh);
+    }
+    const geo = new THREE.BufferGeometry();
+    const pos = new Float32Array(surfMesh.positions.length * 3);
+    surfMesh.positions.forEach((p, i) => { pos[3 * i] = p[0]; pos[3 * i + 1] = p[1]; pos[3 * i + 2] = p[2]; });
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    geo.setIndex(surfMesh.cells.flat());
+    geo.computeVertexNormals();
+    // reflected classes reuse the same surface (the chain is mirror-symmetric
+    // about x = 0); mirror the layout coordinates only
+    const mir = m.refl ? -1 : 1;
+    const xf = a => new THREE.Vector3(mir * a[0], a[1], a[2]);
+    const group = new THREE.Group();
+    const surfMat = new THREE.MeshStandardMaterial({ color: 0xb6bcc2, roughness: 0.85, metalness: 0.0, side: THREE.DoubleSide, transparent: true, opacity: 1 });
+    group.add(new THREE.Mesh(geo, surfMat));
+    const stroke = 0.012;
+    const graphMat = new THREE.MeshBasicMaterial({ color: 0x151719, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+    const ptMat = new THREE.MeshBasicMaterial({ color: 0xf4f4ef, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+    const cap = new THREE.SphereGeometry(stroke * 1.1, 10, 8), pg = new THREE.SphereGeometry(stroke * 2.2, 18, 12);
+    const pathsByEdge = new Map(), vertexPositions = new Map();
+    Object.entries(layout.edges).forEach(([key, route]) => {
+      const [ra, rb] = key.split('-').map(Number);          // representative labels
+      const ma = m.p[ra], mb = m.p[rb];                     // current labels
+      const pts = route.map(xf);
+      group.add(tdMakeTube(pts, stroke, graphMat, Math.max(8, pts.length - 1)));
+      const c0 = new THREE.Mesh(cap, graphMat); c0.position.copy(pts[0]); group.add(c0);
+      const c1 = new THREE.Mesh(cap, graphMat); c1.position.copy(pts[pts.length - 1]); group.add(c1);
+      const k = EKEY(ma, mb);
+      if (!pathsByEdge.has(k)) pathsByEdge.set(k, []);
+      pathsByEdge.get(k).push({ ends: [ma, mb], segment: [ma, mb], points: pts });
+    });
+    Object.entries(layout.vertices).forEach(([rv, point]) => {
+      const my = m.p[Number(rv)], p = xf(point);
+      const dot = new THREE.Mesh(pg, ptMat); dot.position.copy(p); group.add(dot);
+      vertexPositions.set(my, p.clone());
+      const lab = tdLabel(String(my)); lab.scale.multiplyScalar(0.62);
+      const out = p.clone(); if (out.lengthSq() < 1e-6) out.set(0, 0, 1); else out.normalize();
+      lab.position.copy(p).addScaledVector(out, 0.14); group.add(lab);
+    });
+    const setOpacity = (o) => { const solid = o >= 0.999; group.traverse(c => { if (c.material) (Array.isArray(c.material) ? c.material : [c.material]).forEach(mm => { mm.transparent = !solid; mm.opacity = o; mm.needsUpdate = true; }); }); };
+    return { group, setOpacity, pathsByEdge, vertexPositions };
+  }
+
   async function tdShowSurface() {
     const exp = document.getElementById('emb3dExplain'), st = document.getElementById('emb3dStatus');
+    // The live solver draws exact surfaces only for genus 0 and 1 (sphere / torus);
+    // its genus >= 2 graph routes are unsound (edges cut through the handles).
+    // Genus >= 2 therefore needs a precomputed layout: K3,3's single genus-2 class
+    // is hand-built; other graphs use generated layout files when available.
+    // Without one, stop honestly rather than render a mathematically wrong picture.
     td.animating = true;
+    let layoutFound = null;
+    if (td.genus >= 2 && !(td.genus === 2 && currentGraphKey === 'k33')) {
+      st.textContent = 'Checking for a precomputed surface layout…';
+      await tdLoadLayoutIndex();
+      layoutFound = tdFindLayoutEntry();
+      if (!layoutFound) {
+        td.animating = false;
+        st.textContent = `genus ${td.genus} · 3D surface not available for this rotation yet`;
+        exp.textContent = `The exact 3D surface is currently built for genus 0 and 1 embeddings, and for genus-2 embeddings with precomputed layouts. A genus-${td.genus} surface for this rotation system hasn't been constructed yet, so it isn't shown — everything above (facial walks, fundamental polygons, and the genus computation) is still exact.`;
+        return;
+      }
+    }
     st.textContent = 'Contacting genus.fly.dev for the surface…';
     let surf;
     try {
       surf = (td.genus === 2 && currentGraphKey === 'k33')
         ? await tdBuildGenus2Surface()
-        : tdBuildSurface(await tdRequestModel());
+        : (layoutFound
+          ? await tdBuildLayoutSurface(layoutFound)
+          : tdBuildSurface(await tdRequestModel()));
     } catch (e) {
       td.animating = false;
       st.textContent = 'Surface request failed: ' + e.message;
