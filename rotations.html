@@ -1256,10 +1256,15 @@
   // Aut(G) x reflection). Each layout stores the representative rotation plus
   // vertex positions and edge polylines in the solver OBJ's raw coordinate frame.
   const TD_LAYOUT_BASE = 'layouts/';
+  // bump this whenever the layout JSONs change: the query string busts both
+  // browser fetch caches and the GitHub Pages CDN (same-URL responses are
+  // otherwise reused for up to 10 minutes or more)
+  const TD_LAYOUT_VERSION = '2';
+  const tdLayoutURL = f => TD_LAYOUT_BASE + f + '?v=' + TD_LAYOUT_VERSION;
   let tdLayoutIndex = null, tdLayoutIndexP = null;
   const tdLayoutCache = new Map();
   function tdLoadLayoutIndex() {
-    if (!tdLayoutIndexP) tdLayoutIndexP = fetch(TD_LAYOUT_BASE + 'index.json')
+    if (!tdLayoutIndexP) tdLayoutIndexP = fetch(tdLayoutURL('index.json'))
       .then(r => (r.ok ? r.json() : {})).catch(() => ({}))
       .then(j => { tdLayoutIndex = j || {}; return tdLayoutIndex; });
     return tdLayoutIndexP;
@@ -1315,7 +1320,7 @@
     const { entry, m } = found;
     let layout = tdLayoutCache.get(entry.file);
     if (!layout) {
-      const r = await fetch(TD_LAYOUT_BASE + entry.file);
+      const r = await fetch(tdLayoutURL(entry.file));
       if (!r.ok) throw new Error('layout fetch failed');
       layout = await r.json(); tdLayoutCache.set(entry.file, layout);
     }
@@ -1324,9 +1329,10 @@
     // in this frame — no live-solver dependency for genus >= 2)
     let surfMesh = tdLayoutCache.get(`__surface_g${td.genus}`);
     if (!surfMesh) {
-      const r = await fetch(TD_LAYOUT_BASE + `surface_g${td.genus}.json`);
+      const r = await fetch(tdLayoutURL(`surface_g${td.genus}.json`));
       if (!r.ok) throw new Error('surface mesh fetch failed');
       surfMesh = await r.json(); tdLayoutCache.set(`__surface_g${td.genus}`, surfMesh);
+      console.info('rotations: layout data version', TD_LAYOUT_VERSION);
     }
     const geo = new THREE.BufferGeometry();
     const pos = new Float32Array(surfMesh.positions.length * 3);
@@ -1342,8 +1348,13 @@
     const surfMat = new THREE.MeshStandardMaterial({ color: 0xb6bcc2, roughness: 0.85, metalness: 0.0, side: THREE.DoubleSide, transparent: true, opacity: 1 });
     group.add(new THREE.Mesh(geo, surfMat));
     const stroke = 0.012;
-    const graphMat = new THREE.MeshBasicMaterial({ color: 0x151719, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
-    const ptMat = new THREE.MeshBasicMaterial({ color: 0xf4f4ef, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+    // NO polygonOffset here: layout curves are baked with a 0.02 outward lift,
+    // so they render above the surface with plain depth testing. polygonOffset's
+    // factor term scales with depth slope and explodes at silhouettes, letting
+    // hidden-side tubes show through the surface — which reads as fake edge
+    // crossings near the torus rims.
+    const graphMat = new THREE.MeshBasicMaterial({ color: 0x151719 });
+    const ptMat = new THREE.MeshBasicMaterial({ color: 0xf4f4ef });
     const cap = new THREE.SphereGeometry(stroke * 1.1, 10, 8), pg = new THREE.SphereGeometry(stroke * 2.2, 18, 12);
     const pathsByEdge = new Map(), vertexPositions = new Map();
     Object.entries(layout.edges).forEach(([key, route]) => {
