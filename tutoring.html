@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Tutoring | Austin Ulrigg</title>
+  <meta name="description" content="One-on-one math tutoring with Austin Ulrigg, online or near UW.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>#thanks{display:none} #thanks:target{display:block}</style>
+</head>
+<body class="theme-tutoring">
+  <div class="page">
+    <header class="header">
+      <a class="brand" href="index.html">Austin Ulrigg</a>
+      <nav class="tabs" aria-label="Primary">
+        <a class="tab" href="index.html">About</a>
+        <a class="tab" href="research.html">Research</a>
+        <a class="tab" href="cv.html">CV</a>
+        <a class="tab" href="writing.html">Writing</a>
+        <a class="tab" href="teaching.html">Teaching</a>
+        <a class="tab is-active" href="tutoring.html" aria-current="page">Tutoring</a>
+      </nav>
+      <div class="subnav">
+        <nav class="tabs" aria-label="Secondary">
+          <a class="tab" href="rotations.html">Rotations Interactive</a>
+        </nav>
+      </div>
+    </header>
+    <main class="main">
+      <div class="kicker">One-on-one math tutoring</div>
+      <h1 class="headline">Math Tutoring</h1>
+      <p class="blurb">I tutor math one-on-one, mostly advanced high school and UW undergrad courses. I&rsquo;ve been doing it about five years now.</p>
+      <p class="blurb">Calculus, linear algebra, differential equations, intro proofs. Happy to go higher too.</p>
+      <p class="blurb">Online, or in person near UW. $30 to $50 an hour depending on the course. If money&rsquo;s tight, reach out anyway and we&rsquo;ll figure something out.</p>
+
+      <h2 class="section-head">Get in touch</h2>
+      <p class="blurb" style="margin-bottom:14px;">Email me at <a href="mailto:austinul@uw.edu" style="color:var(--accent);text-decoration:underline;text-underline-offset:3px;">austinul@uw.edu</a>, or send a quick note below.</p>
+      <form class="form" action="https://formspree.io/f/mpwlqdka" method="POST">
+        <label>Name <input type="text" name="name" required></label>
+        <label>Email <input type="email" name="_replyto" required></label>
+        <label>Course or topic <input type="text" name="course" required></label>
+        <label>What you need help with <textarea name="goals" rows="3"></textarea></label>
+        <input type="hidden" name="_subject" value="New Tutoring Inquiry">
+        <input type="hidden" name="_next" value="https://austinulrigg.com/tutoring.html#thanks">
+        <button class="btn btn--primary" type="submit">Send</button>
+      </form>
+      <div id="thanks" class="prose" style="margin-top:18px;"><p>Thanks, your note came through. I&rsquo;ll get back to you soon.</p></div>
+    </main>
+    <footer class="footer">
+      <span>&copy; 2026 Austin Ulrigg</span>
+      <a href="mailto:austinul@uw.edu">austinul@uw.edu</a>
+    </footer>
+  </div>
+</body>
+</html>

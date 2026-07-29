@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linearly Independent Graphs? | Austin Ulrigg</title>
+  <meta name="description" content="An expository post on matroids: how linear independence among vectors and acyclicity among edges turn out to be the same idea, and where duality and planarity fit in.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .fig-row { display:flex; gap:26px; align-items:center; justify-content:center; flex-wrap:wrap; }
+    .fig-row figure { margin:0; text-align:center; }
+    .fig-row img { display:block; margin:0 auto; }
+    .post-figure img.tall { max-height:340px; width:auto; }
+    .subcap { font-size:0.82rem; color:var(--ink-faint); margin-top:4px; }
+    .fn-list { font-size:0.9rem; color:var(--ink-soft); border-top:1px solid var(--glass-border); margin-top:40px; padding-top:14px; }
+    .fn-list li { margin-bottom:4px; }
+    sup.fn-ref a { text-decoration:none; color:var(--accent); }
+  </style>
+</head>
+<body class="theme-writing">
+  <div class="page">
+    <header class="header">
+      <a class="brand" href="index.html">Austin Ulrigg</a>
+      <nav class="tabs" aria-label="Primary">
+        <a class="tab" href="index.html">About</a>
+        <a class="tab" href="research.html">Research</a>
+        <a class="tab" href="cv.html">CV</a>
+        <a class="tab is-active" href="writing.html" aria-current="page">Writing</a>
+        <a class="tab" href="teaching.html">Teaching</a>
+        <a class="tab" href="tutoring.html">Tutoring</a>
+      </nav>
+      <div class="subnav">
+        <nav class="tabs" aria-label="Secondary">
+          <a class="tab" href="rotations.html">Rotations Interactive</a>
+        </nav>
+      </div>
+    </header>
+    <main class="main">
+      <div class="post-wrap">
+      <a class="back-link" href="writing.html">&larr; Writing</a>
+      <div class="post-head">
+        <div class="kicker">Expository &middot; July 2026</div>
+        <h1 class="headline">Linearly Independent <em>Graphs?</em></h1>
+        <div class="btn-row" style="margin-bottom:8px;">
+          <a class="btn btn--primary" href="files/Linearly_Independent_Graphs.pdf" target="_blank" rel="noopener">Download as PDF &rarr;</a>
+        </div>
+      </div>
+
+      <article class="prose">
+        <p>Let's pretend for a moment that you have always desired to combine what are, naturally, your favorite two subjects, linear algebra and graph theory (as they are everyone's). Now, let's unnecessarily impose the condition that you also <em>hate eigenvectors</em> and hence have been dismayed by the seemingly impossibly vast disconnect between linear algebra and graph theory outside of spectral graph theory. If you are this extremely specific reader, then this post is exactly for you.</p>
+
+        <h2>Linear Algebra</h2>
+        <p>Consider the following vectors,</p>
+        $$\begin{array}{llll}
+        \vec{a}=(1,0,0,0,0), & \vec{b}=(0,1,0,0,0), & \vec{c}=(1,1,0,0,0), & \vec{d}=(0,0,0,1,0),\\[2pt]
+        \vec{e}=(0,0,1,0,0), & \vec{f}=(1,0,1,0,0), & \vec{g}=(0,0,0,0,0), & \vec{h}=(0,0,0,0,1),\\[2pt]
+        \vec{i}=(0,0,0,0,2). & & &
+        \end{array}$$
+        <p>One can easily notice that $\vec{a},\vec{b},\vec{c},\vec{e},$ and $\vec{f}$ all have their last two coordinates equal to zero.</p>
+        <p>Because of this, we can view them as lying in $\mathbb{R}^3$ via their canonical projection onto it, as seen in Figure 1(a). Representing these 5 vectors as being co-planar, we can also obtain the useful diagram (b) of all the vectors together.</p>
+
+        <figure class="post-figure">
+          <div class="fig-row">
+            <figure><img src="images/posts/matroid-vectors-plane.svg" alt="The vectors a, b, c, e, f drawn in R^3, with c = a + b and f = a + e."><div class="subcap">(a) $a,b,c,e,f$ in $\mathbb{R}^3$</div></figure>
+            <figure><img src="images/posts/matroid-nine-vectors.svg" alt="All nine vectors, showing d free, g zero, and h, i parallel."><div class="subcap">(b) all nine vectors</div></figure>
+          </div>
+          <figcaption>Figure 1. Two views of the same nine vectors.</figcaption>
+        </figure>
+
+        <p>Suppose you are tasked with collecting all the independent sets of vectors from our collection. It is not hard to see that the points $\vec{a},\vec{b},\vec{c}$ are collinear, $\vec{a},\vec{e},\vec{f}$ are collinear as well, and the four points $\vec{b},\vec{c},\vec{e},\vec{f}$, no three of them collinear, are dependent as a group of four. Additionally, the vectors $\vec{h}$ and $\vec{i}$ are parallel, $\vec{g}=0$ is zero, and $\vec{d}$ is independent of everything. Therefore, we can list the minimal dependent sets,</p>
+        $$\{\vec{g}\}, \quad \{\vec{h},\vec{i}\}, \quad \{\vec{a},\vec{b},\vec{c}\}, \quad \{\vec{a},\vec{e},\vec{f}\}, \quad \{\vec{b},\vec{c},\vec{e},\vec{f}\}.$$
+        <p>Since a subset of vectors from our collection is linearly independent exactly when it contains none of these minimal dependent sets, we can be satisfied with our classification of the independent sets of our collection of vectors.</p>
+
+        <h2>Graph Theory</h2>
+        <p>Now, consider the following graph, $G$. Suppose that you are now tasked with collecting all of the sets of edges that form no cycles in $G$.</p>
+
+        <figure class="post-figure">
+          <img class="tall" src="images/posts/matroid-graph-g.svg" alt="The graph G, with a green loop g, a blue bridge d, and orange parallel edges h and i.">
+          <figcaption>Figure 2. The graph $G$.</figcaption>
+        </figure>
+
+        <p>A clever observation is noting that by finding the edge sets which form the minimal cycles in $G$, we can determine the sets of edges which form no cycles, as they are exactly the edge sets containing none of the minimal cycles. That is,</p>
+        $$\{g\}, \{h,i\}, \{a,b,c\},\{a,e,f\},\{b,c,e,f\}$$
+        <p>So, while originally the questions could hardly look less alike, we have seen they have <em>exactly</em> the same answer: the same subsets are independent. Clearly, the example was artificially created to achieve such a result. However, it illustrates the point that there is an underlying structure to the concept of <em>independence</em> that is (no pun intended) independent from either linearly independent vectors in linear algebra, or forests in graph theory. So, to put it bluntly, what is this?</p>
+
+        <h2>Matroids</h2>
+        <p>In 1935, Hassler Whitney studied the properties that he noticed were shared by linear independence among vectors and acyclicity among edges. He demonstrated that a lot can be deduced from their shared properties alone, without needing to specifically reference vectors or edges at all <a href="https://www.jstor.org/stable/2371182" target="_blank" rel="noopener">(Whitney, 1935)</a>. He named the resulting object a <em>matroid</em>, a word that we can hope means to suggest that it relates in some way to a matrix.</p>
+        <p>A matroid consists of a finite set of elements, a <em>ground set</em>, together with a family of subsets denoted as <em>independent</em>, subject to three conditions both of our examples satisfy:</p>
+        <ul>
+          <li>the empty set is independent;</li>
+          <li>every subset of an independent set is independent;</li>
+          <li>if $S$ and $T$ are independent and $S$ has fewer elements than $T$, then some element of $T$ can be added to $S$ keeping it independent.</li>
+        </ul>
+        <p>A maximal independent set is called a <em>basis</em>, and a minimal dependent set is called a <em>circuit</em>.</p>
+        <p>With these definitions in hand, returning to our two examples, we can see that they are not merely both matroids, but are <em>the same<sup class="fn-ref"><a href="#fn1" id="fnr1">1</a></sup> matroid</em>. Indeed, we will say that two matroids are isomorphic if there exists a bijection between their ground sets that induces a bijection on their independent sets.</p>
+        <p>Anyone familiar with linear algebra is already well acquainted with the concept of linearly independent vectors. But perhaps less familiar, the graph version of a matroid also has a standard name. We can consider as our ground set the set of edges of a graph, and denote the forests of the graph as independent sets. Then, we can verify that this always forms a matroid which we (unimaginatively) call the graph's <em>cycle matroid</em>. Its bases are the spanning forests, and its circuits are the cycles.</p>
+        <p>So far, we have seen only one matroid. And, it arises both from a graph and from vectors. One might wonder if every graph's cycle matroid comes from vectors? Or, more generally, if every matroid does?</p>
+
+        <h2>The incidence matrix</h2>
+        <p>The first thing that we can show is that, as it turns out, all cycle matroids can arise as a matroid coming from vectors as well.</p>
+        <p>The proof is not too difficult, and we present a brief version here. Given a graph $G$, denote one coordinate for each vertex and choose an orientation for each edge arbitrarily. Then define the column of an edge directed from $u$ to $v$ as $\mathbf 1_v-\mathbf 1_u$, writing $\mathbf 1_w$ for the standard basis vector in the coordinate of vertex $w$. Together, these columns form the <em>incidence matrix</em> $B$, and the claim is that a set of columns is linearly independent exactly when the corresponding edges form a forest. This would show that the cycle matroid of $G$ is <em>representable</em>: in general, we will say a matroid is representable whenever some collection of vectors realizes it in this way, that is, whenever it is isomorphic to a matroid coming from a set of vectors.</p>
+        <p>Now, suppose first that a set of edges contains a cycle. Traverse the cycle as $v_0,e_1,v_1,\dots,e_k,v_k=v_0$ through distinct vertices $v_0,\dots,v_{k-1}$. Each edge $e_i$ joins $v_{i-1}$ and $v_i$, however, the edges' fixed orientation may run either way along the traversal. Denote $\epsilon_i=+1$ if $e_i$ is oriented from $v_{i-1}$ to $v_i$, and $\epsilon_i=-1$ if it is not. In either case $\epsilon_i B_{e_i}=\mathbf 1_{v_i}-\mathbf 1_{v_{i-1}}$, so the signed sum around the cycle telescopes,</p>
+        $$\sum_{i=1}^{k}\epsilon_i B_{e_i}=\sum_{i=1}^{k}\bigl(\mathbf 1_{v_i}-\mathbf 1_{v_{i-1}}\bigr)=\mathbf 1_{v_k}-\mathbf 1_{v_0}=\mathbf 0,$$
+        <p>because the traversal ends at the same place it started. Thus, we have found a non-trivial linear combination of the columns of $B$ summing to $0$. Hence, any set of columns containing a cycle is dependent.</p>
+        <p>In the other direction, suppose the edges form a forest and that some linear combination $\sum_e\lambda_e B_e=\mathbf 0$. We must show that every coefficient $\lambda_e$ is zero. This is left to the reader to verify.</p>
+        <p>Therefore, we have demonstrated that forests of a graph are exactly the independent sets of columns of its incidence matrix.</p>
+        <p>From our graph $G$ a useful matrix to consider is $B$. The loop $\textcolor{#147828}{g}$ has both ends at vertex $4$, so its $-1$ and $+1$ fall in the same row and cancel. The parallel edges $\textcolor{#c85a00}{h}$ and $\textcolor{#c85a00}{i}$ join the same two vertices, so they are equivalent as column vectors. And, the bridge $\textcolor{#1e5ac8}{d}$ is the only edge other than the loop meeting vertex $4$, so its column is the only nonzero entry in row $4$. Now, we see that we have collected a different set of vectors than the ones we began with, but that they represent the same matroid.</p>
+
+        <figure class="post-figure">
+          <img src="images/posts/matroid-incidence.svg" alt="The incidence matrix B of the graph G, color-coded to match the graph.">
+          <figcaption>Figure 3. The incidence matrix of $G$.</figcaption>
+        </figure>
+
+        <h2>Do <em>all</em> matroids come from vectors?</h2>
+        <p>Since we have now seen that every cycle matroid can be represented by vectors, and our only other example of a matroid thus far was already from linear algebra, it may be tempting to start thinking that every matroid can be formed from a set of vectors. In my opinion, this would be very disappointing: if every matroid came from vectors, then all of this would be nothing more than linear algebra, and our abstraction would have brought us nothing. We are lucky that it is not the case!</p>
+        <p>To build a counterexample, we first need one more way to picture a matroid. Recall that a basis is a maximal independent set. One of the consequences of the matroid axioms is that all bases have the same size, called the rank of the matroid. We'd say, for example, a rank-$3$ matroid is one where the largest independent sets have size $3$.</p>
+        <p>For rank-$3$ matroids, we can draw their elements as points. A dependent triple is then drawn as three points on a line. A line in our drawing then just means, &ldquo;these three elements form a circuit.&rdquo; Thus, we are allowed to draw points and lines first, and then consider after, if some actual set of vectors could have produced the same matroid. Such a picture of a matroid lets us choose which triples are lines, subject only to the matroid axioms.</p>
+
+        <figure class="post-figure">
+          <img src="images/posts/matroid-pappus.svg" alt="The Pappus configuration: two rows of three points with cross-lines meeting at points 7, 8, 9 on a dashed line.">
+          <figcaption>Figure 4. The Pappus configuration.</figcaption>
+        </figure>
+
+        <p>Pretending for a moment that we remember Pappus's theorem from geometry, we can consider the following example: put three points $1,2,3$ on one line and three points $4,5,6$ on another. Now draw the six cross-lines joining them, and label the three opposite intersections by</p>
+        $$9=\overline{15}\cap\overline{24},\qquad 8=\overline{16}\cap\overline{34},\qquad 7=\overline{26}\cap\overline{35},$$
+        <p>where $\overline{15}$ means the line through $1$ and $5$. Pappus's theorem says that $7,8,9$ must also be collinear. In other words, if the eight lines in Figure 4 come from points over a field, then the dashed ninth line is not optional.</p>
+        <p>After noticing all of this, the counterexample is simple. Keep the eight solid lines but not the ninth. We can define a matroid on the ground set $\{1,\dots,9\}$ as follows. The independent sets are all subsets of size at most $2$, together with all triples except</p>
+        $$\{1,2,3\},\ \{4,5,6\},\ \{1,5,9\},\ \{2,4,9\},\ \{1,6,8\},\ \{3,4,8\},\ \{2,6,7\},\ \{3,5,7\}.$$
+        <p>Thus, the eight listed triples are the lines of the picture, while $\{7,8,9\}$ is independent. The reader can verify that this really is a matroid. Yet, it cannot be represented over any field. If vectors over a field represented it, then the eight listed triples would be collinear exactly as in the Pappus configuration. But Pappus's theorem would then force $7,8,9$ to be collinear too, contradicting the fact that our matroid declares $\{7,8,9\}$ independent.</p>
+        <p>Non-Pappus is not the only matroid representable over no field. Another famous example is the <a href="https://en.wikipedia.org/wiki/V%C3%A1mos_matroid" target="_blank" rel="noopener">Vámos matroid</a>, whose obstruction is less easy to see from a picture.<sup class="fn-ref"><a href="#fn2" id="fnr2">2</a></sup> In fact, examples like this are not rare at all. It is known that, as $n$ grows, the fraction of matroids on $n$ elements representable over any field tends to zero. So the surprising part is not that some matroids fail to come from linear algebra, but that the cycle matroid of $G$ <em>is</em>.</p>
+
+        <h2>Representable over <em>which</em> field?</h2>
+        <p>Among the matroids that <em>are</em> representable, there is another question we have been ignoring: where do the entries of our vectors come from? Up to now our vectors have had real entries, even though nothing in the definition of representability required that. We could just as well have asked for vectors with entries in $\mathbb{Q}$, or in the two-element field $\mathrm{GF}(2)$. As it turns out, a matroid representable over one field can fail to be representable over another.</p>
+        <p>Consider the matroid $U_{2,4}$, built by taking four elements and declaring a set independent exactly when it has at most two elements. To represent it, we would need four nonzero vectors in a plane, no two of them parallel. The entire plane $\mathrm{GF}(2)^2$ contains only three nonzero vectors (Figure 5), so there is no room for a fourth.</p>
+
+        <figure class="post-figure">
+          <img src="images/posts/matroid-gf2.svg" alt="The three nonzero vectors of GF(2)^2 on a line, with a fourth marked impossible.">
+          <figcaption>Figure 5. Why $U_{2,4}$ is not representable over $\mathrm{GF}(2)$.</figcaption>
+        </figure>
+
+        <p>Another way a matroid can fail to be representable over a field has to do with the <em>characteristic</em> of the field. Consider the <a href="https://en.wikipedia.org/wiki/Fano_plane" target="_blank" rel="noopener"><em>Fano plane</em></a> $F_7$, a rank-$3$ matroid of seven elements whose picture has seven points and seven three-point lines. It can be shown that $F_7$ is representable over exactly the fields of characteristic $2$. Perhaps more surprisingly, removing a single one of its lines produces the <em>non-Fano</em> matroid, which is representable over exactly the fields of characteristic <em>not</em> $2$ <a href="https://global.oup.com/academic/product/matroid-theory-9780199603398" target="_blank" rel="noopener">(Oxley, 2011)</a>. Thus, we can organize matroids into a hierarchy, from worst to best (just kidding): representable over no fields, representable over some field, representable over only one characteristic, and representable over every field. A matroid representable over $\mathrm{GF}(2)$ is called <em>binary</em>. The cycle matroid of a graph is called <em>graphic</em>.</p>
+
+        <figure class="post-figure">
+          <img src="images/posts/matroid-hierarchy.svg" alt="Nested regions: graphic inside regular inside binary inside representable, with example matroids placed in each.">
+          <figcaption>Figure 6. Matroids sorted by the fields they live over.</figcaption>
+        </figure>
+
+        <h2>Regular matroids</h2>
+        <p>We call a matrix <em>totally unimodular</em> if every square submatrix has determinant $-1$, $0$, or $+1$. This definition may look arbitrary, but it is exactly the property that makes graphs special: any graph's incidence matrix $B$ is totally unimodular. This is left for the reader to verify.</p>
+        <p>Now, back to why we even care? Recall that a set of $r$ columns, with $r$ the rank of $B$, forms a basis exactly when its $r\times r$ submatrix has nonzero determinant. Total unimodularity strengthens &ldquo;nonzero&rdquo; to &ldquo;$\pm 1$.&rdquo; But $\pm 1$ is nonzero in every field, and $0$ is zero in every field, so the very same sets of columns come out as bases no matter which field we compute our determinants in. Such a matroid that is representable over every field is called <em>regular</em>, and we have just shown that every graphic matroid is regular.</p>
+        <p>Tutte proved two fundamental theorems about regular matroids. The first says that we do not actually need to check every field: a matroid is regular if and only if it is representable over both $\mathrm{GF}(2)$ and $\mathrm{GF}(3)$ (Tutte, 1958).</p>
+        <p>The second theorem requires one more definition. A <em>minor</em> of a graph is any graph obtained from it by deleting vertices/edges and <em>contracting</em> edges. It also makes sense to speak of one matroid containing another as a minor. With that language, Tutte's second theorem reads: a matroid is regular if and only if it contains none of $U_{2,4}$, $F_7$, and $F_7^{\ast}$ as a minor (Tutte, 1958). Here $F_7^{\ast}$ comes from the Fano plane by an operation called duality, which we will define properly soon. A list like this is called a <em>forbidden minor</em> characterization.</p>
+        <p>One might now wonder how much bigger than graphic the regular matroids really are. The answer, is: not much. Every regular matroid can be assembled from graphic matroids, their duals, and one $10$-element matroid, glued together by a small set of operations (Seymour, 1980).</p>
+
+        <h2>Duality and Planarity</h2>
+        <p>Somehow, this can all be related to a graph's planarity. Consider $\mathrm{GF}(2)^m$, with one coordinate per edge. The matrix $B$ determines two subspaces. The first is its null space, the <em>cycle space</em>: an edge set is sent to zero by $B$ exactly when every vertex meets it an even number of times, which is the exact same as saying the edge set is a disjoint union of cycles. Its dimension is $\beta=m-n+c$, and for $G$ that is $4$, spanned by the loop, the two triangles, and the parallel pair. The second subspace is its row space, the <em>cut space</em>, whose members are the edge cuts; its dimension is $n-c$, which is $5$ for $G$. The smallest nonzero members of the cycle space are the cycles, and the smallest nonzero members of the cut space are the <em>bonds</em>, the minimal cuts. Now, one can notice that these two subspaces are orthogonal complements of one another, as, a vector is orthogonal to every row of $B$ exactly when $B$ sends it to zero.</p>
+        <p>It can be shown similarly that a representable matroid is determined by the row space of any matrix representing it, and the <em>dual matroid</em> $M^{\ast}$ is then defined by swapping that row space for its orthogonal complement. For the cycle matroid, this swap trades the cut space for the cycle space. So, for a graph, taking the matroid dual simply swaps cycles for bonds.</p>
+        <p>It helps to see this in a picture (Figure 7). On the left there is a planar graph, and on the right its dual. The three edges of the shaded triangle form a cycle, and the three dual edges crossing them form a bond. One set of three edges is a cycle on one side of the picture and an edge cut on the other.</p>
+
+        <figure class="post-figure">
+          <div class="fig-row">
+            <figure><img src="images/posts/matroid-dual-a.svg" alt="A planar graph on four vertices with a 3-cycle shaded."><div class="subcap">(a) a planar graph, with a $3$-cycle shaded</div></figure>
+            <figure><img src="images/posts/matroid-dual-b.svg" alt="The dual graph, with the matching bond highlighted."><div class="subcap">(b) its dual, with the matching bond</div></figure>
+          </div>
+          <figcaption>Figure 7. Duality interchanges cycles and cuts.</figcaption>
+        </figure>
+
+        <p>A graph is <em>planar</em> if it can be drawn in the plane with no edges crossing. $G$ from earlier, is planar, as the drawing back in Figure 2 already has no crossings. Kuratowski's theorem says that: a graph is planar if and only if it contains no subdivision of $K_5$ or $K_{3,3}$.</p>
+        <p>For <em>any</em> graph $G$, the dual matroid $M(G)^{\ast}$ exists, since the orthogonal complement is always a matroid. The real question is whether that dual matroid happens to be the cycle matroid of an actual graph. Whitney settled this in 1932: $M(G)^{\ast}$ is graphic if and only if $G$ is planar, and when $G$ is planar, the graph realizing it is exactly the planar dual $G^{\ast}$, so $M(G)^{\ast}=M(G^{\ast})$ (Whitney, 1932).</p>
+        <p>It is interesting to note the case for when $G$ is <em>not</em> planar: then $M(G)^{\ast}$ is still a matroid, but it is no longer the cycle matroid of any graph.</p>
+
+        <h2>Two lists of forbidden minors</h2>
+        <p>We have now built two forbidden-minor lists. We saw earlier that the regular matroids were characterized by three forbidden minors,</p>
+        $$U_{2,4},\quad F_7,\quad F_7^{\ast}.$$
+        <p>Also, the graphic matroids are characterized by a forbidden-minor list of their own, where a matroid is graphic if it contains none of</p>
+        $$U_{2,4},\quad F_7,\quad F_7^{\ast},\quad M(K_5)^{\ast},\quad M(K_{3,3})^{\ast}$$
+        <p>as a minor (Tutte, 1959). We notice that the first three are the same as the forbidden minors for being regular, so the entire difference between regular and graphic is only $M(K_5)^{\ast}$ and $M(K_{3,3})^{\ast}$.</p>
+
+        <figure class="post-figure">
+          <div class="fig-row">
+            <figure><img src="images/posts/matroid-k5.svg" alt="The complete graph K5."><div class="subcap">(a) $K_5$</div></figure>
+            <figure><img src="images/posts/matroid-k33.svg" alt="The complete bipartite graph K3,3."><div class="subcap">(b) $K_{3,3}$</div></figure>
+          </div>
+          <figcaption>Figure 8. The two Kuratowski graphs.</figcaption>
+        </figure>
+
+        <p>Because dualizing twice returns a matroid to itself, $M(K_5)^{\ast}$ is graphic if and only if $M(K_5)$ is cographic, which we can notice by Whitney's theorem is if and only if $K_5$ is planar, which it is not. The same argument applies to $K_{3,3}$. Further, because $K_5$ and $K_{3,3}$ (Figure 8) are the <em>minimal</em> non-planar graphs, their duals are the minimal matroids that are cographic without being graphic, which is another way that you can see the relationship between the two forbidden-minor lists.</p>
+        <p>How fun :) !</p>
+
+        <ol class="fn-list">
+          <li id="fn1">up to isomorphism <a href="#fnr1">&#8617;</a></li>
+          <li id="fn2">no, I will not be drawing it <a href="#fnr2">&#8617;</a></li>
+        </ol>
+      </article>
+
+      <a class="back-link" href="writing.html" style="margin-top:36px;">&larr; Back to Writing</a>
+      </div>
+    </main>
+    <footer class="footer">
+      <span>&copy; 2026 Austin Ulrigg</span>
+      <a href="https://github.com/austinulrigg" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:austinul@uw.edu">austinul@uw.edu</a>
+    </footer>
+  </div>
+</body>
+</html>

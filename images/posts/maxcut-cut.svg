@@ -1,0 +1,16 @@
+<svg viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A graph partitioned into sets A and B, with two edges crossing between them highlighted in green.">
+  <ellipse cx="162" cy="140" rx="128" ry="96" fill="none" stroke="#2f43c8" stroke-width="2" stroke-opacity="0.85"/>
+  <ellipse cx="400" cy="140" rx="128" ry="96" fill="none" stroke="#cc3b3b" stroke-width="2" stroke-opacity="0.85"/>
+  <g stroke-width="2.6" fill="none">
+    <line x1="95" y1="150" x2="215" y2="88" stroke="#16183a"/>
+    <line x1="290" y1="150" x2="392" y2="92" stroke="#16183a"/>
+    <line x1="95" y1="150" x2="290" y2="150" stroke="#1f9e46"/>
+    <line x1="215" y1="88" x2="290" y2="150" stroke="#1f9e46"/>
+  </g>
+  <g fill="#16183a">
+    <circle cx="95" cy="150" r="6.5"/><circle cx="215" cy="88" r="6.5"/>
+    <circle cx="290" cy="150" r="6.5"/><circle cx="392" cy="92" r="6.5"/>
+  </g>
+  <text x="150" y="258" text-anchor="middle" font-family="'Inter Tight',sans-serif" font-size="24" font-style="italic" fill="#2f43c8">A</text>
+  <text x="410" y="258" text-anchor="middle" font-family="'Inter Tight',sans-serif" font-size="24" font-style="italic" fill="#cc3b3b">B</text>
+</svg>

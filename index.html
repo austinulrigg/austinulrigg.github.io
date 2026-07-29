@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Austin Ulrigg | Mathematics, Graph Theory, University of Washington</title>
+  <meta name="description" content="Austin Ulrigg is a recent University of Washington mathematics graduate interested in topological graph theory, graph embeddings, graph genus, and mathematical education.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body.theme-about .main { position: relative; }
+    .side-col { position: absolute; top: 380px; right: 36px; width: 250px; display: flex; flex-direction: column; gap: 14px; }
+    .problems-card {
+      padding: 14px 16px 10px; border-radius: 16px;
+      background: var(--glass); border: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+    }
+    .problems-card summary { list-style: none; cursor: pointer; position: relative; }
+    .problems-card summary::-webkit-details-marker { display: none; }
+    .problems-card summary::after {
+      content: ""; position: absolute; right: 2px; top: 7px;
+      width: 7px; height: 7px;
+      border-right: 2px solid var(--ink-faint); border-bottom: 2px solid var(--ink-faint);
+      transform: rotate(45deg); transition: transform 0.2s ease;
+    }
+    .problems-card details[open] summary::after { transform: rotate(-135deg); top: 10px; }
+    .problems-title { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 500; display: block; }
+    .problems-list { list-style: none; padding: 0; margin: 9px 0 0; }
+    .problems-list li {
+      position: relative; padding: 6px 0 6px 22px;
+      font-size: 13.5px; line-height: 1.4; color: var(--ink-soft);
+      border-top: 1px solid rgba(22, 24, 58, 0.08);
+    }
+    .problems-list li:first-child { border-top: none; }
+    .problems-list li::before {
+      content: ""; position: absolute; left: 1px; top: 9px;
+      width: 11px; height: 11px; border-radius: 4px;
+      border: 1.5px solid var(--accent); opacity: 0.75;
+    }
+    @media (max-width: 1180px) {
+      .side-col { position: static; width: auto; max-width: 300px; margin: 30px 0 0; }
+    }
+  </style>
+</head>
+<body class="theme-about">
+  <div class="page">
+    <header class="header">
+      <a class="brand" href="index.html">Austin Ulrigg</a>
+      <nav class="tabs" aria-label="Primary">
+        <a class="tab is-active" href="index.html" aria-current="page">About</a>
+        <a class="tab" href="research.html">Research</a>
+        <a class="tab" href="cv.html">CV</a>
+        <a class="tab" href="writing.html">Writing</a>
+        <a class="tab" href="teaching.html">Teaching</a>
+        <a class="tab" href="tutoring.html">Tutoring</a>
+      </nav>
+      <div class="subnav">
+        <nav class="tabs" aria-label="Secondary">
+          <a class="tab" href="rotations.html">Rotations Interactive</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="kicker">Mathematics · University of Washington</div>
+
+      <div class="hero">
+        <div class="hero-photo" role="img" aria-label="Austin Ulrigg"></div>
+        <div class="hero-text">
+          <h1 class="headline">Hi, I'm Austin.</h1>
+          <p class="blurb">I recently finished my mathematics degree at the University of Washington. I'm interested in topological graph theory, especially graph embeddings, the genus of graphs, rotation systems, and forbidden minors. I also care a lot about how people actually learn and do math.</p>
+          <div class="btn-row">
+            <a class="btn btn--primary" href="research.html">Read about my research →</a>
+            <a class="btn" href="cv.html">View CV</a>
+          </div>
+          <ul class="linklist">
+            <li><a href="mailto:austinul@uw.edu">Email</a></li>
+            <li><a href="https://arxiv.org/search/cs?searchtype=author&query=Ulrigg%2C+A" target="_blank" rel="noopener">arXiv</a></li>
+            <li><a href="https://www.researchgate.net/profile/Austin-Ulrigg" target="_blank" rel="noopener">ResearchGate</a></li>
+            <li><a href="https://github.com/austinulrigg" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://instagram.com/austinulrigg" target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <h2 class="section-head">Mathematical values</h2>
+      <p class="blurb" style="margin-bottom:20px;">I embrace Federico Ardila-Mantilla's axioms:</p>
+      <ol class="values">
+        <li>Mathematical potential is distributed equally among different groups, irrespective of geographic, demographic, and economic boundaries.</li>
+        <li>Everyone can have joyful, meaningful, and empowering mathematical experiences.</li>
+        <li>Mathematics is a powerful, malleable tool that can be shaped and used differently by various communities to serve their needs.</li>
+        <li>Every student deserves to be treated with dignity and respect.</li>
+      </ol>
+
+      <div class="side-col">
+      <aside class="problems-card">
+        <details open>
+          <summary>
+            <span class="problems-title">Problems that annoy me</span>
+          </summary>
+          <ul class="problems-list">
+            <li>Genus of the (3,11)-cage?</li>
+            <li>K<sub>5</sub>-free toroidal minors</li>
+            <li>Toroidal minors in general</li>
+            <li>(3,g)-cages for g &ge; 12</li>
+            <li>Crossing number of K<sub>n</sub> / K<sub>m,n</sub></li>
+            <li>Genus of complete tripartite graphs</li>
+          </ul>
+        </details>
+      </aside>
+      </div>
+
+      <a class="card card--lead" href="tutoring.html" style="margin-top:48px;">
+        <div class="card-tag">Tutoring</div>
+        <div class="card-title">Math tutoring</div>
+        <div class="card-body">One-on-one tutoring for advanced high school and undergraduate mathematics: calculus, linear algebra, differential equations, and proof-based courses.</div>
+        <span class="card-arrow">→</span>
+      </a>
+    </main>
+
+    <footer class="footer">
+      <span>© 2026 Austin Ulrigg</span>
+      <a href="https://github.com/austinulrigg" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:austinul@uw.edu">austinul@uw.edu</a>
+    </footer>
+  </div>
+</body>
+</html>
