@@ -42,10 +42,17 @@
       </div>
 
       <article class="prose">
-        <p>Every cellular embedding of a connected graph on an orientable surface is described by a rotation system: at each vertex, record the cyclic (clockwise) order of the incident edges. In a cubic graph every vertex meets exactly three edges, so each vertex has only two possible cyclic orders, and a cubic graph on $n$ vertices has precisely $2^n$ rotation systems.</p>
-        <p>Each rotation system embeds the graph on some surface, and the <em>genus polynomial</em> records the whole collection at once,</p>
+        <p>The Heffter-Edmonds-Ringel theorem states that every cellular embedding of an orientable graph is determined up to homeomorphism by a rotation system and vice versa. A rotation system prescribes at each vertex a cyclical permutation of its incident edges. For a cubic graph, each vertex has exactly two possible orders, and hence a cubic graph on $n$ vertices has $2^n$ rotation systems.</p>
+
+        <p>From Duke's interpolation theorem, it is known that every connected graph has an embedding on each orientable surface from its minimum to maximum genus. Since each rotation system corresponds to an orientable embedding on some surface, it is a topic of interest to consider the distribution of such embeddings.</p>
+
+        <p>We record this distribution by the <em>genus polynomial</em>,</p>
+
         $$\Gamma_G(x)=\sum_{g\ge 0} N_g(G)\,x^g,$$
-        <p>where $N_g(G)$ is the number of rotation systems of $G$ whose embedding has genus $g$. The least exponent of $\Gamma_G$ is the minimum genus, but the polynomial remembers the entire distribution. For the triangular prism, $\Gamma = 2 + 38x + 24x^2$: of its $64$ rotation systems, two embed it on the sphere, thirty-eight on the torus, and twenty-four on the double torus.</p>
+
+        <p>where $N_g(G)$ is the number of rotation systems of $G$ whose embedding has genus $g$. The least exponent of $\Gamma_G$ is the minimum genus of $G$.</p>
+
+        <p>For example, the triangular prism graph has genus polynomial of $\Gamma = 2 + 38x + 24x^2$. This means that of its $64$ rotation systems, two embed on the sphere, thirty-eight on the torus, and twenty-four on the double torus.</p>
 
         <figure class="post-figure">
           <img src="images/posts/genus-poly-prism.svg" alt="The triangular prism and its 64 rotation systems sorted onto the sphere, the torus, and the genus-2 surface.">
@@ -53,16 +60,21 @@
         </figure>
 
         <h2>Matroids and spectra</h2>
-        <p>The first result is that, for $2$-connected cubic graphs, the genus polynomial is an invariant of the cycle matroid: if $M(G) \cong M(H)$, then $\Gamma_G = \Gamma_H$. The cubic hypothesis is necessary, for non-cubic graphs the genus polynomial is in general not a cycle-matroid invariant.</p>
-        <p>The second result is that the genus polynomial and the adjacency spectrum are incomparable: neither one determines the other. There are connected cubic graphs on $16$ vertices sharing the adjacency spectrum, the number of spanning trees, girth, diameter, vertex and edge connectivity, the order of the automorphism group, and every cycle count through length $10$, yet their genus polynomials are pairwise distinct. Splitting the expected face count at twice the girth explains the difference: short faces are spectral, long faces are not.</p>
+
+        <p>In our study of this distribution for cubic graphs, our first result is that, for $2$-connected cubic graphs, the genus polynomial is a cycle matroid invariant: If $M(G) \cong M(H)$, then $\Gamma_G = \Gamma_H$. For non-cubic graphs, the genus polynomial is in general not a cycle-matroid invariant.</p>
+
+        <p>Our second result is that the genus polynomial and the adjacency spectrum are incomparable. We exhibit connected cubic graphs on $16$ vertices sharing adjacency spectrum, number of spanning trees, girth, diameter, vertex and edge connectivity, order of the automorphism group, and every cycle length count through length $10$, yet their genus polynomials are pairwise distinct.</p>
+
+        <p>When considering the expected face count of a uniformly random rotation system of a given graph, we show further that faces shorter than twice the girth are determined by the adjacency spectrum but longer faces are <em>not</em>.</p>
 
         <figure class="post-figure">
           <img src="images/posts/genus-poly-cospectral.svg" alt="Three cospectral cubic graphs on 16 vertices, each labeled with its own distinct genus polynomial.">
           <figcaption>Figure 2. Three cospectral cubic graphs on $16$ vertices with pairwise distinct genus polynomials.</figcaption>
         </figure>
 
-        <p>There is also an explicit infinite family of cospectral cubic pairs $(G_t, H_t)$ on $14+2t$ vertices whose minimum genera differ, so the spectrum does not determine even the minimum genus.</p>
-        <p>Finally, I computed the genus polynomials of all $7{,}875{,}918$ connected cubic graphs through $22$ vertices, and derived from short-cycle counts a deterministic lower bound on the minimum genus. The <a href="https://arxiv.org/abs/2607.25410" target="_blank" rel="noopener">full paper</a> is here.</p>
+        <p>We also exhibit an infinite family of cospectral cubic pairs $(G_t, H_t)$ on $14+2t$ vertices with pairwise distinct genus polynomials.</p>
+
+        <p>Finally, we computed the genus polynomials of all $7{,}875{,}918$ connected cubic graphs through $22$ vertices. The <a href="https://arxiv.org/abs/2607.25410" target="_blank" rel="noopener">full paper</a> is here.</p>
       </article>
 
       <a class="back-link" href="writing.html" style="margin-top:36px;">&larr; Back to Writing</a>
