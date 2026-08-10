@@ -39,6 +39,10 @@
       width: 11px; height: 11px; border-radius: 4px;
       border: 1.5px solid var(--accent); opacity: 0.75;
     }
+    .problems-list li.is-solved::after {
+      content: "\2715"; position: absolute; left: -1px; top: 4px;
+      color: #b3261e; font-size: 16px; font-weight: 600; line-height: 1;
+    }
     @media (max-width: 1180px) {
       .side-col { position: static; width: auto; max-width: 300px; margin: 30px 0 0; }
     }
@@ -101,7 +105,7 @@
             <span class="problems-title">Problems that annoy me</span>
           </summary>
           <ul class="problems-list">
-            <li>Genus of the (3,11)-cage?</li>
+            <li class="is-solved">Genus of the (3,11)-cage? = 16</li>
             <li>K<sub>5</sub>-free toroidal minors</li>
             <li>Toroidal minors in general</li>
             <li>(3,g)-cages for g &ge; 13</li>

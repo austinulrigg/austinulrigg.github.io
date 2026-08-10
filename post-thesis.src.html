@@ -42,83 +42,9 @@
       </div>
 
       <article class="prose">
-        <p>My undergraduate honors thesis, advised by François Clément, covers embedding graphs on surfaces.</p>
+        <p>My undergraduate honors thesis, advised by François Clément, covers embedding graphs on surfaces. It builds up rotation systems, which turn the genus of a graph into a purely combinatorial quantity, and surveys how the Robertson–Seymour graph minor theorem classifies the graphs embeddable on each surface by a finite list of forbidden minors.</p>
 
-        <p>During World War II, Hungarian mathematician Pál Turán had to push carts full of bricks from kilns to storage sites. He noticed that the hardest part of the job was when two rail tracks crossed. At each such crossing, he had to lift the heavy cart off the track and set it back down on the other side. He wondered whether the tracks could have been laid to minimize those crossings. Abstracting the kilns and storage sites as vertices and the tracks as edges, the question becomes: given a graph $G$, what is the fewest crossings in any drawing of it on the plane? That minimum is the <em>crossing number</em> of $G$ denoted $\mathrm{cr}(G)$.</p>
-
-        <p>In the real world, you could remove a crossing by building a bridge or a tunnel. In topological terms, this is the same as drawing the graph on a different surface, one built from the plane by adding a handle.</p>
-
-        <h2>Genus and surfaces</h2>
-
-        <figure class="post-figure">
-          <img src="images/posts/thesis-surfaces.png" alt="The orientable surfaces S1, S2, and S3: a torus, a double torus, and a triple torus.">
-          <figcaption>The orientable surfaces $S_1, S_2, S_3$: a sphere with one, two, and three handles.</figcaption>
-        </figure>
-
-        <p>A surface of genus $g$ is, up to homeomorphism, a sphere with $g$ handles and is written $S_g$. Every orientable compact surface without boundary is exactly one of these, for a uniquely determined genus. The <strong>orientable genus of a graph</strong> $G$ is then the smallest $g$ for which $G$ embeds on $S_g$ with no edges crossing: genus $0$ is planar, genus $1$ is toroidal.</p>
-
-        <h2>Rotation systems</h2>
-
-        <p>In general, finding a good drawing of graphs on a surface is very <em>hard</em>. The thesis translates this difficult problem into a slightly less difficult combinatorial one.</p>
-
-        <p>The Heffter-Edmonds-Ringel theorem states that every cellular embedding of an orientable graph is determined up to homeomorphism by a rotation system and vice versa. A rotation system prescribes at each vertex a cyclical permutation of its incident edges.</p>
-
-        <figure class="post-figure">
-          <img src="images/posts/thesis-rotations.png" alt="Local rotations at several vertices: the cyclic clockwise order of the edges around each vertex.">
-          <figcaption>A local rotation records the clockwise order of the edges around a vertex.</figcaption>
-        </figure>
-
-        <p>Using <em>darts</em> you can trace out the faces of that embedding, and once you know the number of vertices, edges, and faces, Euler's formula</p>
-
-        $$V - E + F = 2 - 2g$$
-
-        <p>gives you the genus. Thus the genus can be computed directly from the rotation system, without ever actually drawing the graph on a surface.</p>
-
-        <h2>Minors, and why this is hard</h2>
-
-        <p>A graph is planar exactly when it contains neither $K_5$ nor $K_{3,3}$ as a minor, by Kuratowski's theorem. Thus planar graphs are classified by a finite list of forbidden minors.</p>
-
-        <figure class="post-figure">
-          <svg viewBox="0 0 480 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The graphs K5 and K3,3, the two forbidden minors for planarity.">
-            <g stroke="var(--ink)" stroke-width="1.6" fill="none" stroke-opacity="0.85">
-              <polygon points="120,40 186,88 161,167 79,167 53,88"/>
-              <path d="M120,40 161,167 M120,40 79,167 M186,88 79,167 M186,88 53,88 M161,167 53,88"/>
-              <path d="M320,55 400,55 M320,55 400,110 M320,55 400,165 M320,110 400,55 M320,110 400,110 M320,110 400,165 M320,165 400,55 M320,165 400,110 M320,165 400,165"/>
-            </g>
-            <g fill="var(--ink)">
-              <circle cx="120" cy="40" r="5"/><circle cx="186" cy="88" r="5"/><circle cx="161" cy="167" r="5"/><circle cx="79" cy="167" r="5"/><circle cx="53" cy="88" r="5"/>
-              <circle cx="320" cy="55" r="5"/><circle cx="320" cy="110" r="5"/><circle cx="320" cy="165" r="5"/><circle cx="400" cy="55" r="5"/><circle cx="400" cy="110" r="5"/><circle cx="400" cy="165" r="5"/>
-            </g>
-            <text x="120" y="235" text-anchor="middle" font-family="'Inter Tight',sans-serif" font-size="20" font-weight="600" fill="var(--ink)">K₅</text>
-            <text x="360" y="235" text-anchor="middle" font-family="'Inter Tight',sans-serif" font-size="20" font-weight="600" fill="var(--ink)">K₃,₃</text>
-          </svg>
-          <figcaption>$K_5$ and $K_{3,3}$, the two forbidden minors that characterize planarity.</figcaption>
-        </figure>
-
-        <p>Further, it is known that if $G$ embeds on $S_g$, so does every minor of $G$, so for each fixed genus the graphs embeddable on it form a minor-closed graph family. The Robertson–Seymour graph minor theorem then guarantees that <em>every</em> such family has a finite list of forbidden minors. Its proof spans over twenty papers written from 1983 to 2004, over 500 pages, and it is non-constructive, leaving the problem of determining any specific graph family's forbidden minors as a very difficult one.</p>
-
-        <p>Even computing the genus of a single graph can be extremely hard. Conceptually, the question is simple, but confronted with something like the Tutte $(3,12)$-cage the difficulty becomes clear.</p>
-
-        <figure class="post-figure">
-          <img src="images/posts/thesis-cage.png" alt="The Tutte (3,12)-cage: a dense, highly symmetric graph drawn with its vertices around a circle.">
-          <figcaption>The Tutte $(3,12)$-cage, which has genus $17$.</figcaption>
-        </figure>
-
-        <p>It has genus $17$, but to prove that one must (1) show it cannot embed on $S_{16}$ and (2) construct an explicit embedding on $S_{17}$, both highly non-trivial and almost hopeless by hand. This is what motivates an approach via rotation systems.</p>
-
-        <h2>PAGE</h2>
-
-        <p>A naive idea for determining the minimal orientable genus of a graph is to use rotation systems and Euler's formula: search over all rotation systems, trace the faces of each, and read off the smallest genus. However, for any sufficiently large graph the number of rotation systems is much too large for a brute force approach to ever finish running. PAGE, the algorithm I developed with Alexander Metzger, takes a different approach, incrementally building up collections of closed facial walks, narrowing the upper and lower bounds on the genus as it runs, in</p>
-
-        $$\mathcal{O}\!\left(n\,(4m/n)^{\,n/t}\right)\ \text{steps}$$
-
-        <p>for a graph with $n$ vertices, $m$ edges, and girth $t$. We used it to settle the $(3,12)$-cage at genus $17$, and to give the first bounds on graphs whose genus is still unknown, like the $(6,12)$-cage and families of Johnson, Kneser, and cyclotomic graphs.</p>
-
-        <h2>Forbidden toroidal minors, and open problems</h2>
-
-        <p>The last part of the thesis returns to forbidden minors. By Robertson–Seymour, the toroidal graphs have a finite obstruction set $\mathcal{F}(S_1)$. Unlike the planar case, the full toroidal list is unknown, and currently contains over 17,000 graphs.</p>
-
-        <p>Read the <a href="files/Ulrigg_Honors_Thesis_2025.pdf" target="_blank" rel="noopener">full thesis</a> here.</p>
+        <p>The full thesis can be found <a href="files/Ulrigg_Honors_Thesis_2025.pdf" target="_blank" rel="noopener">here</a>.</p>
       </article>
 
       <a class="back-link" href="writing.html" style="margin-top:36px;">← Back to Writing</a>
