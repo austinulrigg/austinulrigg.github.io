@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="css/style.css">
   <style>
     body.theme-about .main { position: relative; }
-    .side-col { position: absolute; top: 380px; right: 36px; width: 250px; display: flex; flex-direction: column; gap: 14px; }
+    .side-col { position: absolute; top: 380px; right: 28px; width: 250px; display: flex; flex-direction: column; gap: 14px; }
     .side-link {
       display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
       padding: 12px 16px; border-radius: 16px;
@@ -24,12 +24,7 @@
     .side-link .side-link-arrow { color: var(--ink-faint); font-family: 'Inter Tight', sans-serif; font-size: 13px; transition: color 0.2s ease; }
     .side-link:hover { border-color: var(--accent); color: var(--accent); }
     .side-link:hover .side-link-arrow { color: var(--accent); }
-    .side-link--essay { align-items: center; padding: 10px 14px 10px 10px; }
-    .side-link-thumb {
-      width: 58px; aspect-ratio: 1.55 / 1; object-fit: cover;
-      border-radius: 9px; flex: none;
-      border: 1px solid rgba(22, 24, 58, 0.08);
-    }
+    .side-link--essay { align-items: center; padding: 12px 16px; }
     .side-link-essay-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
     .side-link-essay-title { font-size: 13.5px; line-height: 1.3; }
     .side-link-essay-sub { font-family: 'Inter Tight', sans-serif; font-size: 11.5px; font-weight: 400; color: var(--ink-faint); }
@@ -99,17 +94,6 @@
         <div class="hero-text">
           <h1 class="headline">Hi, I'm Austin.</h1>
           <p class="blurb">I recently finished my mathematics degree at the University of Washington. I'm interested in topological graph theory, especially graph embeddings, the genus of graphs, rotation systems, and forbidden minors. I am also interested in how people actually learn and do math.</p>
-          <div class="btn-row">
-            <a class="btn btn--primary" href="research.html">Read about my research →</a>
-            <a class="btn" href="cv.html">View CV</a>
-          </div>
-          <ul class="linklist">
-            <li><a href="mailto:austinul@uw.edu">Email</a></li>
-            <li><a href="https://arxiv.org/search/cs?searchtype=author&query=Ulrigg%2C+A" target="_blank" rel="noopener">arXiv</a></li>
-            <li><a href="https://www.researchgate.net/profile/Austin-Ulrigg" target="_blank" rel="noopener">ResearchGate</a></li>
-            <li><a href="https://github.com/austinulrigg" target="_blank" rel="noopener">GitHub</a></li>
-            <li><a href="https://instagram.com/austinulrigg" target="_blank" rel="noopener">Instagram</a></li>
-          </ul>
         </div>
       </div>
 
@@ -128,7 +112,6 @@
         <span class="side-link-arrow">&#8599;</span>
       </a>
       <a class="side-link side-link--essay" href="https://alkjash.github.io/ai-risk/" target="_blank" rel="noopener">
-        <img class="side-link-thumb" src="images/erdos-llm-cover.png" alt="Cover of Existential Risk from AI: An Exposition for Mathematicians">
         <span class="side-link-essay-text">
           <span class="side-link-essay-title">Existential Risk from AI</span>
           <span class="side-link-essay-sub">Xiaoyu He</span>
@@ -136,7 +119,7 @@
         <span class="side-link-arrow">&#8599;</span>
       </a>
       <aside class="problems-card">
-        <details open>
+        <details>
           <summary>
             <span class="problems-title">Interesting Problems</span>
           </summary>

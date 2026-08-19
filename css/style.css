@@ -12,7 +12,7 @@
   --glass-strong: rgba(255, 255, 255, 0.74);
   --glass-border: rgba(255, 255, 255, 0.72);
   --shadow: 0 16px 34px rgba(18, 22, 60, 0.16);
-  --maxw: 1280px;
+  --maxw: 1360px;
   --accent: #4338ca;       /* default accent, overridden per page */
 }
 
@@ -30,13 +30,13 @@ body {
 }
 
 /* ---- Per-page cool gradients + accent (stronger, slightly deeper) ---- */
-body.theme-about    { background: linear-gradient(135deg, #e6e4f2 0%, #dedcee 50%, #d8deee 100%); --accent:#2a2670; }
+body.theme-about    { background: linear-gradient(135deg, #dfe9f4 0%, #d2e0ef 50%, #c5d7ea 100%); --accent:#2a2670; }
 body.theme-research { background: linear-gradient(135deg, #9c8ce4 0%, #8578da 50%, #7c88de 100%); --accent:#241c66; }
-body.theme-writing  { background: linear-gradient(135deg, #96a4c4 0%, #8394b8 50%, #7c92ba 100%); --accent:#1c2e4a; }
+body.theme-writing  { background: linear-gradient(135deg, #cfe0d8 0%, #bfd6cc 50%, #b0cdc2 100%); --accent:#1c2e4a; }
 body.theme-teaching { background: linear-gradient(135deg, #8cd2ec 0%, #84dad0 50%, #90debb 100%); --accent:#0a5a52; }
 body.theme-tutoring { background: linear-gradient(135deg, #e4e6ec 0%, #dcdee6 50%, #d8dce4 100%); --accent:#334155; }
 body.theme-cv       { background: linear-gradient(135deg, #7fa2e6 0%, #6b90e0 50%, #66b4e4 100%); --accent:#10327a; }
-body.theme-lab      { background: linear-gradient(135deg, #a4b0cc 0%, #93a3c2 50%, #89a4c8 100%); --accent:#223a5e; }
+body.theme-lab      { background: linear-gradient(135deg, #f1e9db 0%, #eadfcc 50%, #e2d5bd 100%); --accent:#223a5e; }
 
 /* ---- Layout shell ---- */
 .page { max-width: var(--maxw); margin: 0 auto; }
@@ -47,7 +47,7 @@ body.theme-lab      { background: linear-gradient(135deg, #a4b0cc 0%, #93a3c2 50
   justify-content: space-between;
   gap: 18px;
   flex-wrap: wrap;
-  padding: 26px 36px;
+  padding: 26px 28px;
 }
 
 .brand {
@@ -91,7 +91,7 @@ body.theme-lab      { background: linear-gradient(135deg, #a4b0cc 0%, #93a3c2 50
 }
 
 /* ---- Main content ---- */
-.main { padding: 36px 36px 100px; }
+.main { padding: 36px 28px 100px; }
 
 .kicker {
   font-size: 14px; font-weight: 600;
@@ -243,7 +243,7 @@ a.card:hover .card-arrow { opacity: 0.7; transform: translateX(0); }
 
 /* ---- Footer ---- */
 .footer {
-  padding: 30px 36px 50px; color: var(--ink-faint); font-size: 15px;
+  padding: 30px 28px 50px; color: var(--ink-faint); font-size: 15px;
   display: flex; gap: 18px; flex-wrap: wrap; align-items: center;
 }
 .footer a { color: var(--ink-soft); text-decoration: none; }
@@ -352,22 +352,9 @@ a.card:hover .card-arrow { opacity: 0.7; transform: translateX(0); }
 }
 
 /* =========================================================
-   Writing blog — feed and native posts
+   Writing blog — native posts
+   (the writing.html index uses its own inline ledger styles)
    ========================================================= */
-.feed { max-width: 770px; margin: 8px auto 0; display: flex; flex-direction: column; gap: 24px; }
-
-/* Post entry card */
-.post-card {
-  display: block; padding: 24px 28px; border-radius: 16px;
-  background: var(--glass); border: 1px solid var(--glass-border);
-  backdrop-filter: blur(10px); text-decoration: none; color: inherit;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-}
-.post-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); background: var(--glass-strong); }
-.post-meta { display: flex; flex-wrap: wrap; gap: 10px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 9px; }
-.post-card h2 { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 500; line-height: 1.15; margin: 0 0 9px; }
-.post-excerpt { font-size: 16.5px; line-height: 1.55; color: var(--ink-soft); margin: 0 0 12px; }
-.post-readmore { font-size: 15px; font-weight: 500; color: var(--accent); }
 
 /* Native post page */
 .post-head { max-width: 80ch; margin-bottom: 6px; }
