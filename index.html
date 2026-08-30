@@ -62,6 +62,37 @@
         linear-gradient(45deg, transparent 46%, #b3261e 46%, #b3261e 54%, transparent 54%),
         linear-gradient(135deg, transparent 46%, #b3261e 46%, #b3261e 54%, transparent 54%);
     }
+    /* PAGE feature card */
+    .feature {
+      display: flex; align-items: center; gap: 44px;
+      max-width: 880px; padding: 30px 36px; margin: 10px 0 0;
+      border-radius: 18px;
+      background: var(--glass); border: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+    .feature:hover { transform: translateY(-4px); background: var(--glass-strong); box-shadow: var(--shadow); }
+    .feature-text { flex: 1; min-width: 0; }
+    .feature-title { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 500; line-height: 1.15; margin: 0 0 22px; }
+    .feature-links { display: flex; flex-wrap: wrap; gap: 8px; }
+    .feature-links a {
+      font-size: 14.5px; font-weight: 500; text-decoration: none;
+      padding: 7px 14px; border-radius: 999px;
+      background: #eef0f4; border: 1px solid var(--glass-border); color: var(--ink);
+      transition: border-color 0.2s ease, color 0.2s ease, filter 0.2s ease;
+    }
+    .feature-links a:hover { border-color: var(--accent); color: var(--accent); }
+    .feature-links a.is-primary { background: var(--accent); color: #fff; border-color: transparent; }
+    .feature-links a.is-primary:hover { filter: brightness(1.12); color: #fff; }
+    .feature-fig { flex: 0 0 280px; margin: 0; text-align: center; }
+    .feature-fig img { width: 240px; height: 240px; display: block; margin: 0 auto; transition: transform 1.2s ease; }
+    .feature:hover .feature-fig img { transform: rotate(40deg); }
+    .feature-fig figcaption { margin-top: 10px; font-size: 12.5px; color: var(--ink-faint); white-space: nowrap; }
+    @media (max-width: 720px) {
+      .feature { flex-direction: column; align-items: stretch; gap: 24px; padding: 24px; }
+      .feature-fig { flex-basis: auto; }
+      .feature-fig figcaption { white-space: normal; }
+    }
     @media (max-width: 1180px) {
       .side-col { position: static; width: auto; max-width: 300px; margin: 30px 0 0; }
     }
@@ -95,6 +126,21 @@
           <h1 class="headline">Hi, I'm Austin.</h1>
           <p class="blurb">I recently finished my mathematics degree at the University of Washington. I'm interested in topological graph theory, especially graph embeddings, the genus of graphs, rotation systems, and forbidden minors. I am also interested in how people actually learn and do math.</p>
         </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-text">
+          <div class="card-tag">With Alexander Metzger</div>
+          <div class="feature-title">PAGE, our graph genus algorithm</div>
+          <div class="feature-links">
+            <a class="is-primary" href="https://github.com/SanderGi/Genus/tree/main/PAGE" target="_blank" rel="noopener">Code on GitHub &#8599;</a>
+            <a href="https://genus.sandergi.com" target="_blank" rel="noopener">Run it in the browser &#8599;</a>
+          </div>
+        </div>
+        <figure class="feature-fig">
+          <img src="images/bipartite-kneser-19-2.webp" width="240" height="240" alt="The bipartite Kneser graph H(19,2), drawn with nine-fold symmetry">
+          <figcaption>Bipartite Kneser graph H(19,2) &middot; genus 5644</figcaption>
+        </figure>
       </div>
 
       <h2 class="section-head">Mathematical values</h2>
