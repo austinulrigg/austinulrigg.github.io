@@ -53,6 +53,8 @@
         <p>From a rotation system you trace out facial walks, and by Euler's formula the minimum genus is attained exactly when the rotation system produces the most faces, so PAGE searches for that rotation system, narrowing both the upper and lower bounds as it runs. It is simple to implement, outputs the faces of the optimal embedding, and avoids the difficulties that many other genus algorithms have with handling bridge placements. We used PAGE to settle genera that were previously unknown, most notably the (3,12)-cage, which turns out to have genus 17, and to give the first bounds for graphs still out of reach. The implementation is available under an MIT license.</p>
 
         <p>The full paper can be found <a href="https://arxiv.org/abs/2411.07347" target="_blank" rel="noopener">here</a>.</p>
+
+        <p>Update, September 2026. PAGE is now in <a href="https://github.com/sagemath/sage/blob/develop/src/sage/graphs/genus.pyx" target="_blank" rel="noopener">SageMath</a>, as the 'page' option of the genus method, and the <a href="https://houseofgraphs.org/help" target="_blank" rel="noopener">House of Graphs</a> uses it to compute the genus of the graphs in their database.</p>
       </article>
 
       <a class="back-link" href="writing.html" style="margin-top:36px;">← Back to Writing</a>
