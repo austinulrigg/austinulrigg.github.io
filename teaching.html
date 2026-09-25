@@ -10,7 +10,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .cards .card-body { font-size: 15px; }
+    .teaching-grid { display: grid; grid-template-columns: 300px 1fr; gap: 56px; align-items: start; }
+    .teaching-intro { position: sticky; top: 40px; }
+    .teaching-intro .blurb { font-size: 18px; line-height: 1.6; margin: 0; }
+    .entries { display: flex; flex-direction: column; }
+    .entry { padding: 24px 4px; border-top: 1px solid rgba(22, 24, 58, 0.18); }
+    .entry:last-child { border-bottom: 1px solid rgba(22, 24, 58, 0.18); }
+    .entry-top { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; }
+    .entry-title { font-family: 'Fraunces', serif; font-size: 25px; font-weight: 500; line-height: 1.2; margin: 0; }
+    .entry-meta {
+      flex: none; font-size: 12.5px; font-weight: 600; letter-spacing: 0.09em;
+      text-transform: uppercase; color: var(--ink-faint); white-space: nowrap;
+    }
+    .entry-where { margin: 6px 0 0; font-size: 15px; color: var(--ink-faint); }
+    .entry-body { margin: 8px 0 0; font-size: 17px; line-height: 1.6; color: var(--ink-soft); max-width: 66ch; }
+    .entry-link { display: inline-block; margin-top: 8px; font-size: 15px; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 900px) {
+      .teaching-grid { grid-template-columns: 1fr; gap: 10px; }
+      .teaching-intro { position: static; }
+      .entry-top { flex-direction: column; gap: 6px; }
+      .entry-meta { white-space: normal; }
+    }
   </style>
 </head>
 <body class="theme-teaching">
@@ -20,73 +40,91 @@
       <nav class="tabs" aria-label="Primary">
         <a class="tab" href="index.html">About</a>
         <a class="tab" href="research.html">Research</a>
-        <a class="tab" href="cv.html">CV</a>
         <a class="tab" href="writing.html">Writing</a>
         <a class="tab is-active" href="teaching.html" aria-current="page">Teaching</a>
         <a class="tab" href="tutoring.html">Tutoring</a>
       </nav>
       <div class="subnav">
         <nav class="tabs" aria-label="Secondary">
-          <a class="tab" href="rotations.html">Rotations Interactive</a>
+          <a class="tab" href="rotations.html">Rotation Systems</a>
         </nav>
       </div>
     </header>
     <main class="main">
-      <div class="kicker">Teaching &amp; service</div>
-      <h1 class="headline">Teaching</h1>
-      <p class="blurb">Teaching assistantships, undergraduate reading groups I&rsquo;ve led, tutoring roles, and mathematical outreach.</p>
-      <div class="cards">
-        <article class="card">
-          <div class="card-tag">Teaching Assistant</div>
-          <div class="card-title" style="font-size:25px;">Linear Analysis Teaching Assistant</div>
-          <div style="font-size:14px;color:var(--ink-faint);margin:2px 0 10px;">University of Washington &middot; Seattle &middot; Fall 2024 &ndash; Winter 2026</div>
-          <div class="card-body">Teaching assistant for linear analysis (MATH 209), focusing on linear systems of ODEs and boundary value problems for the classical PDEs (heat, wave, Laplace). Supported students with key concepts from MATH 207 and 208, and graded coursework.</div>
-        </article>
-        <article class="card">
-          <div class="card-tag">Tutoring</div>
-          <div class="card-title" style="font-size:25px;">Mathematics Tutor, CLUE</div>
-          <div style="font-size:14px;color:var(--ink-faint);margin:2px 0 10px;">University of Washington &middot; Seattle &middot; Fall 2024 &ndash; Spring 2026</div>
-          <div class="card-body">Tutored undergraduates across the calculus sequence and beyond at UW&rsquo;s CLUE drop-in tutoring center.</div>
-        </article>
-        <article class="card">
-          <div class="card-tag">Reading Group</div>
-          <div class="card-title" style="font-size:25px;">Linear Algebra Undergraduate Reading Group</div>
-          <div style="font-size:14px;color:var(--ink-faint);margin:2px 0 10px;">University of Washington &middot; 2024</div>
-          <div class="card-body">Ran a 25-plus-person reading group through most of Axler&rsquo;s <em>Linear Algebra Done Right</em>, from Chapter 3 to Chapter 9, setting the schedule, running weekly meetings, and writing and grading the problem sets myself.</div>
-          <div style="margin-top:12px;"><a href="https://discord.gg/xhWszXn8" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;text-underline-offset:3px;font-size:15px;">Reading group server &rarr;</a></div>
-        </article>
-        <article class="card">
-          <div class="card-tag">Reading Group</div>
-          <div class="card-title" style="font-size:25px;">Complex Analysis Undergraduate Reading Group</div>
-          <div style="font-size:14px;color:var(--ink-faint);margin:2px 0 10px;">University of Washington &middot; 2024</div>
-          <div class="card-body">My biggest one: over 30 undergraduates working through the first three chapters of Stein &amp; Shakarchi&rsquo;s <em>Complex Analysis</em>. I organized and led the weekly meetings and wrote and graded the problem sets.</div>
-          <div style="margin-top:12px;"><a href="https://discord.gg/HBdsMHRS" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;text-underline-offset:3px;font-size:15px;">Reading group server &rarr;</a></div>
-        </article>
-        <article class="card">
-          <div class="card-tag">Presentation</div>
-          <div class="card-title" style="font-size:25px;">Euler Characteristic of a Torus and the Utilities Problem</div>
-          <div style="font-size:14px;color:var(--ink-faint);margin:2px 0 10px;">Centralia High School &middot; Centralia, WA &middot; 2024</div>
-          <div class="card-body">Gave a talk to 30 advanced high school students on surfaces of different genera and Euler&rsquo;s formula for polyhedra and planar graphs, then introduced the utilities problem and showed how it can be solved on a torus.</div>
-        </article>
-        <article class="card">
-          <div class="card-tag">Reading Group</div>
-          <div class="card-title" style="font-size:25px;">Advanced Calculus Reading Group</div>
-          <div style="font-size:14px;color:var(--ink-faint);margin:2px 0 10px;">University of Washington &middot; 2023</div>
-          <div class="card-body">A smaller group of 15 working through the opening three chapters of Folland&rsquo;s <em>Advanced Calculus</em>. I ran the meetings, and set and graded the problem sets.</div>
-          <div style="margin-top:12px;"><a href="https://discord.gg/yGCUxBZW" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;text-underline-offset:3px;font-size:15px;">Reading group server &rarr;</a></div>
-        </article>
-        <article class="card">
-          <div class="card-tag">Tutoring</div>
-          <div class="card-title" style="font-size:25px;">STEM Tutoring &amp; Tutoring Center</div>
-          <div style="font-size:14px;color:var(--ink-faint);margin:2px 0 10px;">Centralia College &middot; Centralia, WA &middot; 2020 &ndash; 2022</div>
-          <div class="card-body">Tutored Calculus I&ndash;III, intermediate statistics, and human biology, and helped keep the tutoring center running.</div>
-        </article>
-        <article class="card">
-          <div class="card-tag">Tutoring</div>
-          <div class="card-title" style="font-size:25px;">Summer Credit Retrieval Assistant</div>
-          <div style="font-size:14px;color:var(--ink-faint);margin:2px 0 10px;">Centralia High School &middot; Centralia, WA &middot; 2017 &amp; 2018</div>
-          <div class="card-body">Worked with students over the summer to complete coursework, identify lagging skills, and correct common misunderstandings.</div>
-        </article>
+      <div class="teaching-grid">
+        <div class="teaching-intro">
+          <h1 class="headline">Teaching</h1>
+          <p class="blurb">Teaching assistantships, undergraduate reading groups I&rsquo;ve led, tutoring roles, and mathematical outreach.</p>
+        </div>
+        <div class="entries">
+          <article class="entry">
+            <div class="entry-top">
+              <h2 class="entry-title">Linear Analysis Teaching Assistant</h2>
+              <span class="entry-meta">Teaching Assistant</span>
+            </div>
+            <p class="entry-where">University of Washington &middot; Seattle &middot; Fall 2024 &ndash; Winter 2026</p>
+            <p class="entry-body">MATH 209, covering linear systems of ODEs and boundary value problems for the heat, wave, and Laplace equations. Supported students with material from MATH 207 and 208, and graded coursework.</p>
+          </article>
+          <article class="entry">
+            <div class="entry-top">
+              <h2 class="entry-title">Mathematics Tutor, CLUE</h2>
+              <span class="entry-meta">Tutoring</span>
+            </div>
+            <p class="entry-where">University of Washington &middot; Seattle &middot; Fall 2024 &ndash; Spring 2026</p>
+            <p class="entry-body">Tutored undergraduates across the calculus sequence and beyond.</p>
+          </article>
+          <article class="entry">
+            <div class="entry-top">
+              <h2 class="entry-title">Linear Algebra Undergraduate Reading Group</h2>
+              <span class="entry-meta">Reading Group</span>
+            </div>
+            <p class="entry-where">University of Washington &middot; 2024</p>
+            <p class="entry-body">Led a 25-plus-person group through Chapters 3 to 9 of Axler&rsquo;s <em>Linear Algebra Done Right</em>. Set the schedule, ran weekly meetings, and wrote and graded the problem sets.</p>
+            <a class="entry-link" href="https://discord.gg/xhWszXn8" target="_blank" rel="noopener">Reading group server &rarr;</a>
+          </article>
+          <article class="entry">
+            <div class="entry-top">
+              <h2 class="entry-title">Complex Analysis Undergraduate Reading Group</h2>
+              <span class="entry-meta">Reading Group</span>
+            </div>
+            <p class="entry-where">University of Washington &middot; 2024</p>
+            <p class="entry-body">My biggest one: over 30 undergraduates working through the first three chapters of Stein &amp; Shakarchi&rsquo;s <em>Complex Analysis</em>. I led the weekly meetings and wrote and graded the problem sets.</p>
+            <a class="entry-link" href="https://discord.gg/HBdsMHRS" target="_blank" rel="noopener">Reading group server &rarr;</a>
+          </article>
+          <article class="entry">
+            <div class="entry-top">
+              <h2 class="entry-title">Euler Characteristic of a Torus and the Utilities Problem</h2>
+              <span class="entry-meta">Presentation</span>
+            </div>
+            <p class="entry-where">Centralia High School &middot; Centralia, WA &middot; 2024</p>
+            <p class="entry-body">Talk for 30 advanced high school students on Euler&rsquo;s formula and surfaces of different genera, ending with a solution of the utilities problem on a torus.</p>
+          </article>
+          <article class="entry">
+            <div class="entry-top">
+              <h2 class="entry-title">Advanced Calculus Reading Group</h2>
+              <span class="entry-meta">Reading Group</span>
+            </div>
+            <p class="entry-where">University of Washington &middot; 2023</p>
+            <p class="entry-body">A smaller group of 15 working through the opening three chapters of Folland&rsquo;s <em>Advanced Calculus</em>. I ran the meetings, and set and graded the problem sets.</p>
+            <a class="entry-link" href="https://discord.gg/yGCUxBZW" target="_blank" rel="noopener">Reading group server &rarr;</a>
+          </article>
+          <article class="entry">
+            <div class="entry-top">
+              <h2 class="entry-title">STEM Tutoring &amp; Tutoring Center</h2>
+              <span class="entry-meta">Tutoring</span>
+            </div>
+            <p class="entry-where">Centralia College &middot; Centralia, WA &middot; 2020 &ndash; 2022</p>
+            <p class="entry-body">Tutored Calculus I&ndash;III, intermediate statistics, and human biology, and helped keep the tutoring center running.</p>
+          </article>
+          <article class="entry">
+            <div class="entry-top">
+              <h2 class="entry-title">Summer Credit Retrieval Assistant</h2>
+              <span class="entry-meta">Tutoring</span>
+            </div>
+            <p class="entry-where">Centralia High School &middot; Centralia, WA &middot; 2017 &amp; 2018</p>
+            <p class="entry-body">Helped students complete coursework over the summer and catch up on lagging skills.</p>
+          </article>
+        </div>
       </div>
     </main>
     <footer class="footer">

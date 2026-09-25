@@ -191,8 +191,14 @@ a.card:hover { transform: translateY(-4px); background: var(--glass-strong); box
 a.card:hover .card-arrow { opacity: 0.7; transform: translateX(0); }
 @keyframes cardIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Vertical "lead" card — narrow column (e.g. tutoring on About) */
-.card--lead { max-width: 340px; min-height: 200px; }
+/* Tutoring link on About: no box, thin rules above and below */
+.card--lead {
+  max-width: 520px; min-height: 0; padding: 20px 2px;
+  background: none; border: none; backdrop-filter: none; border-radius: 0;
+  border-top: 1px solid rgba(22, 24, 58, 0.14); border-bottom: 1px solid rgba(22, 24, 58, 0.14);
+}
+a.card--lead:hover { transform: none; background: none; box-shadow: none; }
+a.card--lead:hover .card-title { color: var(--accent); }
 
 /* ---- Section headings within a page ---- */
 .section-head {
@@ -214,16 +220,15 @@ a.card:hover .card-arrow { opacity: 0.7; transform: translateX(0); }
 /* ---- Numbered values list (About) ---- */
 .values { counter-reset: v; list-style: none; padding: 0; max-width: 76ch; }
 .values li {
-  position: relative; padding: 18px 18px 18px 60px; margin-bottom: 12px;
-  border-radius: 14px; background: var(--glass); border: 1px solid var(--glass-border);
-  backdrop-filter: blur(8px); font-size: 17.5px; line-height: 1.55; color: var(--ink-soft);
+  position: relative; padding: 16px 0 16px 46px; margin: 0;
+  border-top: 1px solid rgba(22, 24, 58, 0.14);
+  font-size: 17.5px; line-height: 1.55; color: var(--ink-soft);
 }
+.values li:last-child { border-bottom: 1px solid rgba(22, 24, 58, 0.14); }
 .values li::before {
   counter-increment: v; content: counter(v);
-  position: absolute; left: 18px; top: 18px;
-  width: 28px; height: 28px; border-radius: 50%;
-  display: grid; place-items: center;
-  background: var(--accent); color: #fff; font-size: 14px; font-weight: 600;
+  position: absolute; left: 4px; top: 15px;
+  font-family: 'Fraunces', serif; font-size: 19px; font-weight: 500; color: var(--accent);
 }
 
 /* ---- Links list (social etc.) ---- */
@@ -385,5 +390,5 @@ a.card:hover .card-arrow { opacity: 0.7; transform: translateX(0); }
 /* Figures blend into the page: transparent, no plate */
 .post-figure img, .post-figure svg { background: transparent; padding: 0; border: none; box-shadow: none; }
 
-/* ---- Secondary nav row: Rotations Interactive pill ---- */
+/* ---- Secondary nav row: Rotation Systems pill ---- */
 .subnav { flex-basis: 100%; display: flex; justify-content: flex-end; margin-top: -8px; }

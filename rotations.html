@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rotations, Austin Ulrigg</title>
+<title>Rotation Systems | Austin Ulrigg</title>
 
 <!-- Site fonts: Fraunces (display) + Inter Tight (body) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -252,14 +252,13 @@
     <nav class="tabs" aria-label="Primary">
         <a class="tab" href="index.html">About</a>
         <a class="tab" href="research.html">Research</a>
-        <a class="tab" href="cv.html">CV</a>
         <a class="tab" href="writing.html">Writing</a>
         <a class="tab" href="teaching.html">Teaching</a>
         <a class="tab" href="tutoring.html">Tutoring</a>
       </nav>
       <div class="subnav">
         <nav class="tabs" aria-label="Secondary">
-          <a class="tab is-active" href="rotations.html" aria-current="page">Rotations Interactive</a>
+          <a class="tab is-active" href="rotations.html" aria-current="page">Rotation Systems</a>
         </nav>
       </div>
   </header>
@@ -268,13 +267,11 @@
   <main class="main">
 
     <section class="lab-intro">
-      <p class="kicker">Interactive</p>
-      <h1 class="headline">Graph rotation systems</h1>
+      <h1 class="headline">Rotation Systems</h1>
       <p class="blurb">
-        An interactive explorer for rotation systems in topological graph theory,
-        edit a graph's local rotations, generate the resulting facial walks dart by dart,
-        and watch the fundamental polygons take shape. The full interaction is built out
-        here for $K_{3,3}$, $K_5$, $K_5 \setminus e$, and the octahedral graph.
+        A rotation system picks a cyclic order of the edges at each vertex, and this determines
+        an embedding of the graph on an orientable surface. Here you can change the rotations of
+        $K_{3,3}$, $K_5$, $K_5 \setminus e$, or the octahedral graph and see what faces and surface you get.
       </p>
     </section>
 
@@ -287,7 +284,6 @@
         <button class="seg-item" role="tab" aria-selected="false" data-graph="k5e">$K_5 \setminus e$</button>
         <button class="seg-item" role="tab" aria-selected="false" data-graph="oct">Octahedral</button>
       </div>
-      <p class="seg-note">Pick a graph to edit its rotation system and generate its facial walks.</p>
     </section>
 
     <!-- ===== 1 · Rotation-system editor ===== -->
@@ -296,14 +292,12 @@
       <div class="editor">
         <div class="epanel">
           <h3>Local rotations &sigma;<sub>v</sub></h3>
-          <p class="hint">Each row is a vertex's cyclic edge order. Tap&nbsp;↻ to cycle through its rotations; the count shows which one of the total.</p>
           <div id="rotList"></div>
         </div>
         <div class="epanel draw-wrap">
           <svg id="graphSvg" viewBox="55 30 370 340" role="img" aria-label="Standard drawing of K(3,3) with live local-rotation indicators"></svg>
         </div>
       </div>
-      <p class="editor-note">Note: each graph starts in its drawing's angular rotation, so the embedding shown isn't necessarily the minimum-genus one. The numbers on each edge give that vertex's exact cyclic order; the curved arrow shows its orientation. Cycle the local rotations (↻) to explore other embeddings.</p>
     </section>
 
     <!-- ===== 3 · Generate + facial walks (K_{3,3}) ===== -->

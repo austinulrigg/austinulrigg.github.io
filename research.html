@@ -9,6 +9,33 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .research-grid { display: grid; grid-template-columns: 300px 1fr; gap: 56px; align-items: start; }
+    .research-intro { position: sticky; top: 40px; }
+    .research-intro .blurb { font-size: 18px; line-height: 1.6; margin: 0; }
+    .entries { display: flex; flex-direction: column; }
+    .entry {
+      display: block; padding: 24px 4px; text-decoration: none; color: inherit;
+      border-top: 1px solid rgba(22, 24, 58, 0.18);
+      transition: transform 0.22s ease;
+    }
+    .entry:last-child { border-bottom: 1px solid rgba(22, 24, 58, 0.18); }
+    .entry-top { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; }
+    .entry-title { font-family: 'Fraunces', serif; font-size: 25px; font-weight: 500; line-height: 1.2; }
+    .entry-meta {
+      flex: none; font-size: 12.5px; font-weight: 600; letter-spacing: 0.09em;
+      text-transform: uppercase; color: var(--ink-faint); white-space: nowrap;
+    }
+    .entry-body { margin: 8px 0 0; font-size: 17px; line-height: 1.6; color: var(--ink-soft); max-width: 66ch; }
+    .entry:hover { transform: translateX(6px); }
+    .entry:hover .entry-title { color: var(--accent); }
+    @media (max-width: 900px) {
+      .research-grid { grid-template-columns: 1fr; gap: 10px; }
+      .research-intro { position: static; }
+      .entry-top { flex-direction: column; gap: 6px; }
+      .entry-meta { white-space: normal; }
+    }
+  </style>
 </head>
 <body class="theme-research">
   <div class="page">
@@ -17,41 +44,51 @@
       <nav class="tabs" aria-label="Primary">
         <a class="tab" href="index.html">About</a>
         <a class="tab is-active" href="research.html" aria-current="page">Research</a>
-        <a class="tab" href="cv.html">CV</a>
         <a class="tab" href="writing.html">Writing</a>
         <a class="tab" href="teaching.html">Teaching</a>
         <a class="tab" href="tutoring.html">Tutoring</a>
       </nav>
       <div class="subnav">
         <nav class="tabs" aria-label="Secondary">
-          <a class="tab" href="rotations.html">Rotations Interactive</a>
+          <a class="tab" href="rotations.html">Rotation Systems</a>
         </nav>
       </div>
     </header>
     <main class="main">
-      <div class="kicker">Topological graph theory</div>
-      <h1 class="headline">Research</h1>
-      <p class="blurb">My research interests are in topological graph theory, especially graph embeddings, orientable genus, rotation systems, and forbidden minors.</p>
-
-      <div class="cards">
-        <a class="card" href="post-genus-polynomial.html">
-          <div class="card-tag">Preprint &middot; 2026</div>
-          <div class="card-title">On the Genus Polynomial of Cubic Graphs</div>
-          <div class="card-body">The genus polynomial counts a cubic graph's embeddings by genus. It is a cycle-matroid invariant, the adjacency spectrum does not determine it, and I computed it for all 7,875,918 connected cubic graphs through 22 vertices.</div>
-          <span class="card-arrow">&rarr;</span>
-        </a>
-        <a class="card" href="post-genus-algorithm.html">
-          <div class="card-tag">Paper &middot; with A. Metzger &middot; Discrete Mathematics &middot; in SageMath</div>
-          <div class="card-title">An Efficient Genus Algorithm Based on Graph Rotations</div>
-          <div class="card-body">PAGE: a rotation-system algorithm that computes the orientable genus of any finite connected graph. We used it to determine the genus of the (3,12)-cage.</div>
-          <span class="card-arrow">&rarr;</span>
-        </a>
-        <a class="card" href="post-thesis.html">
-          <div class="card-tag">Honors thesis &middot; UW</div>
-          <div class="card-title">Graph Genera and Minors</div>
-          <div class="card-body">My undergraduate honors thesis on embedding graphs on orientable surfaces via rotation systems and forbidden minors, supervised by Fran&ccedil;ois Cl&eacute;ment.</div>
-          <span class="card-arrow">&rarr;</span>
-        </a>
+      <div class="research-grid">
+        <div class="research-intro">
+          <h1 class="headline">Research</h1>
+          <p class="blurb">My research interests are in topological graph theory, especially graph embeddings, orientable genus, rotation systems, and forbidden minors.</p>
+        </div>
+        <div class="entries">
+          <a class="entry" href="post-genus-polynomial.html">
+            <div class="entry-top">
+              <span class="entry-title">On the Genus Polynomial of Cubic Graphs</span>
+              <span class="entry-meta">Preprint &middot; 2026</span>
+            </div>
+            <p class="entry-body">I show that the genus polynomial of a 2-connected cubic graph depends only on its cycle matroid, and that the adjacency spectrum and the genus polynomial do not determine each other. I also computed it for all 7,875,918 connected cubic graphs through 22 vertices.</p>
+          </a>
+          <a class="entry" href="post-genus-algorithm.html">
+            <div class="entry-top">
+              <span class="entry-title">An Efficient Genus Algorithm Based on Graph Rotations</span>
+              <span class="entry-meta">With A. Metzger &middot; Discrete Mathematics &middot; 2026</span>
+            </div>
+            <p class="entry-body">Alexander Metzger and I wrote PAGE, an algorithm that computes the orientable genus of a connected graph by searching over its rotation systems. We used it to show that the <span style="white-space:nowrap">(3,12)-cage</span> has genus 17, and it is now in SageMath.</p>
+          </a>
+          <a class="entry" href="post-thesis.html">
+            <div class="entry-top">
+              <span class="entry-title">Graph Genera and Minors</span>
+              <span class="entry-meta">Honors thesis &middot; 2025</span>
+            </div>
+            <p class="entry-body">My undergraduate honors thesis, advised by Fran&ccedil;ois Cl&eacute;ment, on embedding graphs on surfaces. The later sections cover PAGE and the forbidden toroidal minors.</p>
+          </a>
+          <a class="entry" href="files/Austin_Ulrigg_CV.pdf" target="_blank" rel="noopener">
+            <div class="entry-top">
+              <span class="entry-title">Curriculum vitae</span>
+              <span class="entry-meta">PDF</span>
+            </div>
+          </a>
+        </div>
       </div>
     </main>
     <footer class="footer">
