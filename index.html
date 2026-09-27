@@ -12,6 +12,16 @@
   <style>
     body.theme-about .main { position: relative; }
     .side-col { position: absolute; top: 380px; right: 28px; width: 250px; display: flex; flex-direction: column; gap: 0; }
+    .cv-head {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+      padding: 0 2px 14px; margin-bottom: 2px; border-bottom: 2px solid var(--ink);
+      font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500;
+      color: var(--ink); text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .cv-head .cv-meta { font-family: 'Inter Tight', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-faint); transition: color 0.2s ease; }
+    .cv-head:hover, .cv-head:hover .cv-meta { color: var(--accent); }
+    .cv-head + .side-link { border-top: none; }
     .side-link {
       display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
       padding: 12px 2px; border-top: 1px solid rgba(22, 24, 58, 0.14);
@@ -120,7 +130,7 @@
         <div class="hero-photo" role="img" aria-label="Austin Ulrigg"></div>
         <div class="hero-text">
           <h1 class="headline">Hi, I'm Austin.</h1>
-          <p class="blurb">I recently finished my mathematics degree at the University of Washington. I'm interested in topological graph theory, especially graph embeddings, the genus of graphs, rotation systems, and forbidden minors. I am also interested in how people actually learn and do math.</p>
+          <p class="blurb">I recently finished my B.Sc. in mathematics at the University of Washington. I'm interested in topological graph theory, especially graph embeddings, the genus of graphs, rotation systems, and forbidden minors. I am also interested in how people actually learn and do math.</p>
         </div>
       </div>
 
@@ -151,6 +161,7 @@
       </ol>
 
       <div class="side-col">
+      <a class="cv-head" href="files/Austin_Ulrigg_CV.pdf" target="_blank" rel="noopener">Curriculum vitae <span class="cv-meta">PDF &#8599;</span></a>
       <a class="side-link" href="https://www.mathforaisafety.org/" target="_blank" rel="noopener">
         AI Safety for Mathematicians
         <span class="side-link-arrow">&#8599;</span>
