@@ -65,7 +65,7 @@
 
         <p>To attempt solving the problem, one could think of creating the following graph. Make one vertex for every $k$-element subset, and put an edge between two subsets exactly when they are disjoint. We call this graph the <em>Kneser graph</em> $K(n,k)$. Two vertices are joined by an edge exactly when a sorting must place them in separate groups. Equivalently, a valid group is an independent set of $K(n,k)$ and a sorting of every subset into $t$ valid groups is a coloring of $K(n,k)$ with $t$ colors. Kneser's conjecture is therefore $\chi(K(n,k))=n-2k+2$.</p>
 
-        <p>Here are some small examples. When $k=1$, any two different subsets are disjoint, so $K(n,1)$ is the complete graph $K_n$. Every vertex needs its own color, and the formula gives $n-2+2=n$. When $n=2k$, the only subset disjoint from a given one is its complement, so $K(2k,k)$ is a perfect matching. It needs two colors, and the formula gives $2k-2k+2=2$. The smallest Kneser graph that is neither of these is $K(5,2)$, drawn in Figure 1(a). This is the Petersen graph, which comes up as a counterexample in a lot of graph theory. It needs $3 = 5-4+2$ colors, so the conjecture is right here too.</p>
+        <p>For example, when $k=1$, any two different subsets are disjoint, so $K(n,1)$ is the complete graph $K_n$. When $n=2k$, each subset is disjoint only from its complement, so $K(2k,k)$ is a perfect matching. $K(5,2)$ is the Petersen graph, drawn in Figure 1(a).</p>
 
         <figure class="post-figure">
           <div class="fig-row">
@@ -90,15 +90,15 @@
 
         <h2>Intersecting families</h2>
 
-        <p>A group in which every two subsets share a book is called an <em>intersecting family</em>. So far we have asked how few groups we need. We can also ask how large one group can be. In the graph, a group is an independent set, so this asks for the <em>independence number</em> of $K(n,k)$, the size of its largest independent set.</p>
+        <p>A group where every two subsets share a book is called an <em>intersecting family</em>. We can also ask how large one of these can be. In the graph, this is the independence number of $K(n,k)$.</p>
 
-        <p>One large group is every subset that contains book $1$. A group like this is called a <em>star</em>, and it has $\binom{n-1}{k-1}$ subsets. The Erdős–Ko–Rado theorem says that no intersecting family is larger than a star, and that when $n > 2k$, the stars are the only intersecting families of that size. In the language of the graph, the independence number of $K(n,k)$ is $\binom{n-1}{k-1}$. For the Petersen graph this is $4$, and one example is $\{1,2\}$, $\{1,3\}$, $\{1,4\}$, $\{1,5\}$. Erdős, Ko, and Rado proved the theorem in 1938, before Kneser's exercise existed, but did not publish it until 1961.</p>
+        <p>Erdős, Ko, and Rado proved in 1938, and published in 1961, that an intersecting family has at most $\binom{n-1}{k-1}$ subsets, and that when $n > 2k$ the only families this large are the ones where every subset contains the same book. This was before Kneser's exercise, but it gives the independence number of $K(n,k)$.</p>
 
         <h2>The bipartite Kneser graphs</h2>
 
         <p>The <em>bipartite Kneser graph</em> $H(n,k)$, again with $n > 2k$, has the $k$-element subsets of $\{1,\dots,n\}$ on one side and the $(n-k)$-element subsets on the other, with an edge between $A$ and $B$ whenever $A \subseteq B$. A subset $A$ is contained in $B$ exactly when $A$ is disjoint from the complement of $B$, and the complement of $B$ is itself a $k$-element subset. So, by taking complements on one of the sides, we can see that $H(n,k)$ is the <em>bipartite double cover</em> of $K(n,k)$.</p>
 
-        <p>$H(5,2)$, drawn in Figure 1(b), is also called the Desargues graph, after Girard Desargues, a French mathematician from the 1600s and one of the founders of projective geometry. His best-known theorem is about two triangles. Match up the corners of one triangle with the corners of the other, and suppose the three lines joining matching corners all pass through one point. Then the three points where matching sides cross all lie on one line (Figure 3). A drawing of the theorem has ten points and ten lines, with three points on every line and three lines through every point. The Desargues graph has one vertex for each of these points and one for each line, with an edge whenever the point is on the line. The Fano plane from my <a href="post-matroids.html">post on matroids</a> is another drawing like this, with seven points and seven lines.</p>
+        <p>$H(5,2)$, shown in Figure 1(b), is also called the Desargues graph. Desargues' theorem says that if the three lines joining matching corners of two triangles meet at one point, then the three points where matching sides cross lie on one line (Figure 3). Drawing this gives ten points and ten lines, with three points on each line and three lines through each point. $H(5,2)$ has a vertex for each point and each line, and an edge when the point is on the line.</p>
 
         <figure class="post-figure">
           <img src="images/posts/kneser-config.svg" alt="Two triangles in perspective from a point O, with the three crossings of corresponding sides lying on a dashed line.">
