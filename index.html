@@ -11,16 +11,7 @@
   <style>
     body.theme-about .main { position: relative; }
     .side-col { position: absolute; top: 380px; right: 28px; width: 250px; display: flex; flex-direction: column; gap: 0; }
-    .cv-head {
-      display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
-      padding: 0 2px 14px; margin-bottom: 2px; border-bottom: 2px solid var(--ink);
-      font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500;
-      color: var(--ink); text-decoration: none;
-      transition: color 0.2s ease;
-    }
-    .cv-head .cv-meta { font-family: 'Inter Tight', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-faint); transition: color 0.2s ease; }
-    .cv-head:hover, .cv-head:hover .cv-meta { color: var(--accent); }
-    .cv-head + .side-link { border-top: none; }
+    .side-col > .side-link:first-child { border-top: none; }
     .side-link {
       display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
       padding: 12px 2px; border-top: 1px solid rgba(22, 24, 58, 0.14);
@@ -111,6 +102,7 @@
       <nav class="tabs" aria-label="Primary">
         <a class="tab is-active" href="index.html" aria-current="page">About</a>
         <a class="tab" href="research.html">Research</a>
+        <a class="tab" href="files/Austin_Ulrigg_CV.pdf" target="_blank" rel="noopener">CV</a>
         <a class="tab" href="writing.html">Writing</a>
         <a class="tab" href="teaching.html">Teaching</a>
         <a class="tab" href="tutoring.html">Tutoring</a>
@@ -160,7 +152,6 @@
       </ol>
 
       <div class="side-col">
-      <a class="cv-head" href="files/Austin_Ulrigg_CV.pdf" target="_blank" rel="noopener">Curriculum vitae <span class="cv-meta">PDF &#8599;</span></a>
       <a class="side-link" href="https://www.mathforaisafety.org/" target="_blank" rel="noopener">
         AI Safety for Mathematicians
         <span class="side-link-arrow">&#8599;</span>
