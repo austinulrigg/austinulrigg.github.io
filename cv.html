@@ -2,11 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=files/Austin_Ulrigg_CV.pdf">
-  <link rel="canonical" href="files/Austin_Ulrigg_CV.pdf">
-  <title>Redirecting… | Austin Ulrigg</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV | Austin Ulrigg</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .cv-wrap { max-width: 1100px; margin: 0 auto; }
+    .cv-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; }
+    .cv-heading .headline { margin: 0; }
+    .cv-document { display: block; width: 100%; height: 80vh; min-height: 420px; border: 1px solid var(--glass-border); border-radius: 16px; background: var(--glass); box-shadow: var(--shadow); }
+  </style>
 </head>
-<body>
-  <p><a href="files/Austin_Ulrigg_CV.pdf">Curriculum vitae (PDF)</a></p>
+<body class="theme-cv">
+  <div class="page">
+    <header class="header">
+      <a class="brand" href="index.html">Austin Ulrigg</a>
+      <nav class="tabs" aria-label="Primary">
+        <a class="tab" href="index.html">About</a>
+        <a class="tab" href="research.html">Research</a>
+        <a class="tab is-active" href="cv.html" aria-current="page">CV</a>
+        <a class="tab" href="writing.html">Writing</a>
+        <a class="tab" href="teaching.html">Teaching</a>
+        <a class="tab" href="tutoring.html">Tutoring</a>
+      </nav>
+      <div class="subnav">
+        <nav class="tabs" aria-label="Secondary">
+          <a class="tab" href="rotations.html">Rotation Systems</a>
+        </nav>
+      </div>
+    </header>
+    <main class="main">
+      <div class="cv-wrap">
+        <div class="cv-heading">
+          <h1 class="headline">CV</h1>
+          <a class="btn" href="files/Austin_Ulrigg_CV.pdf" download>Download PDF</a>
+        </div>
+        <iframe class="cv-document" src="files/Austin_Ulrigg_CV.pdf#view=FitH" title="Austin Ulrigg's CV"></iframe>
+      </div>
+    </main>
+    <footer class="footer">
+      <span>&copy; 2026 Austin Ulrigg</span>
+      <a href="https://github.com/austinulrigg" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:austinul@uw.edu">austinul@uw.edu</a>
+    </footer>
+  </div>
 </body>
 </html>
