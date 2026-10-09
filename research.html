@@ -26,6 +26,7 @@
       text-transform: uppercase; color: var(--ink-faint); white-space: nowrap;
     }
     .entry-body { margin: 8px 0 0; font-size: 17px; line-height: 1.6; color: var(--ink-soft); max-width: 66ch; }
+    .entry-publication { display: block; margin-top: 8px; font-size: 12.5px; line-height: 1.4; color: var(--ink-faint); }
     .entry:hover { transform: translateX(6px); }
     .entry:hover .entry-title { color: var(--accent); }
     @media (max-width: 900px) {
@@ -61,19 +62,27 @@
           <p class="blurb">My research interests are in topological graph theory, especially graph embeddings, orientable genus, rotation systems, and forbidden minors.</p>
         </div>
         <div class="entries">
+          <a class="entry" href="post-pisanski.html">
+            <div class="entry-top">
+              <span class="entry-title">Resolving Pisanski&rsquo;s Conjecture</span>
+              <span class="entry-meta">With A. Metzger &middot; Preprint &middot; 2026</span>
+            </div>
+            <p class="entry-body">We prove Pisanski's conjecture on quadrilateral embeddings of regular bipartite graphs. For integers <i>m</i>&nbsp;&ge;&nbsp;<i>d</i>&nbsp;&ge;&nbsp;4 with 4&nbsp;|&nbsp;<i>md</i>, we construct both a connected simple <i>d</i>-regular bipartite graph <i>G</i> with <i>m</i> vertices in each bipartition class and an orientable quadrangulation.</p>
+          </a>
           <a class="entry" href="post-kneser-genus.html">
             <div class="entry-top">
               <span class="entry-title">The Genus of Bipartite Kneser Graphs</span>
-              <span class="entry-meta">With A. Metzger &middot; arXiv preprint &middot; 2026</span>
+              <span class="entry-meta">With A. Metzger &middot; Preprint &middot; 2026</span>
             </div>
             <p class="entry-body">Alexander Metzger and I construct a vertex-transitive orientable quadrangulation of the bipartite Kneser graph <span style="white-space:nowrap">H(h,2)</span> for every prime h&nbsp;&gt;&nbsp;3 with <span style="white-space:nowrap">h &equiv; 3 (mod 8)</span>. It attains the Euler lower bound and therefore determines the genus.</p>
+            <span class="entry-publication">Submitted to Journal of Graph Theory</span>
           </a>
           <a class="entry" href="post-genus-algorithm.html">
             <div class="entry-top">
               <span class="entry-title">An Efficient Genus Algorithm Based on Graph Rotations</span>
               <span class="entry-meta">With A. Metzger &middot; Discrete Mathematics &middot; 2026</span>
             </div>
-            <p class="entry-body">Alexander Metzger and I wrote PAGE, an algorithm that computes the orientable genus of a connected graph by searching over its rotation systems. We used it to show that the <span style="white-space:nowrap">(3,12)-cage</span> has genus 17, and it is now in SageMath.</p>
+            <p class="entry-body">Alexander Metzger and I wrote PAGE, an algorithm that computes the orientable genus of a connected graph by searching over its rotation systems. We used it to show that the <span style="white-space:nowrap">(3,12)-cage</span> has genus 17, and it is now in SageMath and used by the House of Graphs to compute graph genus.</p>
           </a>
           <a class="entry" href="post-thesis.html">
             <div class="entry-top">
