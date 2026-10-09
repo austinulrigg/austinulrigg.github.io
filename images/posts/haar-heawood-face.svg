@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="410" height="330" viewBox="0 0 410 330" role="img" aria-label="A six-sided facial walk in the Heawood graph">
+<style>text{font-family:Georgia,Times,serif;fill:#16183a;font-size:21px} .sub{font-size:14px}</style>
+<path d="M143.50,53.01 L266.50,53.01" stroke="#22735a" stroke-width="2.3" fill="none" />
+<path d="M206.10,50.01 L213.10,53.01 L206.10,56.01" fill="none" stroke="#22735a" stroke-width="2" />
+<text x="205.00" y="71.01" dominant-baseline="middle" text-anchor="middle" style="fill:#22735a;font-size:20px">0</text>
+<path d="M275.64,58.13 L336.86,157.89" stroke="#345ea5" stroke-width="2.3" fill="none" />
+<path d="M309.20,107.07 L310.30,114.61 L304.08,110.21" fill="none" stroke="#345ea5" stroke-width="2" />
+<text x="290.43" y="116.60" dominant-baseline="middle" text-anchor="middle" style="fill:#345ea5;font-size:20px">1</text>
+<path d="M336.86,168.11 L275.64,267.87" stroke="#855298" stroke-width="2.3" fill="none" />
+<path d="M308.42,220.19 L302.20,224.59 L303.30,217.06" fill="none" stroke="#855298" stroke-width="2" />
+<text x="290.43" y="209.40" dominant-baseline="middle" text-anchor="middle" style="fill:#855298;font-size:20px">3</text>
+<path d="M266.50,272.99 L143.50,272.99" stroke="#22735a" stroke-width="2.3" fill="none" />
+<path d="M203.90,275.99 L196.90,272.99 L203.90,269.99" fill="none" stroke="#22735a" stroke-width="2" />
+<text x="205.00" y="254.99" dominant-baseline="middle" text-anchor="middle" style="fill:#22735a;font-size:20px">0</text>
+<path d="M134.36,267.87 L73.14,168.11" stroke="#345ea5" stroke-width="2.3" fill="none" />
+<path d="M100.80,218.93 L99.70,211.39 L105.92,215.79" fill="none" stroke="#345ea5" stroke-width="2" />
+<text x="119.57" y="209.40" dominant-baseline="middle" text-anchor="middle" style="fill:#345ea5;font-size:20px">1</text>
+<path d="M73.14,157.89 L134.36,58.13" stroke="#855298" stroke-width="2.3" fill="none" />
+<path d="M101.58,105.81 L107.80,101.41 L106.70,108.94" fill="none" stroke="#855298" stroke-width="2" />
+<text x="119.57" y="116.60" dominant-baseline="middle" text-anchor="middle" style="fill:#855298;font-size:20px">3</text>
+<circle cx="137.50" cy="53.01" r="4.6" fill="#16183a" stroke="#16183a" stroke-width="1.5" />
+<text x="125.50" y="30.50" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">A</tspan><tspan class="sub" dy="5">0</tspan></text>
+<circle cx="272.50" cy="53.01" r="4.6" fill="#e1ede5" stroke="#16183a" stroke-width="1.5" />
+<text x="284.50" y="30.50" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">B</tspan><tspan class="sub" dy="5">0</tspan></text>
+<circle cx="340.00" cy="163.00" r="4.6" fill="#16183a" stroke="#16183a" stroke-width="1.5" />
+<text x="364.00" y="163.00" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">A</tspan><tspan class="sub" dy="5">6</tspan></text>
+<circle cx="272.50" cy="272.99" r="4.6" fill="#e1ede5" stroke="#16183a" stroke-width="1.5" />
+<text x="284.50" y="295.50" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">B</tspan><tspan class="sub" dy="5">2</tspan></text>
+<circle cx="137.50" cy="272.99" r="4.6" fill="#16183a" stroke="#16183a" stroke-width="1.5" />
+<text x="125.50" y="295.50" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">A</tspan><tspan class="sub" dy="5">2</tspan></text>
+<circle cx="70.00" cy="163.00" r="4.6" fill="#e1ede5" stroke="#16183a" stroke-width="1.5" />
+<text x="46.00" y="163.00" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">B</tspan><tspan class="sub" dy="5">3</tspan></text>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="195" viewBox="0 0 400 195" role="img" aria-label="Dipole with three edges labeled 0,1,3 in Z7">
+<style>text{font-family:Georgia,Times,serif;fill:#16183a;font-size:21px} .sub{font-size:14px}</style>
+<defs><marker id="m0" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#22735a" stroke-width="1.1"/></marker><marker id="m1" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#345ea5" stroke-width="1.1"/></marker><marker id="m2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#855298" stroke-width="1.1"/></marker></defs>
+<path d="M70,95 Q135,35.0 200,35.0 Q265,35.0 330,95" fill="none" stroke="#22735a" stroke-width="2.3" marker-mid="url(#m0)"/>
+<text x="200" y="15" text-anchor="middle" style="fill:#22735a">0</text>
+<path d="M70,95 Q135,95 200,95.0 Q265,95 330,95" fill="none" stroke="#345ea5" stroke-width="2.3" marker-mid="url(#m1)"/>
+<text x="200" y="79" text-anchor="middle" style="fill:#345ea5">1</text>
+<path d="M70,95 Q135,155.0 200,155.0 Q265,155.0 330,95" fill="none" stroke="#855298" stroke-width="2.3" marker-mid="url(#m2)"/>
+<text x="200" y="179" text-anchor="middle" style="fill:#855298">3</text>
+<circle cx="70.00" cy="95.00" r="4.6" fill="#16183a" stroke="#16183a" stroke-width="1.5"/>
+<circle cx="330.00" cy="95.00" r="4.6" fill="#e1ede5" stroke="#16183a" stroke-width="1.5"/>
+<text x="48.00" y="96.00" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">A</tspan><tspan class="sub" dy="5"></tspan></text>
+<text x="352.00" y="96.00" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">B</tspan><tspan class="sub" dy="5"></tspan></text>
+</svg>

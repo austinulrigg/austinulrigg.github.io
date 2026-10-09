@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haar Graphs | Austin Ulrigg</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .fig-row { display:flex; gap:30px; align-items:center; justify-content:center; flex-wrap:wrap; }
+    .fig-row figure { margin:0; text-align:center; flex:1 1 250px; max-width:320px; }
+    .fig-row img { display:block; margin:0 auto; }
+    .subcap { font-size:0.82rem; color:var(--ink-faint); margin-top:10px; }
+    .fn-list { font-size:0.9rem; color:var(--ink-soft); border-top:1px solid var(--glass-border); margin-top:40px; padding-top:14px; }
+    .fn-list li { margin-bottom:4px; }
+    sup.fn-ref a { text-decoration:none; color:var(--accent); }
+    .post-figure img.dipole { max-width:400px; }
+    .post-figure img.face { max-width:410px; }
+    .post-figure img.seed { max-width:740px; }
+    .post-figure img.heawood { max-width:700px; }
+    .post-figure img.current { max-width:560px; }
+    .post-figure img.current-detail { max-width:740px; }
+    .post-figure img.rotations { max-width:700px; }
+    .post-figure img.torus { max-width:740px; }
+    .matching-key { display:flex; gap:24px; justify-content:center; margin-top:15px; font-size:14px; color:var(--ink-soft); }
+    .matching-key > span::before { content:""; display:inline-block; width:23px; height:3px; margin:0 7px 4px 0; background:var(--edge); }
+    .prose .opening-aside { font-size:15.5px; line-height:1.7; font-style:italic; margin:10px 0 26px; }
+    @media (max-width:560px) { .fig-row { gap:27px; } }
+  </style>
+</head>
+<body class="theme-writing">
+  <div class="page">
+    <header class="header">
+      <a class="brand" href="index.html">Austin Ulrigg</a>
+      <nav class="tabs" aria-label="Primary">
+        <a class="tab" href="index.html">About</a>
+        <a class="tab" href="research.html">Research</a>
+        <a class="tab" href="files/Austin_Ulrigg_CV.pdf" target="_blank" rel="noopener">CV</a>
+        <a class="tab is-active" href="writing.html" aria-current="page">Writing</a>
+        <a class="tab" href="teaching.html">Teaching</a>
+        <a class="tab" href="tutoring.html">Tutoring</a>
+      </nav>
+      <div class="subnav"><nav class="tabs" aria-label="Secondary">
+        <a class="tab" href="rotations.html">Rotation Systems</a>
+      </nav></div>
+    </header>
+    <main class="main">
+      <div class="post-wrap">
+      <a class="back-link" href="writing.html">&larr; Writing</a>
+      <div class="post-head">
+        <div class="kicker">Expository &middot; October 2026</div>
+        <h1 class="headline">Haar <em>Graphs</em></h1>
+      </div>
+
+      <article class="prose">
+        <p class="opening-aside" lang="de">Keine Sorge, meine deutschen Leser, hier geht es nicht um Haare oder das <a href="https://en.wikipedia.org/wiki/Hairy_ball_theorem" target="_blank" rel="noopener">Hairy-Ball-Theorem</a>.</p>
+
+        <p>Seven graph theorists want to meet for coffee. They agree to meet three at a time and, naturally, require every pair to meet exactly once. How should we choose the groups?</p>
+
+        <p>Each meeting covers three of the $\binom{7}{2}=21$ pairs, so we need seven meetings. Each person has six others to meet, two at a time, so everyone must attend three meetings.</p>
+
+        <p>One way to give everyone three meetings is to number the people $0,1,\ldots,6$ around a circle, choose a triple, and move all three choices one place clockwise for each of the next six meetings. In other words, add $1$ to each number modulo $7$. We only need to find a triple whose cyclic shifts never repeat a pair.</p>
+
+        <p>Our first guess might be $\{0,1,2\}$. Adding $1$ gives $\{1,2,3\}$, so people $1$ and $2$ already meet twice.</p>
+
+        <p>Any two names are one, two, or three steps apart around the circle, counting in whichever direction is shorter. The seven cyclic shifts of a pair give all seven pairs at that distance. So, if the three pairs in our triple have different distances, no pair will repeat. The triple $\{0,1,3\}$ does this. The names $0$ and $1$ are one step apart, $1$ and $3$ are two, and $0$ and $3$ are three.</p>
+
+        <figure class="post-figure">
+          <img class="seed" src="images/posts/haar-triples.svg?v=names-current-1" alt="Mohar, Erdős, Steinerberger, Ringel, Youngs, Pisanski, and Euler are numbered 0 through 6 around a circle. The first meeting selects 0, 1, and 3. Moving all three choices one place clockwise selects 1, 2, and 4.">
+          <figcaption>Figure 1. The first meeting and its first cyclic shift.</figcaption>
+        </figure>
+
+        <p>The seven meetings are</p>
+
+        $$\begin{gathered}
+          \{0,1,3\},\quad\{1,2,4\},\quad\{2,3,5\},\quad\{3,4,6\},\\
+          \{4,5,0\},\quad\{5,6,1\},\quad\{6,0,2\}.
+        \end{gathered}$$
+
+        <p>Because they are graph theorists, they want to record attendance in a graph. Thus, we make a vertex $A_i$ for meeting $\{i,i+1,i+3\}$ and a vertex $B_j$ for person $j$. Join them when person $j$ attends meeting $i$, reading subscripts modulo $7$. The resulting graph is called the <em>Heawood graph</em>.</p>
+
+        <figure class="post-figure">
+          <img class="heawood" src="images/posts/haar-heawood.svg?v=names-current-1" alt="The Heawood graph. Solid vertices represent meetings and hollow vertices represent people, with the seven graph theorists names beside their B labels. A_i is joined to B_i, B_(i+1), and B_(i+3), modulo 7.">
+          <div class="matching-key"><span style="--edge:#22735a">$0$</span><span style="--edge:#345ea5">$1$</span><span style="--edge:#855298">$3$</span></div>
+          <figcaption>Figure 2. The graph of our seven meetings.</figcaption>
+        </figure>
+
+        <p>Each meeting has three people and each person attends three meetings, so every vertex has degree three. The graph is <em>bipartite</em>, with meetings in one class and people in the other. A four-cycle would mean that two people attended the same two meetings.</p>
+
+        <p>We have been adding modulo $7$, so our labels belong to the cyclic group $\mathbb Z_7$. All twenty-one edges are determined by $S=\{0,1,3\}$, by the rule</p>
+
+        $$A_i\sim B_j\quad\Longleftrightarrow\quad j-i\in S.$$
+
+        <p>We chose $S$ to solve the coffee problem. But if we are just interested in the graph,<sup class="fn-ref"><a href="#fn1" id="fnr1">1</a></sup> could we do this for any subset $S$? And could we replace $\mathbb Z_7$ by a different group? In fact, the same construction works for any finite group.</p>
+
+        <p>For a finite group $\Gamma$ and a subset $S\subseteq\Gamma$, make two disjoint sets of vertices</p>
+
+        $$\{A_g\mid g\in\Gamma\}\ \cup\ \{B_g\mid g\in\Gamma\},$$
+
+        <p>and join $A_g$ to $B_{gs}$ for each $s\in S$. This is the <em>Haar graph</em> $H(\Gamma,S)$, and $S$ is its <em>connection set</em>. Equivalently, $A_g\sim B_{g'}$ exactly when $g^{-1}g'\in S$. In an additive group, this becomes $g'-g\in S$, so our example is $H(\mathbb Z_7,\{0,1,3\})$. When $\Gamma$ is cyclic, these are called <em>cyclic Haar graphs</em>.</p>
+
+        <p>Each label $s$ gives one edge at every vertex, connecting $A_g$ to $B_{gs}$ and $B_g$ to $A_{gs^{-1}}$. Thus, the graph is simple, bipartite, and $|S|$-regular, with $2|\Gamma|$ vertices and $|\Gamma||S|$ edges. The edges of any one label form a perfect matching, as the colors in Figure 2 show.</p>
+
+        <p>Hladnik, Marušič, and Pisanski studied these graphs for abelian groups in <a href="https://doi.org/10.1016/S0012-365X(01)00064-4" target="_blank" rel="noopener"><em>Cyclic Haar graphs</em> (2002)</a>. Estélyi and Pisanski later considered arbitrary finite groups in <a href="https://www.combinatorics.org/ojs/index.php/eljc/article/view/v23i3p10" target="_blank" rel="noopener"><em>Which Haar graphs are Cayley graphs?</em> (2016)</a>.</p>
+
+        <p>Adding $1$ modulo $7$ to every subscript takes an edge such as $A_0B_3$ to $A_1B_4$. It preserves adjacency, giving an <em>automorphism</em>, a bijection of the vertices preserving edges. We can do the same thing in any Haar graph. Left multiplication by $h\in\Gamma$ sends</p>
+
+        $$A_gB_{gs}\longmapsto A_{hg}B_{hgs}=A_{hg}B_{(hg)s}.$$
+
+        <p>Exactly one left multiplication takes $A_g$ to a given $A_{g'}$, namely multiplication by $g'g^{-1}$. The same holds in the $B$-class. We say that $\Gamma$ acts <em>simply transitively</em>, or <em>regularly</em>, on each class.</p>
+
+        <p>We can also use this observation in reverse. Suppose a bipartite graph has a group $\Gamma$ acting by automorphisms, simply transitively on each class. Choose a vertex $A$ in one class and $B$ in the other. Every vertex then has a unique label $A_g=gA$ or $B_g=gB$. Take $S$ to consist of the elements $s$ for which $A\sim sB$. Applying $g^{-1}$ shows that $gA\sim g'B$ exactly when $g^{-1}g'\in S$. Thus, the graph is $H(\Gamma,S)$.</p>
+
+        <p>We could also try using just one copy of $\Gamma$, again joining $g$ to $gs$. If $S$ contains the inverse of each of its elements and does not contain the identity, this gives a simple undirected <em>Cayley graph</em> $\operatorname{Cay}(\Gamma,S)$. Taking its <em>bipartite double cover</em>, as in <a href="https://austinulrigg.com/post-kneser.html">Kneser's Exercise</a>, makes two copies $A_g$ and $B_g$ of each vertex $g$. Each edge from $g$ to $h$ becomes $A_gB_h$ and $A_hB_g$, so we get exactly $H(\Gamma,S)$.</p>
+
+        <p>The choice of $S$ also affects whether the graph is connected. For example, $H(\mathbb Z_7,\{1\})$ consists of seven separate edges, even though $1$ generates $\mathbb Z_7$. To reach another $A$-vertex, we first follow an edge labeled $s$ to the $B$-class, then return along one labeled $t$, giving</p>
+
+        $$A_g\longrightarrow B_{gs}\longrightarrow A_{gst^{-1}}.$$
+
+        <p>Repeating these pairs of steps from $A_{1_\Gamma}$ reaches exactly the $A$-vertices indexed by the subgroup generated by $SS^{-1}=\{st^{-1}\mid s,t\in S\}$. Thus, for nonempty $S$, the graph is connected exactly when $SS^{-1}$ generates $\Gamma$. If $1_\Gamma\in S$, this is equivalent to $S$ generating $\Gamma$. Our coffee graph is connected because $S$ contains $0$ and the generator $1$.</p>
+
+        <p>The edge labels are also useful when building a rotation system. Choose a cyclic order $\alpha$ on $S$ and order the edges at every $A$-vertex by their labels. Each label occurs on exactly one incident edge, so this gives a local rotation. Do the same at the $B$-vertices with another order $\beta$, and we have a rotation system. Left multiplication preserves each edge label, taking $A_gB_{gs}$ to $A_{hg}B_{(hg)s}$, so it also preserves these orders.</p>
+
+        <p>Our graph has fourteen vertices, each with two possible cyclic orders. That gives $2^{14}$ rotation systems if we choose the orders separately. But if we use $\alpha$ at every $A$-vertex and $\beta$ at every $B$-vertex, there are just two choices for each, giving four rotation systems to try.</p>
+
+        <p>We can keep track of these orders on a much smaller graph, with one vertex $A$, one vertex $B$, and one edge for each $s\in S$. This graph of parallel edges is a <em>dipole</em>, with the orders $\alpha$ and $\beta$ at its two vertices.</p>
+
+        <figure class="post-figure">
+          <img class="dipole" src="images/posts/haar-heawood-dipole.svg" alt="A dipole with vertices A and B and three parallel edges directed from A to B, labeled 0, 1, and 3 in Z7.">
+          <figcaption>Figure 3. The dipole for $S=\{0,1,3\}$.</figcaption>
+        </figure>
+
+        <p id="voltage-current">Figure 3 is an example of a <em>voltage graph</em>. The smaller graph is called the <em>base graph</em>. Choose a direction for each of its edges and label it with an element of a group $\Gamma$. This label is the <em>voltage</em>. Reading an edge in the opposite direction replaces its label by its inverse. In an additive group, it changes the sign.</p>
+
+        <p>To build the <em>derived graph</em>, make a copy $u_g$ of each base vertex $u$ for every $g\in\Gamma$. An arrow $u\to v$ with voltage $s$ gives an edge $u_gv_{gs}$ for each $g$. Thus, the label tells us which copy of $v$ to join to a given copy of $u$. For our dipole, the labels $0$, $1$, and $3$ give the three colored matchings in Figure 2. A Haar graph is exactly the derived graph of a dipole with one voltage for each element of $S$.</p>
+
+        <figure class="post-figure">
+          <img class="current-detail" src="images/posts/haar-voltage-matching.svg?v=interleaved-1" alt="A base edge from A to B with voltage 1 in Z7 gives seven derived edges from A_i to B_(i+1). The B vertices carry the seven graph theorists names beside their numbers.">
+          <figcaption>Figure 4. One voltage gives a perfect matching.</figcaption>
+        </figure>
+
+        <p>We can also choose rotations at the base vertices. Each copy then gets the same cyclic order of the corresponding edge ends. For our dipole, these are the two orders $\alpha$ and $\beta$.</p>
+
+        <p>A walk in the base graph determines a walk in the derived graph once we choose a copy of its starting vertex. This is called a <em>lift</em>. For example, take edge $0$ forward and edge $1$ backward in the dipole. The backward step contributes $-1$. The base walk returns to $A$, but its lift from $A_0$ ends at $A_6$.</p>
+
+        <figure class="post-figure">
+          <img class="current-detail" src="images/posts/haar-voltage-walk.svg?v=interleaved-1" alt="A closed base walk takes edge 0 from A to B and edge 1 backward from B to A. Its signed voltages are 0 and minus 1. The lifted walk goes from A0 to B0, named Mohar, and ends at A6 rather than A0.">
+          <figcaption>Figure 5. A closed base walk whose lift does not close.</figcaption>
+        </figure>
+
+        <p>Each pair of steps subtracts $1$ modulo $7$, so seven repetitions give a fourteen-cycle. More generally, multiply the voltages along a walk in the order they are encountered, using inverses when traveling backward. This product is its <em>net voltage</em>. A closed base walk lifts to a closed walk exactly when its net voltage is the identity. For additive groups, we add the labels instead.</p>
+
+        <p id="current-graphs">A <em>current graph</em> starts with an embedded graph whose directed edges have group labels, called <em>currents</em>. Reversing an edge inverts its current. For example, take the dipole below, with currents $1$, $2$, and $4$ in $\mathbb Z_7$, all directed from $u$ to $v$. The cyclic order $(1\ 2\ 4)$ at both vertices specifies an orientable cellular embedding.</p>
+
+        <figure class="post-figure">
+          <img class="current" src="images/posts/haar-current.svg?v=names-current-2" alt="A current graph with currents 1, 2, and 4 directed from u to v in Z7. Both vertices have cyclic order 1, 2, 4. Tracing its single face reads 1, minus 2, 4, minus 1, 2, minus 4.">
+          <figcaption>Figure 6. The rotations specify a single face.</figcaption>
+        </figure>
+
+        <p>Let's trace a face of this embedding. Start along edge $1$ from $u$ to $v$. Edge $2$ comes next at $v$, so we take it backward to $u$. Edge $4$ comes next at $u$, so we take it forward to $v$. Continuing this way gives $1,-2,4,-1,2,-4$. We have used both directions of every edge and returned to the starting dart, so there is only one face.</p>
+
+        <p>Cut this face open as in Figure 7(a) and put a new vertex $f$ inside it. Draw a segment from $f$ to the middle of each of the six sides. The sides marked $1$ and $-1$ are two copies of the same original edge. When we join them back together, their two segments make a single edge from $f$ back to $f$, crossing edge $1$. The same happens with $2$ and $-2$, and with $4$ and $-4$. We get one vertex and three loops. This is the <em>dual</em> of our original embedding.</p>
+
+        <figure class="post-figure">
+          <img class="current-detail" src="images/posts/haar-current-dual.svg?v=concrete-current-1" alt="The current graph's single face is cut open into a hexagon with successive labels 1, minus 2, 4, minus 1, 2, minus 4. Six colored segments connect a new vertex f to the sides. Joining each pair of sides with opposite labels connects its two segments into one loop at f. The three resulting loops appear on the right.">
+          <figcaption>Figure 7. From the current graph to its dual.</figcaption>
+        </figure>
+
+        <p>Now give these loops voltages $1$, $2$, and $4$, with the directions shown in Figure 7(b). For the green loop, leaving $f$ along the upper segment follows the arrows and gives voltage $1$. Leaving along the lower segment goes around the same loop backward and gives voltage $-1$. Reading the signed labels clockwise around $f$ gives $1,-2,4,-1,2,-4$, in the same order as around the original face.</p>
+
+        <p>The voltage construction replaces $f$ by seven vertices $f_0,\ldots,f_6$, which we'll just call $0,\ldots,6$. The loop with voltage $1$ gives an edge from $i$ to $i+1$ for every $i$, modulo $7$. For $i=0$ this joins $0$ to $1$, and for $i=6$ it joins $6$ to $0$. Thus $0$ has neighbors $1$ and $6$ from this loop. The loop with voltage $2$ gives it neighbors $2$ and $5$, and the loop with voltage $4$ gives it neighbors $4$ and $3$. In the cyclic order from Figure 7(b), these neighbors occur as $(1\ 5\ 4\ 6\ 2\ 3)$. At vertex $i$, we add $i$ to each entry, giving</p>
+
+        $$(i+1,\ i+5,\ i+4,\ i+6,\ i+2,\ i+3).$$
+
+        <figure class="post-figure">
+          <img class="current-detail" src="images/posts/haar-current-rotations.svg?v=concrete-current-1" alt="Two local rotations of the derived K7, centered at the numbers 0 and 1. Names appear beside the neighboring vertices. At 0 the clockwise neighbors are 1, 5, 4, 6, 2, 3. At 1 they are 2, 6, 5, 0, 3, 4. Adding 1 to every label gives the second rotation.">
+          <figcaption>Figure 8. Adding $1$ to every label gives the next rotation.</figcaption>
+        </figure>
+
+        <p>Each vertex is adjacent to all six others, so the derived graph is $K_7$. We can trace one of its faces directly. Start with $0\to1$. In the rotation at $1$, the neighbor after $0$ is $3$, so next we take $1\to3$. At $3$, the neighbor after $1$ is $0$, and at $0$, the neighbor after $3$ is $1$. We have returned to the starting dart after tracing the triangle $0,1,3,0$.</p>
+
+        <p>The changes in vertex label along this triangle are $1,2,4$, the currents leaving $u$ in their cyclic order. In the dual embedding, there is a face containing $u$. Its boundary crosses the three original edges at $u$, traversing the loops with voltages $1,2,4$. Since we copied the dual rotations, following this boundary in the derived graph gives the same increments. Their sum is $0$ modulo $7$, so three steps return us to our starting vertex. At $v$, the outgoing currents are $-1,-2,-4$, which also sum to $0$ and give the triangle $0,6,4,0$. The condition that the outgoing currents sum to $0$ at each vertex is called <em>Kirchhoff's current law</em>.</p>
+
+        <figure class="post-figure">
+          <img class="current-detail" src="images/posts/haar-current-triangles.svg?v=names-removed-1" alt="Two triangular faces in the derived K7. The first goes from 0 to 1 to 3 and back to 0, using increments 1, 2, 4. The second goes from 0 to 6 to 4 and back to 0, using increments minus 1, minus 2, minus 4.">
+          <figcaption>Figure 9. Kirchhoff's law closes both triangles modulo $7$.</figcaption>
+        </figure>
+
+        <p>Adding each element of $\mathbb Z_7$ to the vertex labels gives seven triangles of each kind. These are the fourteen faces. So this two-vertex current graph has given us a triangular embedding of $K_7$.</p>
+
+        <p>Gustin developed the current-graph method in 1963, and it became central to Ringel and Youngs's 1968 solution of the orientable Heawood map-coloring problem. <a href="https://doi.org/10.1016/0012-365X(74)90006-5" target="_blank" rel="noopener">Gross (1974)</a> introduced voltage graphs as a dual approach.</p>
+
+        <p>Going back to our Haar graph, let's try the same cyclic order on $S=\{0,1,3\}$ at both types of vertex,</p>
+
+        $$\alpha=\beta=(0\ 1\ 3).$$
+
+        <figure class="post-figure">
+          <img class="rotations" src="images/posts/haar-local-rotations.svg" alt="At A_i the clockwise edge labels 0, 1, 3 lead to B_i, B_(i+1), B_(i+3). At B_i the same clockwise labels lead to A_i, A_(i-1), A_(i-3).">
+          <figcaption>Figure 10. The same label order at both types of vertex.</figcaption>
+        </figure>
+
+        <p>Starting with $A_0\to B_0$, label $1$ comes next at $B_0$, so we go to $A_{-1}=A_6$. Label $3$ comes next at $A_6$, taking us to $B_2$. Following the two rotations gives the face in Figure 11.</p>
+
+        <figure class="post-figure">
+          <img class="face" src="images/posts/haar-heawood-face.svg?v=names-removed-1" alt="The facial walk A0 to B0 to A6 to B2 to A2 to B3 and back to A0, with edge labels 0, 1, 3, 0, 1, and 3.">
+          <figcaption>Figure 11. A facial walk of length six.</figcaption>
+        </figure>
+
+        <p>To do the same calculation for any Haar graph, write $(g,s)_A$ for $A_g\to B_{gs}$ and $(g,s)_B$ for $B_g\to A_{gs^{-1}}$. Let $\tau$ reverse a dart and $R$ take the next dart in the local rotation. The face permutation is $F=R\tau$, with composition read from right to left. It crosses the edge to $B_{gs}$ and takes the next label in the $B$-rotation, giving</p>
+
+        $$F(g,s)_A=(gs,\beta(s))_B.$$
+
+        <p>As in our connectivity calculation, two steps bring us back to the $A$-class. Crossing back multiplies the subscript by $\beta(s)^{-1}$, and $\alpha$ gives the next label, so</p>
+
+        $$F^2(g,s)_A=\bigl(gs\beta(s)^{-1},\alpha\beta(s)\bigr)_A.$$
+
+        <p>The two coordinates tell us where we are and which edge comes next. A face closes when both return to their starting values. For every face to have length four, this must happen after two applications of $F^2$ at every $A$-dart, and not after one. So we can test a choice of $\alpha$ and $\beta$ by following these two coordinates.</p>
+
+        <p>In our example, the edge label follows $0\to3\to1\to0$ under $\alpha\beta$. It returns for the first time after three applications of $F^2$, and the total change to the vertex subscript is</p>
+
+        $$(0-1)+(3-0)+(1-3)=0\pmod 7.$$
+
+        <p>The same calculation works starting at label $1$ or $3$, so every face has length six. Adding each element of $\mathbb Z_7$ to all the vertex subscripts in Figure 11 gives the seven faces shown below.</p>
+
+        <figure class="post-figure">
+          <img class="torus" src="images/posts/haar-torus-domain.svg?v=names-removed-1" alt="The Heawood graph drawn as a hexagonal tiling inside a parallelogram. Identify opposite sides in the marked directions to form a torus. The seven faces are labeled f0 through f6, and their colors continue across the identified sides.">
+          <figcaption>Figure 12. The resulting embedding, with opposite sides identified.</figcaption>
+        </figure>
+
+        <ol class="fn-list">
+          <li id="fn1">Because this was never really about coffee. <a href="#fnr1" aria-label="Back to footnote reference">&#8617;</a></li>
+        </ol>
+
+      </article>
+
+      <a class="back-link" href="writing.html" style="margin-top:36px;">&larr; Back to Writing</a>
+      </div>
+    </main>
+    <footer class="footer">
+      <span>&copy; 2026 Austin Ulrigg</span>
+      <a href="https://github.com/austinulrigg" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:austinul@uw.edu">austinul@uw.edu</a>
+    </footer>
+  </div>
+</body>
+</html>

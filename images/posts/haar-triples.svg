@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="350" viewBox="-40 -30 840 350" role="img" aria-label="Mohar, Erdős, Steinerberger, Ringel, Youngs, Pisanski, and Euler numbered 0 through 6 around a circle. The first triple and its first cyclic shift.">
+<style>text{font-family:Georgia,Times,serif;fill:#16183a;font-size:21px} .sub{font-size:14px}</style>
+<g transform="translate(0 0)"><circle cx="165" cy="133" r="91" fill="none" stroke="#738b80" stroke-width="1.1" stroke-dasharray="3 5" opacity="0.55" />
+<path d="M170.41,44.60 L230.74,73.66" stroke="#22735a" stroke-width="2.3" fill="none" />
+<path d="M234.81,82.11 L205.82,209.14" stroke="#345ea5" stroke-width="2.3" fill="none" />
+<path d="M166.34,47.85 L203.15,209.14" stroke="#855298" stroke-width="2.3" fill="none" />
+<circle cx="165.00" cy="42.00" r="4.8" fill="#16183a" />
+<text x="165.00" y="19.00" text-anchor="middle" dominant-baseline="middle">0</text>
+<circle cx="236.15" cy="76.26" r="4.8" fill="#16183a" />
+<text x="254.13" y="61.92" text-anchor="middle" dominant-baseline="middle">1</text>
+<circle cx="253.72" cy="153.25" r="3.1" fill="#839b8e" />
+<text x="276.14" y="158.37" text-anchor="middle" dominant-baseline="middle">2</text>
+<circle cx="204.48" cy="214.99" r="4.8" fill="#16183a" />
+<text x="214.46" y="235.71" text-anchor="middle" dominant-baseline="middle">3</text>
+<circle cx="125.52" cy="214.99" r="3.1" fill="#839b8e" />
+<text x="115.54" y="235.71" text-anchor="middle" dominant-baseline="middle">4</text>
+<circle cx="76.28" cy="153.25" r="3.1" fill="#839b8e" />
+<text x="53.86" y="158.37" text-anchor="middle" dominant-baseline="middle">5</text>
+<circle cx="93.85" cy="76.26" r="3.1" fill="#839b8e" />
+<text x="75.87" y="61.92" text-anchor="middle" dominant-baseline="middle">6</text>
+<text x="165" y="305" text-anchor="middle" style="font-size:18px">(a) {0, 1, 3}</text>
+<text x="165" y="-2" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Mohar</text><text x="280" y="38" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Erdős</text><text x="310" y="184" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Steinerberger</text><text x="225" y="260" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Ringel</text><text x="106" y="260" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Youngs</text><text x="24" y="184" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Pisanski</text><text x="55" y="38" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Euler</text></g><g transform="translate(45 0)"><circle cx="535" cy="133" r="91" fill="none" stroke="#738b80" stroke-width="1.1" stroke-dasharray="3 5" opacity="0.55" />
+<path d="M607.48,82.11 L622.38,147.40" stroke="#22735a" stroke-width="2.3" fill="none" />
+<path d="M618.31,155.85 L500.92,212.38" stroke="#345ea5" stroke-width="2.3" fill="none" />
+<path d="M602.41,80.95 L499.26,210.30" stroke="#855298" stroke-width="2.3" fill="none" />
+<circle cx="535.00" cy="42.00" r="3.1" fill="#839b8e" />
+<text x="535.00" y="19.00" text-anchor="middle" dominant-baseline="middle">0</text>
+<circle cx="606.15" cy="76.26" r="4.8" fill="#16183a" />
+<text x="624.13" y="61.92" text-anchor="middle" dominant-baseline="middle">1</text>
+<circle cx="623.72" cy="153.25" r="4.8" fill="#16183a" />
+<text x="646.14" y="158.37" text-anchor="middle" dominant-baseline="middle">2</text>
+<circle cx="574.48" cy="214.99" r="3.1" fill="#839b8e" />
+<text x="584.46" y="235.71" text-anchor="middle" dominant-baseline="middle">3</text>
+<circle cx="495.52" cy="214.99" r="4.8" fill="#16183a" />
+<text x="485.54" y="235.71" text-anchor="middle" dominant-baseline="middle">4</text>
+<circle cx="446.28" cy="153.25" r="3.1" fill="#839b8e" />
+<text x="423.86" y="158.37" text-anchor="middle" dominant-baseline="middle">5</text>
+<circle cx="463.85" cy="76.26" r="3.1" fill="#839b8e" />
+<text x="445.87" y="61.92" text-anchor="middle" dominant-baseline="middle">6</text>
+<text x="535" y="305" text-anchor="middle" style="font-size:18px">(b) {1, 2, 4}</text>
+<text x="535" y="-2" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Mohar</text><text x="650" y="38" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Erdős</text><text x="680" y="184" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Steinerberger</text><text x="595" y="260" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Ringel</text><text x="476" y="260" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Youngs</text><text x="394" y="184" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Pisanski</text><text x="425" y="38" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Euler</text></g><path d="M330,133 L425,133 M417,127 L425,133 L417,139" stroke="#5d7467" stroke-width="1.6" fill="none" /><text x="377.5" y="115" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">+1</text></svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="298" viewBox="0 0 700 298" role="img" aria-label="Clockwise order 0,1,3 at both A_i and B_i">
+<style>text{font-family:Georgia,Times,serif;fill:#16183a;font-size:21px} .sub{font-size:14px}</style>
+<path d="M175.00,143.00 L175.00,49.00" fill="none" stroke="#22735a" stroke-width="2.2"/>
+<circle cx="175.00" cy="43.00" r="4.6" fill="none" stroke="#16183a" stroke-width="1.5"/>
+<text x="175.00" y="12.00" text-anchor="middle" dominant-baseline="middle" style="font-size:21px"><tspan font-style="italic">B</tspan><tspan class="sub" dy="4">i</tspan></text>
+<path d="M180.20,152.00 L261.60,199.00" fill="none" stroke="#345ea5" stroke-width="2.2"/>
+<circle cx="266.80" cy="202.00" r="4.6" fill="none" stroke="#16183a" stroke-width="1.5"/>
+<text x="293.65" y="217.50" text-anchor="middle" dominant-baseline="middle" style="font-size:21px"><tspan font-style="italic">B</tspan><tspan class="sub" dy="4">i+1</tspan></text>
+<path d="M169.80,152.00 L88.40,199.00" fill="none" stroke="#855298" stroke-width="2.2"/>
+<circle cx="83.20" cy="202.00" r="4.6" fill="none" stroke="#16183a" stroke-width="1.5"/>
+<text x="56.35" y="217.50" text-anchor="middle" dominant-baseline="middle" style="font-size:21px"><tspan font-style="italic">B</tspan><tspan class="sub" dy="4">i+3</tspan></text>
+<circle cx="175.00" cy="149.00" r="4.6" fill="#16183a" stroke="#16183a" stroke-width="1.5"/>
+<text x="175.00" y="172.00" text-anchor="middle" dominant-baseline="middle" style="font-size:21px"><tspan font-style="italic">A</tspan><tspan class="sub" dy="4">i</tspan></text>
+<text x="190" y="91" text-anchor="middle" dominant-baseline="middle" style="fill:#22735a;font-size:20px">0</text>
+<text x="242" y="164" text-anchor="middle" dominant-baseline="middle" style="fill:#345ea5;font-size:20px">1</text>
+<text x="108" y="164" text-anchor="middle" dominant-baseline="middle" style="fill:#855298;font-size:20px">3</text>
+<path d="M205.05,92.49 A64,64 0 0 1 237.60,135.69" fill="none" stroke="#5c6d68" stroke-width="1.5"/>
+<path d="M237.39,134.72 L237.60,135.69" fill="none" stroke="#5c6d68" stroke-width="1.5"/>
+<path d="M233.21,129.47 L237.60,135.69 L239.08,128.22" stroke="#5c6d68" stroke-width="1.5" fill="none"/>
+<path d="M525.00,143.00 L525.00,49.00" fill="none" stroke="#22735a" stroke-width="2.2"/>
+<circle cx="525.00" cy="43.00" r="4.6" fill="#16183a" stroke="#16183a" stroke-width="1.5"/>
+<text x="525.00" y="12.00" text-anchor="middle" dominant-baseline="middle" style="font-size:21px"><tspan font-style="italic">A</tspan><tspan class="sub" dy="4">i</tspan></text>
+<path d="M530.20,152.00 L611.60,199.00" fill="none" stroke="#345ea5" stroke-width="2.2"/>
+<circle cx="616.80" cy="202.00" r="4.6" fill="#16183a" stroke="#16183a" stroke-width="1.5"/>
+<text x="643.65" y="217.50" text-anchor="middle" dominant-baseline="middle" style="font-size:21px"><tspan font-style="italic">A</tspan><tspan class="sub" dy="4">i−1</tspan></text>
+<path d="M519.80,152.00 L438.40,199.00" fill="none" stroke="#855298" stroke-width="2.2"/>
+<circle cx="433.20" cy="202.00" r="4.6" fill="#16183a" stroke="#16183a" stroke-width="1.5"/>
+<text x="406.35" y="217.50" text-anchor="middle" dominant-baseline="middle" style="font-size:21px"><tspan font-style="italic">A</tspan><tspan class="sub" dy="4">i−3</tspan></text>
+<circle cx="525.00" cy="149.00" r="4.6" fill="none" stroke="#16183a" stroke-width="1.5"/>
+<text x="525.00" y="172.00" text-anchor="middle" dominant-baseline="middle" style="font-size:21px"><tspan font-style="italic">B</tspan><tspan class="sub" dy="4">i</tspan></text>
+<text x="540" y="91" text-anchor="middle" dominant-baseline="middle" style="fill:#22735a;font-size:20px">0</text>
+<text x="592" y="164" text-anchor="middle" dominant-baseline="middle" style="fill:#345ea5;font-size:20px">1</text>
+<text x="458" y="164" text-anchor="middle" dominant-baseline="middle" style="fill:#855298;font-size:20px">3</text>
+<path d="M555.05,92.49 A64,64 0 0 1 587.60,135.69" fill="none" stroke="#5c6d68" stroke-width="1.5"/>
+<path d="M587.39,134.72 L587.60,135.69" fill="none" stroke="#5c6d68" stroke-width="1.5"/>
+<path d="M583.21,129.47 L587.60,135.69 L589.08,128.22" stroke="#5c6d68" stroke-width="1.5" fill="none"/>
+</svg>

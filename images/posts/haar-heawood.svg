@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="665" height="500" viewBox="-115 -5 665 500" role="img" aria-label="The Heawood attendance graph with meeting vertices A and person vertices B. The person labels also give the seven graph theorists names.">
+<style>text{font-family:Georgia,Times,serif;fill:#16183a;font-size:21px} .sub{font-size:14px}</style>
+<path d="M245.85,59.34 L313.12,74.69" stroke="#22735a" stroke-width="2.05" fill="none" />
+<path d="M102.40,122.78 L156.34,79.76" stroke="#22735a" stroke-width="2.05" fill="none" />
+<path d="M62.56,274.50 L62.56,205.50" stroke="#22735a" stroke-width="2.05" fill="none" />
+<path d="M156.34,400.24 L102.40,357.22" stroke="#22735a" stroke-width="2.05" fill="none" />
+<path d="M313.12,405.31 L245.85,420.66" stroke="#22735a" stroke-width="2.05" fill="none" />
+<path d="M414.83,285.90 L384.90,348.07" stroke="#22735a" stroke-width="2.05" fill="none" />
+<path d="M384.90,131.93 L414.83,194.10" stroke="#22735a" stroke-width="2.05" fill="none" />
+<path d="M234.15,59.34 L166.88,74.69" stroke="#345ea5" stroke-width="2.05" fill="none" />
+<path d="M95.10,131.93 L65.17,194.10" stroke="#345ea5" stroke-width="2.05" fill="none" />
+<path d="M65.17,285.90 L95.10,348.07" stroke="#345ea5" stroke-width="2.05" fill="none" />
+<path d="M166.88,405.31 L234.15,420.66" stroke="#345ea5" stroke-width="2.05" fill="none" />
+<path d="M323.66,400.24 L377.60,357.22" stroke="#345ea5" stroke-width="2.05" fill="none" />
+<path d="M417.44,274.50 L417.44,205.50" stroke="#345ea5" stroke-width="2.05" fill="none" />
+<path d="M377.60,122.78 L323.66,79.76" stroke="#345ea5" stroke-width="2.05" fill="none" />
+<path d="M237.40,63.41 L100.31,348.07" stroke="#855298" stroke-width="2.05" fill="none" />
+<path d="M100.31,131.93 L237.40,416.59" stroke="#855298" stroke-width="2.05" fill="none" />
+<path d="M68.41,281.83 L376.44,352.14" stroke="#855298" stroke-width="2.05" fill="none" />
+<path d="M165.72,400.24 L412.75,203.24" stroke="#855298" stroke-width="2.05" fill="none" />
+<path d="M318.97,397.98 L318.97,82.02" stroke="#855298" stroke-width="2.05" fill="none" />
+<path d="M412.75,276.76 L165.72,79.76" stroke="#855298" stroke-width="2.05" fill="none" />
+<path d="M376.44,127.86 L68.41,198.17" stroke="#855298" stroke-width="2.05" fill="none" />
+<circle cx="240.00" cy="58.00" r="4.6" fill="#16183a" stroke="#16183a" stroke-width="1.5" />
+<text x="240.00" y="32.00" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">A</tspan><tspan class="sub" dy="5">0</tspan></text>
+<circle cx="318.97" cy="76.02" r="4.6" fill="none" stroke="#16183a" stroke-width="1.5" />
+<text x="330.25" y="52.60" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">B</tspan><tspan class="sub" dy="5">0</tspan></text>
+<circle cx="382.29" cy="126.52" r="4.6" fill="#16183a" stroke="#16183a" stroke-width="1.5" />
+<text x="402.62" y="110.31" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">A</tspan><tspan class="sub" dy="5">6</tspan></text>
+<circle cx="417.44" cy="199.50" r="4.6" fill="none" stroke="#16183a" stroke-width="1.5" />
+<text x="442.79" y="193.72" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">B</tspan><tspan class="sub" dy="5">6</tspan></text>
+<circle cx="417.44" cy="280.50" r="4.6" fill="#16183a" stroke="#16183a" stroke-width="1.5" />
+<text x="442.79" y="286.28" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">A</tspan><tspan class="sub" dy="5">5</tspan></text>
+<circle cx="382.29" cy="353.48" r="4.6" fill="none" stroke="#16183a" stroke-width="1.5" />
+<text x="402.62" y="369.69" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">B</tspan><tspan class="sub" dy="5">5</tspan></text>
+<circle cx="318.97" cy="403.98" r="4.6" fill="#16183a" stroke="#16183a" stroke-width="1.5" />
+<text x="330.25" y="427.40" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">A</tspan><tspan class="sub" dy="5">4</tspan></text>
+<circle cx="240.00" cy="422.00" r="4.6" fill="none" stroke="#16183a" stroke-width="1.5" />
+<text x="240.00" y="448.00" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">B</tspan><tspan class="sub" dy="5">4</tspan></text>
+<circle cx="161.03" cy="403.98" r="4.6" fill="#16183a" stroke="#16183a" stroke-width="1.5" />
+<text x="149.75" y="427.40" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">A</tspan><tspan class="sub" dy="5">3</tspan></text>
+<circle cx="97.71" cy="353.48" r="4.6" fill="none" stroke="#16183a" stroke-width="1.5" />
+<text x="77.38" y="369.69" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">B</tspan><tspan class="sub" dy="5">3</tspan></text>
+<circle cx="62.56" cy="280.50" r="4.6" fill="#16183a" stroke="#16183a" stroke-width="1.5" />
+<text x="37.21" y="286.28" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">A</tspan><tspan class="sub" dy="5">2</tspan></text>
+<circle cx="62.56" cy="199.50" r="4.6" fill="none" stroke="#16183a" stroke-width="1.5" />
+<text x="37.21" y="193.72" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">B</tspan><tspan class="sub" dy="5">2</tspan></text>
+<circle cx="97.71" cy="126.52" r="4.6" fill="#16183a" stroke="#16183a" stroke-width="1.5" />
+<text x="77.38" y="110.31" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">A</tspan><tspan class="sub" dy="5">1</tspan></text>
+<circle cx="161.03" cy="76.02" r="4.6" fill="none" stroke="#16183a" stroke-width="1.5" />
+<text x="149.75" y="52.60" text-anchor="middle" dominant-baseline="middle"><tspan font-style="italic">B</tspan><tspan class="sub" dy="5">1</tspan></text>
+<text x="356" y="28" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Mohar</text><text x="130" y="28" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Erdős</text><text x="8" y="193.72" text-anchor="end" dominant-baseline="middle" style="font-size:18px">Steinerberger</text><text x="53" y="395" text-anchor="end" dominant-baseline="middle" style="font-size:18px">Ringel</text><text x="240" y="475" text-anchor="middle" dominant-baseline="middle" style="font-size:18px">Youngs</text><text x="426" y="395" text-anchor="start" dominant-baseline="middle" style="font-size:18px">Pisanski</text><text x="471" y="193.72" text-anchor="start" dominant-baseline="middle" style="font-size:18px">Euler</text></svg>
