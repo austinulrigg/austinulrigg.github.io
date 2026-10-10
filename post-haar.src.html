@@ -58,11 +58,11 @@
       <article class="prose">
         <p class="opening-aside" lang="de">Keine Sorge, meine deutschen Leser, hier geht es nicht um Haare oder das <a href="https://en.wikipedia.org/wiki/Hairy_ball_theorem" target="_blank" rel="noopener">Hairy-Ball-Theorem</a>.</p>
 
-        <p>Seven graph theorists want to meet for coffee. They agree to meet three at a time and, naturally, require every pair to meet exactly once. How should we choose the groups?</p>
+        <p>Seven graph theorists want to meet for coffee. They agree to meet three at a time and, naturally, require every pair to meet exactly once. The task that remains is deciding who should attend which meetings in order to achieve this.</p>
 
-        <p>Each meeting covers three of the $\binom{7}{2}=21$ pairs, so we need seven meetings. Each person has six others to meet, two at a time, so everyone must attend three meetings.</p>
+        <p>Each meeting uses three of the $\binom{7}{2}=21$ pairs, so there must be seven meetings. Each person has six others to meet, two at a time, so everyone must attend three meetings.</p>
 
-        <p>One way to give everyone three meetings is to number the people $0,1,\ldots,6$ around a circle, choose a triple, and move all three choices one place clockwise for each of the next six meetings. In other words, add $1$ to each number modulo $7$. We only need to find a triple whose cyclic shifts never repeat a pair.</p>
+        <p>One way to ensure that everyone attends three meetings is to number the people $0,1,\ldots,6$ around a circle, choose a triple, and move all three choices one place clockwise for each of the next six meetings. In other words, add $1$ to each number modulo $7$. We only need to find a triple whose cyclic shifts never repeat a pair.</p>
 
         <p>Our first guess might be $\{0,1,2\}$. Adding $1$ gives $\{1,2,3\}$, so people $1$ and $2$ already meet twice.</p>
 
@@ -73,14 +73,14 @@
           <figcaption>Figure 1. The first meeting and its first cyclic shift.</figcaption>
         </figure>
 
-        <p>The seven meetings are</p>
+        <p>The seven meetings are then</p>
 
         $$\begin{gathered}
           \{0,1,3\},\quad\{1,2,4\},\quad\{2,3,5\},\quad\{3,4,6\},\\
           \{4,5,0\},\quad\{5,6,1\},\quad\{6,0,2\}.
         \end{gathered}$$
 
-        <p>Because they are graph theorists, they want to record attendance in a graph. Thus, we make a vertex $A_i$ for meeting $\{i,i+1,i+3\}$ and a vertex $B_j$ for person $j$. Join them when person $j$ attends meeting $i$, reading subscripts modulo $7$. The resulting graph is called the <em>Heawood graph</em>.</p>
+        <p>Because they are graph theorists, they want to record attendance in a graph. Thus, we make a vertex $A_i$ for meeting $\{i,i+1,i+3\}$ and a vertex $B_j$ for person $j$. Join them when person $j$ attends meeting $i$, taking subscripts modulo $7$. The resulting graph is called the <em>Heawood graph</em>.</p>
 
         <figure class="post-figure">
           <img class="heawood" src="images/posts/haar-heawood.svg?v=names-current-1" alt="The Heawood graph. Solid vertices represent meetings and hollow vertices represent people, with the seven graph theorists names beside their B labels. A_i is joined to B_i, B_(i+1), and B_(i+3), modulo 7.">
@@ -88,13 +88,13 @@
           <figcaption>Figure 2. The graph of our seven meetings.</figcaption>
         </figure>
 
-        <p>Each meeting has three people and each person attends three meetings, so every vertex has degree three. The graph is <em>bipartite</em>, with meetings in one class and people in the other. A four-cycle would mean that two people attended the same two meetings.</p>
+        <p>Each meeting has three people and each person attends three meetings, so every vertex has degree three. The graph is <em>bipartite</em>, with meetings in one class and people in the other. In terms of the coffee problem, if there were a four-cycle then this would mean two people attended the same two meetings.</p>
 
-        <p>We have been adding modulo $7$, so our labels belong to the cyclic group $\mathbb Z_7$. All twenty-one edges are determined by $S=\{0,1,3\}$, by the rule</p>
+        <p>We have been adding modulo $7$, so our labels belong to the cyclic group $\mathbb Z_7$. The edges of the graph are determined entirely from the set $S=\{0,1,3\}$, using the rule</p>
 
         $$A_i\sim B_j\quad\Longleftrightarrow\quad j-i\in S.$$
 
-        <p>We chose $S$ to solve the coffee problem. But if we are just interested in the graph,<sup class="fn-ref"><a href="#fn1" id="fnr1">1</a></sup> could we do this for any subset $S$? And could we replace $\mathbb Z_7$ by a different group? In fact, the same construction works for any finite group.</p>
+        <p>We chose $S$ to solve the coffee problem. But if we are just interested in the graph,<sup class="fn-ref"><a href="#fn1" id="fnr1">1</a></sup> could we do this for any subset $S$? And could we replace $\mathbb Z_7$ by a different group? As you might've guessed since you are reading this post, it turns out this construction works for any finite group.</p>
 
         <p>For a finite group $\Gamma$ and a subset $S\subseteq\Gamma$, make two disjoint sets of vertices</p>
 
@@ -102,11 +102,11 @@
 
         <p>and join $A_g$ to $B_{gs}$ for each $s\in S$. This is the <em>Haar graph</em> $H(\Gamma,S)$, and $S$ is its <em>connection set</em>. Equivalently, $A_g\sim B_{g'}$ exactly when $g^{-1}g'\in S$. In an additive group, this becomes $g'-g\in S$, so our example is $H(\mathbb Z_7,\{0,1,3\})$. When $\Gamma$ is cyclic, these are called <em>cyclic Haar graphs</em>.</p>
 
-        <p>Each label $s$ gives one edge at every vertex, connecting $A_g$ to $B_{gs}$ and $B_g$ to $A_{gs^{-1}}$. Thus, the graph is simple, bipartite, and $|S|$-regular, with $2|\Gamma|$ vertices and $|\Gamma||S|$ edges. The edges of any one label form a perfect matching, as the colors in Figure 2 show.</p>
+        <p>Each label $s$ gives one edge at every vertex, connecting $A_g$ to $B_{gs}$ and $B_g$ to $A_{gs^{-1}}$. Thus, the graph is simple, bipartite, and $|S|$-regular, with $2|\Gamma|$ vertices and $|\Gamma||S|$ edges. The edges of any one label correspond to a perfect matching, as the colors in Figure 2 show.</p>
 
         <p>Hladnik, Marušič, and Pisanski studied these graphs for abelian groups in <a href="https://doi.org/10.1016/S0012-365X(01)00064-4" target="_blank" rel="noopener"><em>Cyclic Haar graphs</em> (2002)</a>. Estélyi and Pisanski later considered arbitrary finite groups in <a href="https://www.combinatorics.org/ojs/index.php/eljc/article/view/v23i3p10" target="_blank" rel="noopener"><em>Which Haar graphs are Cayley graphs?</em> (2016)</a>.</p>
 
-        <p>Adding $1$ modulo $7$ to every subscript takes an edge such as $A_0B_3$ to $A_1B_4$. It preserves adjacency, giving an <em>automorphism</em>, a bijection of the vertices preserving edges. We can do the same thing in any Haar graph. Left multiplication by $h\in\Gamma$ sends</p>
+        <p>Adding $1$ modulo $7$ to every subscript takes an edge such as $A_0B_3$ to $A_1B_4$. Any such map preserves vertex adjacency, giving an <em>automorphism</em>. We can do the same thing in any Haar graph. Left multiplication by $h\in\Gamma$ sends</p>
 
         $$A_gB_{gs}\longmapsto A_{hg}B_{hgs}=A_{hg}B_{(hg)s}.$$
 
@@ -114,13 +114,11 @@
 
         <p>We can also use this observation in reverse. Suppose a bipartite graph has a group $\Gamma$ acting by automorphisms, simply transitively on each class. Choose a vertex $A$ in one class and $B$ in the other. Every vertex then has a unique label $A_g=gA$ or $B_g=gB$. Take $S$ to consist of the elements $s$ for which $A\sim sB$. Applying $g^{-1}$ shows that $gA\sim g'B$ exactly when $g^{-1}g'\in S$. Thus, the graph is $H(\Gamma,S)$.</p>
 
-        <p>We could also try using just one copy of $\Gamma$, again joining $g$ to $gs$. If $S$ contains the inverse of each of its elements and does not contain the identity, this gives a simple undirected <em>Cayley graph</em> $\operatorname{Cay}(\Gamma,S)$. Taking its <em>bipartite double cover</em>, as in <a href="https://austinulrigg.com/post-kneser.html">Kneser's Exercise</a>, makes two copies $A_g$ and $B_g$ of each vertex $g$. Each edge from $g$ to $h$ becomes $A_gB_h$ and $A_hB_g$, so we get exactly $H(\Gamma,S)$.</p>
-
-        <p>The choice of $S$ also affects whether the graph is connected. For example, $H(\mathbb Z_7,\{1\})$ consists of seven separate edges, even though $1$ generates $\mathbb Z_7$. To reach another $A$-vertex, we first follow an edge labeled $s$ to the $B$-class, then return along one labeled $t$, giving</p>
+        <p>The choice of $S$ also affects whether the graph is connected. To reach another $A$-vertex, we first follow an edge labeled $s$ to the $B$-class, then return along one labeled $t$, giving</p>
 
         $$A_g\longrightarrow B_{gs}\longrightarrow A_{gst^{-1}}.$$
 
-        <p>Repeating these pairs of steps from $A_{1_\Gamma}$ reaches exactly the $A$-vertices indexed by the subgroup generated by $SS^{-1}=\{st^{-1}\mid s,t\in S\}$. Thus, for nonempty $S$, the graph is connected exactly when $SS^{-1}$ generates $\Gamma$. If $1_\Gamma\in S$, this is equivalent to $S$ generating $\Gamma$. Our coffee graph is connected because $S$ contains $0$ and the generator $1$.</p>
+        <p>Repeating these pairs of steps from $A_{1_\Gamma}$ reaches exactly the $A$-vertices indexed by the subgroup generated by $SS^{-1}=\{st^{-1}\mid s,t\in S\}$. Thus, for nonempty $S$, the graph is connected exactly when $SS^{-1}$ generates $\Gamma$. If $1_\Gamma\in S$, this is equivalent to $S$ generating $\Gamma$. The Heawood graph is connected because $S$ contains $0$ and the generator $1$.</p>
 
         <p>The edge labels are also useful when building a rotation system. Choose a cyclic order $\alpha$ on $S$ and order the edges at every $A$-vertex by their labels. Each label occurs on exactly one incident edge, so this gives a local rotation. Do the same at the $B$-vertices with another order $\beta$, and we have a rotation system. Left multiplication preserves each edge label, taking $A_gB_{gs}$ to $A_{hg}B_{(hg)s}$, so it also preserves these orders.</p>
 
@@ -160,9 +158,9 @@
           <figcaption>Figure 6. The rotations specify a single face.</figcaption>
         </figure>
 
-        <p>Let's trace a face of this embedding. Start along edge $1$ from $u$ to $v$. Edge $2$ comes next at $v$, so we take it backward to $u$. Edge $4$ comes next at $u$, so we take it forward to $v$. Continuing this way gives $1,-2,4,-1,2,-4$. We have used both directions of every edge and returned to the starting dart, so there is only one face.</p>
+        <p>We can trace a face by starting with edge $1$ from $u$ to $v$. The rotation at $v$ tells us to take edge $2$ next, which brings us back to $u$. At $u$, edge $4$ comes next, so we follow it to $v$. Continuing in this way, we read $1,-2,4,-1,2,-4$ before returning to the dart we started with. Since we have used every edge in both directions, the embedding has only one face.</p>
 
-        <p>Cut this face open as in Figure 7(a) and put a new vertex $f$ inside it. Draw a segment from $f$ to the middle of each of the six sides. The sides marked $1$ and $-1$ are two copies of the same original edge. When we join them back together, their two segments make a single edge from $f$ back to $f$, crossing edge $1$. The same happens with $2$ and $-2$, and with $4$ and $-4$. We get one vertex and three loops. This is the <em>dual</em> of our original embedding.</p>
+        <p>Figure 7(a) shows this face cut open into a hexagon. Put a new vertex $f$ inside it and join $f$ to the middle of each side. There are six sides in the picture because each of the three original edges appears twice along the boundary. In particular, the sides marked $1$ and $-1$ both come from edge $1$. Gluing them back together joins the two segments into a single edge from $f$ to itself, crossing edge $1$. Each of the other two pairs gives a loop in the same way, leaving one vertex and three loops. This gives the <em>dual</em> of the original embedding.</p>
 
         <figure class="post-figure">
           <img class="current-detail" src="images/posts/haar-current-dual.svg?v=concrete-current-1" alt="The current graph's single face is cut open into a hexagon with successive labels 1, minus 2, 4, minus 1, 2, minus 4. Six colored segments connect a new vertex f to the sides. Joining each pair of sides with opposite labels connects its two segments into one loop at f. The three resulting loops appear on the right.">
@@ -191,7 +189,7 @@
 
         <p>Adding each element of $\mathbb Z_7$ to the vertex labels gives seven triangles of each kind. These are the fourteen faces. So this two-vertex current graph has given us a triangular embedding of $K_7$.</p>
 
-        <p>Gustin developed the current-graph method in 1963, and it became central to Ringel and Youngs's 1968 solution of the orientable Heawood map-coloring problem. <a href="https://doi.org/10.1016/0012-365X(74)90006-5" target="_blank" rel="noopener">Gross (1974)</a> introduced voltage graphs as a dual approach.</p>
+        <p>William Sharp Gustin, an American mathematician, developed the current-graph method in 1963, and it became central to Ringel and Youngs's 1968 solution of the orientable Heawood map-coloring problem. <a href="https://doi.org/10.1016/0012-365X(74)90006-5" target="_blank" rel="noopener">Gross (1974)</a> introduced voltage graphs as a dual approach.</p>
 
         <p>Going back to our Haar graph, let's try the same cyclic order on $S=\{0,1,3\}$ at both types of vertex,</p>
 
@@ -217,7 +215,7 @@
 
         $$F^2(g,s)_A=\bigl(gs\beta(s)^{-1},\alpha\beta(s)\bigr)_A.$$
 
-        <p>The two coordinates tell us where we are and which edge comes next. A face closes when both return to their starting values. For every face to have length four, this must happen after two applications of $F^2$ at every $A$-dart, and not after one. So we can test a choice of $\alpha$ and $\beta$ by following these two coordinates.</p>
+        <p>Here, the first coordinate is the vertex subscript and the second is the label of the edge we are about to take. Returning to our starting dart means returning to the same vertex with the same edge label. Since each application of $F^2$ moves two steps along the face, a face has length four if two applications return us to the starting pair and one application does not. For every face to have length four, this must hold for every $A$-dart. We can check this using the formula above for any choice of $\alpha$ and $\beta$.</p>
 
         <p>In our example, the edge label follows $0\to3\to1\to0$ under $\alpha\beta$. It returns for the first time after three applications of $F^2$, and the total change to the vertex subscript is</p>
 
