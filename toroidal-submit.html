@@ -3,7 +3,7 @@
 <title>Toroidal obstructions · Submit | Austin Ulrigg</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/toroidal.css">
+<link rel="stylesheet" href="css/style.css?v=2026-10-12-tally"><link rel="stylesheet" href="css/toroidal.css">
 </head><body class="theme-data"><div class="page"><header class="header">
       <a class="brand" href="index.html">Austin Ulrigg</a>
       <nav class="tabs" aria-label="Primary">
@@ -20,22 +20,8 @@
       </div>
     </header>
 <main id="torus-db"><div class="td-shell"><a class="td-back" href="toroidal.html">← Toroidal obstructions</a><h1>Submit a graph</h1>
-<p id="submission-availability" class="td-notice" role="status">Checking submission availability…</p>
-<form id="submission-form" class="td-form" hidden>
-<label>Submission type<select name="kind"><option value="addition">New graphs</option><option value="correction">Correction or additional evidence</option></select></label>
-<label>Graph ID, if correcting an existing record<input name="graphId" maxlength="20" placeholder="TO-000001"></label>
-<label>Format<select name="format"><option value="graph6">graph6</option><option value="upper">Upper-triangular adjacency</option></select></label>
-<label>Graph data<textarea id="submission-graphs" name="graphs" rows="6" required maxlength="200000" spellcheck="false"></textarea></label>
-<label>Or load a text file<input id="submission-file" type="file" accept=".txt,.g6,text/plain"></label>
-<p class="td-helper">One graph per line. Up to 100 graphs, 128 vertices each, and 200 KB per submission.</p>
-<label>Your name<input name="name" autocomplete="name" required maxlength="160"></label>
-<label>Email (private)<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
-<label>Source, reference, or original work<textarea name="source" required maxlength="4000" rows="3"></textarea></label>
-<label>Discovery credit<input name="credit" required maxlength="500"></label>
-<label>Notes or evidence links<textarea name="notes" maxlength="10000" rows="4"></textarea></label>
-<label class="td-check"><input type="checkbox" name="consent" required><span>The graph data and attribution may be published after review. The contact email stays private.</span></label>
-<label class="td-honeypot" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
-<div id="submission-challenge"></div><div class="td-action-row"><button type="button" class="td-control" id="submission-preview">Check input</button><button class="td-control td-primary" id="submission-send" type="submit">Submit</button></div>
-</form><div id="submission-result" class="td-form-message" role="status" aria-live="polite"></div>
-<noscript><p>JavaScript is needed to validate and submit graph data.</p></noscript>
-</div></main><footer class="footer"><span>&copy; 2026 Austin Ulrigg</span><a href="tools.html">Tools and data</a></footer></div><script type="module" src="js/toroidal/submit.mjs"></script></body></html>
+<div class="td-form">
+<iframe data-tally-src="https://tally.so/embed/obr1e1?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1" loading="lazy" width="100%" height="1340" frameborder="0" marginheight="0" marginwidth="0" title="Submit a graph"></iframe>
+<noscript><p><a href="https://tally.so/r/obr1e1">Submit a graph</a></p></noscript>
+</div>
+</div></main><footer class="footer"><span>&copy; 2026 Austin Ulrigg</span><a href="tools.html">Tools and data</a></footer></div><script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script></body></html>
