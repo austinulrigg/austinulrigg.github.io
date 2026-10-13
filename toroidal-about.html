@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toroidal obstructions · About and cite | Austin Ulrigg</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/toroidal.css">
+</head><body class="theme-data"><div class="page"><header class="header">
+      <a class="brand" href="index.html">Austin Ulrigg</a>
+      <nav class="tabs" aria-label="Primary">
+        <a class="tab" href="index.html">About</a>
+        <a class="tab" href="research.html">Research</a>
+        <a class="tab" href="cv.html">CV</a>
+        <a class="tab" href="writing.html">Writing</a>
+        <a class="tab" href="tutoring.html">Tutoring</a>
+      </nav>
+      <div class="subnav">
+        <nav class="tabs" aria-label="Secondary">
+          <a class="tab is-active" href="tools.html" aria-current="page">Tools and data</a>
+        </nav>
+      </div>
+    </header>
+<main id="torus-db"><div class="td-shell"><a class="td-back" href="toroidal.html">← Toroidal obstructions</a><h1>About and cite</h1><div class="td-information">
+<h2>The database</h2><p>This is a growing database of toroidal obstructions. It began with the three collections in <a href="https://webhome.cs.uvic.ca/~wendym/torus/torus_obstructions.html">Wendy Myrvold’s torus obstruction database</a>. Contributions of additional graphs, references, and corrections are welcome. The database does not claim to contain every toroidal obstruction.</p>
+<h2>Attribution and citation</h2><p>Each graph record identifies its sources and discovery credit. Please cite those original sources when using a graph, together with its TO identifier, release date, and database address. Inclusion in this database does not transfer discovery credit to its maintainers.</p>
+<p>Graphs imported from Myrvold’s collection retain their original file and line references. Their obstruction claims are source-reported. New contributions will carry their own attribution and verification records.</p>
+<h2>Reference for the initial collections</h2><p>Wendy Myrvold and Jennifer Woodcock. <a href="https://doi.org/10.37236/3797">A large set of torus obstructions and how they were discovered</a>. The Electronic Journal of Combinatorics 25(1), P1.16 (2018).</p>
+<textarea readonly rows="7" aria-label="BibTeX source citation">@article{MyrvoldWoodcock2018,
+  author = {Myrvold, Wendy and Woodcock, Jennifer},
+  title = {A large set of torus obstructions and how they were discovered},
+  journal = {The Electronic Journal of Combinatorics},
+  volume = {25}, number = {1}, pages = {P1.16}, year = {2018},
+  doi = {10.37236/3797}
+}</textarea>
+<h2>Graph parameters</h2><p>Vertex connectivity is the minimum number of vertices whose removal disconnects a connected noncomplete graph. Edge connectivity is the minimum number of edges whose removal disconnects it. Both values are zero for disconnected graphs. The vertex connectivity of a complete graph on n vertices is n − 1. Missing values are shown as “Unknown” and sort last.</p>
+<p>Vertex and edge counts, degrees, connected components, bipartiteness, regularity, and both connectivities are computed with igraph 1.0.0. Isomorphic records are matched using Bliss canonical labeling. The graph6 data and drawings retain the first source record’s vertex labels. An exact graph6 search uses those labels.</p>
+<h2>Drawings and downloads</h2><p>The surface button requests an embedding from <a href="https://github.com/SanderGi/Genus">Alexander Metzger’s genus solver</a>. A returned surface is an embedding witness. It does not by itself verify non-toroidality or minimality. Some requests may time out or fail to produce a drawing.</p><p>Downloads support graph6, upper triangular form, adjacency lists, and adjacency matrices. Upper triangular records begin with the vertex count, followed by entries in row order above the diagonal. Lists and matrices use vertices numbered from 0 to n − 1. Multiple list or matrix records are separated by a blank line and identified by a comment line.</p><h2>Release 2026-10-12</h2><p><a href="data/toroidal/2026-10-12/graphs.g6.gz">All graphs (graph6)</a> · <a href="data/toroidal/2026-10-12/parameters.csv.gz">Parameters (CSV)</a> · <a href="data/toroidal/2026-10-12/manifest.json">Source records and checksums</a></p><p>To cite a graph, include its permanent TO identifier, the release date, its graph-page address, and the original source reference. Imported records also provide the original source filename and line number. Existing data and discovery credit remain attributed to their original sources.</p>
+<h2>Additions and corrections</h2><p><a href="toroidal-submit.html">Submit a graph or correction</a> with its source and attribution. Submissions enter a private queue. They are added to a later release only after verification and citation review.</p>
+</div>
+</div></main><footer class="footer"><span>&copy; 2026 Austin Ulrigg</span><a href="tools.html">Tools and data</a></footer></div></body></html>
