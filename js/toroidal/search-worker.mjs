@@ -1,4 +1,4 @@
-import {searchIndex,parameters,graphID} from './query.mjs';
+import {searchIndex,parameters,graphID} from './query.mjs?v=2026-10-12-minor';
 let manifest,index,hashes,base,ready;
 async function bytes(name) {
   const response=await fetch(new URL(name,base));if(!response.ok)throw Error('The catalogue data could not be loaded. Please retry.');

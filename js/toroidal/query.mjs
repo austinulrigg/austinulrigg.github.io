@@ -1,4 +1,4 @@
-export const fields = {n:'Vertices',m:'Edges',kappa:'Vertex connectivity',lambda:'Edge connectivity',mindeg:'Minimum degree',maxdeg:'Maximum degree',components:'Connected components',bipartite:'Bipartite',regular:'Regular'};
+export const fields = {n:'Vertices',m:'Edges',kappa:'Vertex connectivity',lambda:'Edge connectivity',mindeg:'Minimum degree',maxdeg:'Maximum degree',components:'Connected components',bipartite:'Bipartite',regular:'Regular',minor:'Minor-order obstruction'};
 export const operations = {lt:'less than',le:'at most',eq:'equals',ge:'at least',gt:'greater than',between:'between',unknown:'unknown'};
 export const defaults = () => ({query:'',filters:[],mode:'all',sorts:[{field:'n',direction:'asc'},{field:'m',direction:'asc'}],page:0});
 export const graphID = n => `TO-${String(n).padStart(6,'0')}`;
@@ -15,7 +15,7 @@ export function issues(state) {
   const errors=[];
   for(const [i,r] of state.filters.entries()) {
     if(r.op==='unknown')continue;
-    if(['bipartite','regular'].includes(r.field)) {if(!['true','false'].includes(r.value))errors.push(`Filter ${i+1} needs Yes or No.`);continue;}
+    if(['bipartite','regular','minor'].includes(r.field)) {if(!['true','false'].includes(r.value))errors.push(`Filter ${i+1} needs ${r.field==='minor'?'Yes or Not recorded':'Yes or No'}.`);continue;}
     if(r.value===''||!Number.isInteger(+r.value)||+r.value<0)errors.push(`Filter ${i+1} needs a nonnegative whole number.`);
     else if(r.op==='between'&&(r.upper===''||!Number.isInteger(+r.upper)||+r.upper<+r.value))errors.push(`Filter ${i+1} needs an upper bound at least as large as its lower bound.`);
   }
@@ -25,7 +25,7 @@ export function searchIndex(index, manifest, raw, exactIDs=null) {
   const state=normalize(raw), errors=issues(state);
   if(errors.length)return {ids:new Uint32Array(),errors};
   const columns=Object.fromEntries(manifest.fields.map((f,i)=>[f,i])),stride=manifest.stride,unknown=manifest.unknownValue??255;
-  const rules=state.filters.map(r=>({...r,column:columns[r.field],a:['bipartite','regular'].includes(r.field)?Number(r.value==='true'):+r.value,b:+r.upper}));
+  const rules=state.filters.map(r=>({...r,column:columns[r.field],a:['bipartite','regular','minor'].includes(r.field)?Number(r.value==='true'):+r.value,b:+r.upper}));
   const sort=state.sorts.map(r=>({column:columns[r.field],sign:r.direction==='desc'?-1:1}));
   let candidates=exactIDs??Array.from({length:manifest.count},(_,i)=>i+1);
   const q=state.query.toUpperCase();
