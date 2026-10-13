@@ -1,13 +1,13 @@
 /* =========================================================
    Austin Ulrigg — site design system
    Cool / mathematical palette · glass cards · per-page gradients
-   Fonts: Fraunces (display) + Inter Tight (body)
+   Fonts: Source Serif 4 (headings and prose) + Source Sans 3 (navigation and details)
    ========================================================= */
 
 :root {
   --ink: #16183a;          /* deep cool ink for text */
-  --ink-soft: rgba(22, 24, 58, 0.78);
-  --ink-faint: rgba(22, 24, 58, 0.55);
+  --ink-soft: rgba(22, 24, 58, 0.86);
+  --ink-faint: rgba(22, 24, 58, 0.75);
   --glass: rgba(255, 255, 255, 0.55);
   --glass-strong: rgba(255, 255, 255, 0.74);
   --glass-border: rgba(255, 255, 255, 0.72);
@@ -20,7 +20,7 @@
 html, body { margin: 0; padding: 0; }
 
 body {
-  font-family: 'Inter Tight', system-ui, sans-serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 17px;
   min-height: 100vh;
   color: var(--ink);
@@ -29,13 +29,21 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Navigation, controls and small details use the companion sans serif. */
+.tab, .btn, .kicker, .card-tag, .linklist, .back-link, .footer,
+.stub-note, .form, .entry-meta, .entry-publication, .entry-where, .entry-links,
+.entry-link, .feature-links, .feature-fig figcaption,
+.wip-chip, .selector-label, .rotidx, .flabel, .formed, .poly-head {
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+}
+
 /* ---- Per-page cool gradients + accent (stronger, slightly deeper) ---- */
 body.theme-about    { background: linear-gradient(135deg, #e6e8ec 0%, #dcdfe4 50%, #d2d6dc 100%); --accent:#2a2670; }
-body.theme-research { background: linear-gradient(135deg, #9c8ce4 0%, #8578da 50%, #7c88de 100%); --accent:#241c66; }
+body.theme-research { background: linear-gradient(135deg, #9c8ce4 0%, #8578da 50%, #7c88de 100%); --accent:#241c66; --ink-soft:#16183a; --ink-faint:#16183a; }
 body.theme-writing  { background: linear-gradient(135deg, #f1e9db 0%, #eadfcc 50%, #e2d5bd 100%); --accent:#1c2e4a; }
-body.theme-teaching { background: linear-gradient(135deg, #8cd2ec 0%, #84dad0 50%, #90debb 100%); --accent:#0a5a52; }
+body.theme-teaching { background: linear-gradient(135deg, #e9e6ef 0%, #e0dce8 50%, #d5d1df 100%); --accent:#0a5a52; }
 body.theme-tutoring { background: linear-gradient(135deg, #e4e6ec 0%, #dcdee6 50%, #d8dce4 100%); --accent:#334155; }
-body.theme-cv       { background: linear-gradient(135deg, #7fa2e6 0%, #6b90e0 50%, #66b4e4 100%); --accent:#10327a; }
+body.theme-cv       { background: linear-gradient(135deg, #ece8e1 0%, #e4dfd7 50%, #dcd6cd 100%); --accent:#10327a; }
 body.theme-lab      { background: linear-gradient(135deg, #cfe0d8 0%, #bfd6cc 50%, #b0cdc2 100%); --accent:#223a5e; }
 
 /* About page sits on gray, so its bubbles go solid white with a hairline edge */
@@ -56,7 +64,7 @@ body.theme-about .tab.is-active { background: #e9ebf0; box-shadow: none; }
 }
 
 .brand {
-  font-family: 'Fraunces', serif;
+  font-family: 'Source Serif 4', serif;
   font-size: 24px;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -78,7 +86,7 @@ body.theme-about .tab.is-active { background: #e9ebf0; box-shadow: none; }
 }
 
 .tab {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Source Sans 3', sans-serif;
   font-size: 15px;
   font-weight: 500;
   text-decoration: none;
@@ -106,7 +114,7 @@ body.theme-about .tab.is-active { background: #e9ebf0; box-shadow: none; }
 }
 
 .headline {
-  font-family: 'Fraunces', serif;
+  font-family: 'Source Serif 4', serif;
   font-size: clamp(42px, 8vw, 80px);
   font-weight: 500; line-height: 1.05;
   letter-spacing: -0.02em;
@@ -179,7 +187,7 @@ a.card:hover { transform: translateY(-4px); background: var(--glass-strong); box
   color: var(--ink-faint); margin-bottom: 10px;
 }
 .card-title {
-  font-family: 'Fraunces', serif;
+  font-family: 'Source Serif 4', serif;
   font-size: 24px; font-weight: 500; margin-bottom: 8px;
 }
 .card-body { font-size: 16.5px; line-height: 1.5; color: var(--ink-soft); }
@@ -202,7 +210,7 @@ a.card--lead:hover .card-title { color: var(--accent); }
 
 /* ---- Section headings within a page ---- */
 .section-head {
-  font-family: 'Fraunces', serif;
+  font-family: 'Source Serif 4', serif;
   font-size: 30px; font-weight: 500;
   letter-spacing: -0.01em;
   margin: 46px 0 18px;
@@ -210,8 +218,8 @@ a.card--lead:hover .card-title { color: var(--accent); }
 
 /* ---- Prose / detail body ---- */
 .prose { max-width: 84ch; }
-.prose h2 { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 500; margin: 40px 0 14px; }
-.prose h3 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; margin: 28px 0 10px; }
+.prose h2 { font-family: 'Source Serif 4', serif; font-size: 28px; font-weight: 500; margin: 40px 0 14px; }
+.prose h3 { font-family: 'Source Serif 4', serif; font-size: 22px; font-weight: 500; margin: 28px 0 10px; }
 .prose p, .prose li { font-size: 19px; line-height: 1.7; color: var(--ink-soft); }
 .prose ul, .prose ol { padding-left: 22px; margin: 0 0 18px; }
 .prose li { margin-bottom: 8px; }
@@ -228,7 +236,7 @@ a.card--lead:hover .card-title { color: var(--accent); }
 .values li::before {
   counter-increment: v; content: counter(v);
   position: absolute; left: 4px; top: 15px;
-  font-family: 'Fraunces', serif; font-size: 19px; font-weight: 500; color: var(--accent);
+  font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 500; color: var(--accent);
 }
 
 /* ---- Links list (social etc.) ---- */
@@ -278,7 +286,7 @@ a.card--lead:hover .card-title { color: var(--accent); }
   background: var(--glass); border: 1px solid var(--glass-border);
   backdrop-filter: blur(10px);
 }
-.panel h3 { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 500; margin: 0 0 8px; }
+.panel h3 { font-family: 'Source Serif 4', serif; font-size: 20px; font-weight: 500; margin: 0 0 8px; }
 .panel p { font-size: 16px; line-height: 1.55; color: var(--ink-soft); margin: 0; }
 
 /* ---- Rates list ---- */
@@ -313,7 +321,7 @@ a.card--lead:hover .card-title { color: var(--accent); }
 }
 .form label { display: grid; gap: 6px; font-size: 14.5px; font-weight: 500; color: var(--ink-soft); }
 .form input, .form textarea {
-  font-family: 'Inter Tight', sans-serif; font-size: 16px;
+  font-family: 'Source Sans 3', sans-serif; font-size: 16px;
   padding: 11px 14px; border-radius: 10px;
   border: 1px solid var(--glass-border); background: rgba(255,255,255,0.75);
   color: var(--ink); width: 100%;

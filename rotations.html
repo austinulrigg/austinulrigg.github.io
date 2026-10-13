@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rotation Systems | Austin Ulrigg</title>
 
-<!-- Site fonts: Fraunces (display) + Inter Tight (body) -->
+<!-- Site fonts: Source Serif 4 (headings and prose) + Source Sans 3 (navigation and details) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap" rel="stylesheet">
 
 <!-- MathJax for math labels like $K_{3,3}$ -->
 <script>
@@ -65,7 +65,7 @@
   box-shadow: 0 2px 10px rgba(18, 22, 60, 0.08);
 }
 .seg-item {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Source Sans 3', sans-serif;
   font-size: 16.5px; font-weight: 500;
   display: inline-flex; align-items: center; gap: 9px;
   padding: 10px 22px; border-radius: 999px;
@@ -101,7 +101,7 @@
   border-radius: 18px; backdrop-filter: blur(10px); padding: 20px 22px;
 }
 .epanel h3 {
-  font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; margin: 0 0 4px;
+  font-family: 'Source Serif 4', serif; font-weight: 500; font-size: 18px; margin: 0 0 4px;
 }
 .epanel .hint { font-size: 13px; color: var(--ink-faint); margin: 0 0 14px; line-height: 1.5; }
 
@@ -114,7 +114,7 @@
   display: inline-flex; align-items: baseline;
   font-size: 18px; color: var(--ink); font-variant-numeric: tabular-nums;
 }
-.req .sig { font-family: 'Fraunces', serif; font-style: italic; font-size: 19px; }
+.req .sig { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 19px; }
 .req .sub { font-size: 12.5px; font-weight: 700; padding-left: 1px; }
 .req .sub.pAt { color: var(--accent); }
 .req .sub.pBt { color: var(--vB); }
@@ -149,11 +149,11 @@
 .vert { stroke: #fff; stroke-width: 2.5; filter: drop-shadow(0 2px 3px rgba(18, 22, 60, 0.22)); }
 .vert.pA { fill: var(--accent); }
 .vert.pB { fill: var(--vB); }
-.vlabel { fill: #fff; font: 600 13px 'Inter Tight', sans-serif; text-anchor: middle; dominant-baseline: central; }
+.vlabel { fill: #fff; font: 600 13px 'Source Sans 3', sans-serif; text-anchor: middle; dominant-baseline: central; }
 .dir { fill: none; stroke: var(--accent); stroke-width: 2.1; stroke-linecap: round; opacity: 0.95; }
 .ahf { fill: var(--accent); }
 .ordt {
-  fill: var(--accent); font: 700 10.5px 'Inter Tight', sans-serif;
+  fill: var(--accent); font: 700 10.5px 'Source Sans 3', sans-serif;
   text-anchor: middle; dominant-baseline: central;
   paint-order: stroke; stroke: #fff; stroke-width: 3px;
 }
@@ -175,7 +175,7 @@
   display: inline-grid; place-items: center; vertical-align: 0.12em;
   width: 30px; height: 30px; border-radius: 50%;
   background: var(--accent); color: #fff;
-  font: 600 14px 'Inter Tight', sans-serif;
+  font: 600 14px 'Source Sans 3', sans-serif;
   margin-right: 14px;
 }
 /* gentle entrance for the generated sections */
@@ -206,13 +206,13 @@
 .poly-card { padding: 14px 16px 16px; }
 .poly-head { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--ink-soft); margin-bottom: 2px; }
 .polysvg { width: 100%; height: auto; display: block; max-width: 258px; margin: 4px auto 0; }
-.polylab { font: 700 13px 'Inter Tight', sans-serif; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: #fff; stroke-width: 3.2px; }
+.polylab { font: 700 13px 'Source Sans 3', sans-serif; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: #fff; stroke-width: 3.2px; }
 
 /* ---- Embedding, glue the fundamental polygons (checkpoint 6) ---- */
 .embed-block { margin-top: 12px; }
 #glueSvg { width: 100%; height: 450px; display: block; max-width: 760px; margin: 0 auto; }
-.dartlab { font: 600 10.5px 'Inter Tight', sans-serif; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: #fff; stroke-width: 3px; }
-.vnum { font: 700 11.5px 'Inter Tight', sans-serif; fill: #4f29d6; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: #fff; stroke-width: 3px; }
+.dartlab { font: 600 10.5px 'Source Sans 3', sans-serif; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: #fff; stroke-width: 3px; }
+.vnum { font: 700 11.5px 'Source Sans 3', sans-serif; fill: #4f29d6; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: #fff; stroke-width: 3px; }
 .glue-result {
   display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
   margin: 16px 2px 0; padding: 16px 20px; border-radius: 16px;
@@ -225,7 +225,7 @@
 
 /* ---- 3D embedding viewer (K_{3,3}) ---- */
 .emb3d-tag {
-  font-family: 'Inter Tight', sans-serif; font-size: 12px; font-weight: 600;
+  font-family: 'Source Sans 3', sans-serif; font-size: 12px; font-weight: 600;
   color: var(--ink-faint); background: var(--glass-strong); border: 1px solid var(--glass-border);
   padding: 3px 11px; border-radius: 999px; vertical-align: middle; margin-left: 10px;
   letter-spacing: 0.02em;
@@ -823,9 +823,9 @@
   }
   function tdLabel(text) {
     const c = document.createElement('canvas'), x = c.getContext('2d'), fs = 56, pad = 14;
-    x.font = `800 ${fs}px Inter Tight, system-ui, sans-serif`;
+    x.font = `800 ${fs}px 'Source Sans 3', system-ui, sans-serif`;
     c.width = Math.ceil(x.measureText(text).width + pad * 2); c.height = fs + pad * 2;
-    x.font = `800 ${fs}px Inter Tight, system-ui, sans-serif`;
+    x.font = `800 ${fs}px 'Source Sans 3', system-ui, sans-serif`;
     x.textBaseline = 'middle'; x.lineWidth = 8; x.lineJoin = 'round';
     x.strokeStyle = 'rgba(247,247,250,0.96)'; x.fillStyle = '#16183a';
     x.strokeText(text, pad, c.height / 2); x.fillText(text, pad, c.height / 2);

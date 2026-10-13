@@ -6,7 +6,7 @@
   <title>Research | Austin Ulrigg</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <style>
     .research-grid { display: grid; grid-template-columns: 300px 1fr; gap: 56px; align-items: start; }
@@ -16,19 +16,20 @@
     .entry {
       display: block; padding: 24px 4px; text-decoration: none; color: inherit;
       border-top: 1px solid rgba(22, 24, 58, 0.18);
-      transition: transform 0.22s ease;
     }
     .entry:last-child { border-bottom: 1px solid rgba(22, 24, 58, 0.18); }
     .entry-top { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; }
-    .entry-title { font-family: 'Fraunces', serif; font-size: 25px; font-weight: 500; line-height: 1.2; }
+    .entry-title { color: inherit; text-decoration: none; font-family: 'Source Serif 4', serif; font-size: 25px; font-weight: 500; line-height: 1.2; }
     .entry-meta {
       flex: none; font-size: 12.5px; font-weight: 600; letter-spacing: 0.09em;
       text-transform: uppercase; color: var(--ink-faint); white-space: nowrap;
     }
     .entry-body { margin: 8px 0 0; font-size: 17px; line-height: 1.6; color: var(--ink-soft); max-width: 66ch; }
     .entry-publication { display: block; margin-top: 8px; font-size: 12.5px; line-height: 1.4; color: var(--ink-faint); }
-    .entry:hover { transform: translateX(6px); }
-    .entry:hover .entry-title { color: var(--accent); }
+    .entry-title:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+    .entry-links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 10px; margin: 12px 0 0; font-size: 15px; line-height: 1.6; }
+    .entry-links a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    .entry-links a:hover { color: var(--ink); }
     @media (max-width: 900px) {
       .research-grid { grid-template-columns: 1fr; gap: 10px; }
       .research-intro { position: static; }
@@ -62,36 +63,40 @@
           <p class="blurb">My research interests are in topological graph theory, especially graph embeddings, orientable genus, rotation systems, and forbidden minors.</p>
         </div>
         <div class="entries">
-          <a class="entry" href="post-pisanski.html">
+          <article class="entry">
             <div class="entry-top">
-              <span class="entry-title">Resolving Pisanski&rsquo;s Conjecture on Quadrilateral Embeddings</span>
+              <a class="entry-title" href="post-pisanski.html">Resolving Pisanski&rsquo;s Conjecture on Quadrilateral Embeddings</a>
               <span class="entry-meta">With A. Metzger &middot; Preprint &middot; 2026</span>
             </div>
             <p class="entry-body">We prove Pisanski's conjecture on quadrilateral embeddings of regular bipartite graphs. For integers <i>m</i>&nbsp;&ge;&nbsp;<i>d</i>&nbsp;&ge;&nbsp;4 with 4&nbsp;|&nbsp;<i>md</i>, we construct both a connected simple <i>d</i>-regular bipartite graph <i>G</i> with <i>m</i> vertices in each bipartition class and an orientable quadrangulation.</p>
             <span class="entry-publication">Submitted to Journal of Graph Theory</span>
-          </a>
-          <a class="entry" href="post-kneser-genus.html">
+            <p class="entry-links"><a href="https://arxiv.org/abs/2610.13085">arXiv</a> <span aria-hidden="true">&middot;</span> <a href="files/Resolving_Pisanskis_Conjecture.pdf">PDF</a></p>
+          </article>
+          <article class="entry">
             <div class="entry-top">
-              <span class="entry-title">The Genus of Bipartite Kneser Graphs</span>
+              <a class="entry-title" href="post-kneser-genus.html">The Genus of Bipartite Kneser Graphs</a>
               <span class="entry-meta">With A. Metzger &middot; Preprint &middot; 2026</span>
             </div>
             <p class="entry-body">Alexander Metzger and I construct a vertex-transitive orientable quadrangulation of the bipartite Kneser graph <span style="white-space:nowrap">H(h,2)</span> for every prime h&nbsp;&gt;&nbsp;3 with <span style="white-space:nowrap">h &equiv; 3 (mod 8)</span>. It attains the Euler lower bound and therefore determines the genus.</p>
             <span class="entry-publication">Submitted to Journal of Graph Theory</span>
-          </a>
-          <a class="entry" href="post-genus-algorithm.html">
+            <p class="entry-links"><a href="https://arxiv.org/abs/2610.03159">arXiv</a> <span aria-hidden="true">&middot;</span> <a href="files/The_Genus_of_Bipartite_Kneser_Graphs.pdf">PDF</a> <span aria-hidden="true">&middot;</span> <a href="https://github.com/SanderGi/Genus/tree/main/BipartiteKneser">Code and certificates</a></p>
+          </article>
+          <article class="entry">
             <div class="entry-top">
-              <span class="entry-title">An Efficient Genus Algorithm Based on Graph Rotations</span>
+              <a class="entry-title" href="post-genus-algorithm.html">An Efficient Genus Algorithm Based on Graph Rotations</a>
               <span class="entry-meta">With A. Metzger &middot; Discrete Mathematics &middot; 2026</span>
             </div>
             <p class="entry-body">Alexander Metzger and I wrote PAGE, an algorithm that computes the orientable genus of a connected graph by searching over its rotation systems. We used it to show that the <span style="white-space:nowrap">(3,12)-cage</span> has genus 17, and it is now in SageMath and used by the House of Graphs to compute graph genus.</p>
-          </a>
-          <a class="entry" href="post-thesis.html">
+            <p class="entry-links"><a href="https://doi.org/10.1016/j.disc.2026.115308">Journal</a> <span aria-hidden="true">&middot;</span> <a href="https://arxiv.org/abs/2411.07347">arXiv</a> <span aria-hidden="true">&middot;</span> <a href="files/An_Efficient_Genus_Algorithm_Based_on_Graph_Rotations.pdf">PDF</a> <span aria-hidden="true">&middot;</span> <a href="https://github.com/SanderGi/Genus/tree/main/PAGE">Code</a></p>
+          </article>
+          <article class="entry">
             <div class="entry-top">
-              <span class="entry-title">Graph Genera and Minors</span>
+              <a class="entry-title" href="post-thesis.html">Graph Genera and Minors</a>
               <span class="entry-meta">Honors thesis &middot; 2025</span>
             </div>
             <p class="entry-body">My undergraduate honors thesis, advised by Fran&ccedil;ois Cl&eacute;ment, on embedding graphs on surfaces. The later sections cover PAGE and the forbidden toroidal minors.</p>
-          </a>
+            <p class="entry-links"><a href="files/Ulrigg_Honors_Thesis_2025.pdf">PDF</a></p>
+          </article>
         </div>
       </div>
     </main>
