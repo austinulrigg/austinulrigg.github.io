@@ -1,7 +1,7 @@
 import {fields,operations,defaults,normalize,issues,graphID,fromURL,toURL} from './query.mjs';
 import {decodeGraph6,layout,upper,exportFormats,encoding,exportGraph} from './graph.mjs';
 import {mountSurface} from './surface.mjs';
-import {catalogueRelease} from './config.mjs';
+import {catalogueRelease} from './config.mjs?v=2026-10-12-r2';
 const root=document.getElementById('torus-db'),$=s=>root.querySelector(s);
 const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const release=new URL(location.href).searchParams.get('v')||catalogueRelease;
@@ -123,7 +123,7 @@ root.addEventListener('change',e=>{const el=e.target;if(el.id==='td-data-format'
 });
 root.addEventListener('keydown',e=>{if(e.target.getAttribute('role')!=='tab')return;const tabs=['overview','evidence','data'];let i=tabs.indexOf(tab);if(e.key==='ArrowRight')i=(i+1)%3;else if(e.key==='ArrowLeft')i=(i+2)%3;else if(e.key==='Home')i=0;else if(e.key==='End')i=2;else return;e.preventDefault();tab=tabs[i];detailHTML();$(`#td-tab-${tab}`).focus();});
 window.addEventListener('popstate',()=>{const url=new URL(location.href);if((url.searchParams.get('v')||catalogueRelease)!==release){location.reload();return;}state=fromURL(location.href);$('#td-search').value=state.query;renderFilters();renderSorts();const id=/^TO-(\d{6})$/.exec(url.searchParams.get('graph')||'');if(id)detail(+id[1],false);else back(false);});
-async function init(){try{worker=new Worker(new URL('./search-worker.mjs',import.meta.url),{type:'module'});worker.onmessage=({data})=>{const p=pending.get(data.request);if(!p)return;pending.delete(data.request);data.error?p.reject(Error(data.error)):p.resolve(data);};worker.onerror=()=>{for(const p of pending.values())p.reject(Error('The search could not start. Reload this page.'));pending.clear();fail(Error('The search could not start. Reload this page.'));};manifest=(await request('init',{release})).manifest;
+async function init(){try{worker=new Worker(new URL(`./search-worker.mjs?v=${catalogueRelease}`,import.meta.url),{type:'module'});worker.onmessage=({data})=>{const p=pending.get(data.request);if(!p)return;pending.delete(data.request);data.error?p.reject(Error(data.error)):p.resolve(data);};worker.onerror=()=>{for(const p of pending.values())p.reject(Error('The search could not start. Reload this page.'));pending.clear();fail(Error('The search could not start. Reload this page.'));};manifest=(await request('init',{release})).manifest;
  $('#td-search').value=state.query;renderFilters();renderSorts();const target=/^TO-(\d{6})$/.exec(new URL(location.href).searchParams.get('graph')||'');await results();if(target)await detail(+target[1],false);
  }catch(e){fail(e);}}
 init();

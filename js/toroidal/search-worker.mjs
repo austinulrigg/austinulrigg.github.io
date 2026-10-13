@@ -5,7 +5,7 @@ async function bytes(name) {
   return new Uint8Array(await response.arrayBuffer());
 }
 async function initialize(release) {
-  if(!/^\d{4}-\d{2}-\d{2}$/.test(release))throw Error('Unknown release.');
+  if(!/^\d{4}-\d{2}-\d{2}(?:-r[1-9]\d*)?$/.test(release))throw Error('Unknown release.');
   base=new URL(`../../data/toroidal/${release}/`,import.meta.url);
   const r=await fetch(new URL('manifest.json',base));if(!r.ok)throw Error('This release is not available.');manifest=await r.json();
   if(typeof DecompressionStream==='function'){
