@@ -12,7 +12,9 @@
   --glass-strong: rgba(255, 255, 255, 0.74);
   --glass-border: rgba(255, 255, 255, 0.72);
   --shadow: 0 16px 34px rgba(18, 22, 60, 0.16);
-  --maxw: 1360px;
+  --maxw: 1280px;
+  --gutter: 40px;
+  --page-title: clamp(36px, 4.5vw, 56px);
   --accent: #4338ca;       /* default accent, overridden per page */
 }
 
@@ -43,7 +45,7 @@ body.theme-research { background: linear-gradient(135deg, #ece8e1 0%, #e4dfd7 50
 body.theme-writing  { background: linear-gradient(135deg, #f1e9db 0%, #eadfcc 50%, #e2d5bd 100%); --accent:#1c2e4a; }
 body.theme-teaching { background: linear-gradient(135deg, #e9e6ef 0%, #e0dce8 50%, #d5d1df 100%); --accent:#0a5a52; }
 body.theme-tutoring { background: linear-gradient(135deg, #e2e9f0 0%, #d7e1eb 50%, #cbd8e5 100%); --accent:#334155; }
-body.theme-cv       { background: linear-gradient(135deg, #9c8ce4 0%, #8578da 50%, #7c88de 100%); --accent:#10327a; }
+body.theme-cv       { background: linear-gradient(135deg, #e4dff2 0%, #dad4ec 50%, #ced0e8 100%); --accent:#10327a; }
 body.theme-lab      { background: linear-gradient(135deg, #cfe0d8 0%, #bfd6cc 50%, #b0cdc2 100%); --accent:#223a5e; }
 
 /* About page sits on pale lavender, so its bubbles go solid white with a hairline edge */
@@ -58,7 +60,7 @@ body.theme-about { --glass: #ffffff; --glass-strong: #ffffff; --glass-border: rg
   justify-content: space-between;
   gap: 18px;
   flex-wrap: wrap;
-  padding: 26px 28px;
+  padding: 26px var(--gutter);
 }
 
 .brand {
@@ -92,7 +94,7 @@ body.theme-about { --glass: #ffffff; --glass-strong: #ffffff; --glass-border: rg
 .tab:focus-visible { outline: 2px solid #5802a8; outline-offset: 4px; }
 
 /* ---- Main content ---- */
-.main { padding: 36px 28px 100px; }
+.main { padding: 36px var(--gutter) 80px; }
 
 .kicker {
   font-size: 14px; font-weight: 600;
@@ -103,7 +105,7 @@ body.theme-about { --glass: #ffffff; --glass-strong: #ffffff; --glass-border: rg
 
 .headline {
   font-family: 'Source Serif 4', serif;
-  font-size: clamp(42px, 8vw, 80px);
+  font-size: var(--page-title);
   font-weight: 500; line-height: 1.05;
   letter-spacing: -0.02em;
   margin: 0 0 22px; max-width: 18ch;
@@ -117,11 +119,11 @@ body.theme-about { --glass: #ffffff; --glass-strong: #ffffff; --glass-border: rg
 
 /* ---- Hero (About) ---- */
 .hero {
-  display: flex; gap: 38px; align-items: flex-start;
+  display: flex; gap: 32px; align-items: flex-start;
   flex-wrap: wrap; margin-bottom: 30px;
 }
 .hero-photo {
-  width: 188px; height: 188px; border-radius: 50%;
+  width: 164px; height: 164px; border-radius: 50%;
   flex-shrink: 0;
   background-image: url('../images/prof_pic_color.png');
   background-size: 112%;
@@ -131,20 +133,21 @@ body.theme-about { --glass: #ffffff; --glass-strong: #ffffff; --glass-border: rg
   border: 1px solid var(--glass-border);
   box-shadow: var(--shadow);
 }
-.hero-text { flex: 1; min-width: 280px; }
+.hero-text { flex: 1; min-width: min(280px, 100%); }
+.hero .headline { font-size: clamp(42px, 5vw, 64px); }
 
 /* ---- Buttons ---- */
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 16px; font-weight: 500;
   text-decoration: none; cursor: pointer;
-  padding: 11px 20px; border-radius: 999px;
+  padding: 10px 17px; border-radius: 5px;
   border: 1px solid var(--glass-border);
   background: var(--glass); color: var(--ink);
   backdrop-filter: blur(8px);
-  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
-.btn:hover { transform: translateY(-2px); background: var(--glass-strong); box-shadow: var(--shadow); }
+.btn:hover { background: var(--glass-strong); border-color: var(--accent); }
 .btn--primary { background: var(--accent); color: #fff; border-color: transparent; }
 .btn--primary:hover { background: var(--accent); filter: brightness(1.08); }
 .btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 8px 0 0; }
@@ -157,18 +160,18 @@ body.theme-about { --glass: #ffffff; --glass-strong: #ffffff; --glass-border: rg
 }
 .card {
   position: relative; padding: 26px;
-  border-radius: 18px;
+  border-radius: 6px;
   background: var(--glass);
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(10px);
   min-height: 150px;
   display: flex; flex-direction: column;
   text-decoration: none; color: inherit;
-  animation: cardIn 0.5s ease both;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  animation: none;
+  transition: background 0.25s ease;
 }
 a.card { cursor: pointer; }
-a.card:hover { transform: translateY(-4px); background: var(--glass-strong); box-shadow: var(--shadow); }
+a.card:hover { background: var(--glass-strong); }
 .card-tag {
   font-size: 12.5px; font-weight: 600;
   letter-spacing: 0.08em; text-transform: uppercase;
@@ -231,25 +234,25 @@ a.card--lead:hover .card-title { color: var(--accent); }
 .linklist { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; padding: 0; list-style: none; }
 .linklist a {
   font-size: 15px; text-decoration: none; color: var(--ink-soft);
-  padding: 7px 14px; border-radius: 999px;
+  padding: 7px 0; border-radius: 0;
   background: var(--glass); border: 1px solid var(--glass-border); backdrop-filter: blur(8px);
   transition: color 0.2s ease, transform 0.2s ease;
 }
-.linklist a:hover { color: var(--accent); transform: translateY(-2px); }
+.linklist a:hover { color: var(--accent); }
 
 /* ---- Back link ---- */
 .back-link {
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 15px; font-weight: 500; text-decoration: none; color: var(--ink-soft);
-  padding: 8px 16px 8px 12px; border-radius: 999px;
-  background: var(--glass); border: 1px solid var(--glass-border); backdrop-filter: blur(8px);
+  padding: 8px 0; border-radius: 0;
+  background: none; border: none;
   transition: opacity 0.25s ease, transform 0.25s ease; margin-bottom: 8px;
 }
-.back-link:hover { transform: translateX(-3px); color: var(--accent); }
+.back-link:hover { color: var(--accent); }
 
 /* ---- Footer ---- */
 .footer {
-  padding: 30px 28px 50px; color: var(--ink-faint); font-size: 15px;
+  padding: 30px var(--gutter) 50px; color: var(--ink-faint); font-size: 15px;
   display: flex; gap: 18px; flex-wrap: wrap; align-items: center;
 }
 .footer a { color: var(--ink-soft); text-decoration: none; }
@@ -259,7 +262,7 @@ a.card--lead:hover .card-title { color: var(--accent); }
 .stub-note {
   display: inline-block; font-size: 13px; font-weight: 600;
   letter-spacing: 0.06em; text-transform: uppercase;
-  padding: 7px 14px; border-radius: 999px;
+  padding: 7px 0; border-radius: 0;
   background: var(--accent); color: #fff; margin-bottom: 20px;
 }
 
@@ -304,13 +307,13 @@ a.card--lead:hover .card-title { color: var(--accent); }
 /* ---- Form ---- */
 .form {
   display: grid; gap: 16px; max-width: 560px; margin: 12px 0 0;
-  padding: 26px; border-radius: 18px;
+  padding: 26px; border-radius: 6px;
   background: var(--glass); border: 1px solid var(--glass-border); backdrop-filter: blur(10px);
 }
 .form label { display: grid; gap: 6px; font-size: 14.5px; font-weight: 500; color: var(--ink-soft); }
 .form input, .form textarea {
   font-family: 'Source Sans 3', sans-serif; font-size: 16px;
-  padding: 11px 14px; border-radius: 10px;
+  padding: 11px 14px; border-radius: 4px;
   border: 1px solid var(--glass-border); background: rgba(255,255,255,0.75);
   color: var(--ink); width: 100%;
 }
@@ -334,14 +337,16 @@ a.card--lead:hover .card-title { color: var(--accent); }
 
 /* ---- Responsive ---- */
 @media (max-width: 900px) {
-  .header { padding: 22px 24px; }
-  .main { padding: 30px 24px 90px; }
-  .footer { padding: 26px 24px 44px; }
+  :root { --gutter: 28px; }
+  .header { padding: 22px var(--gutter); }
+  .main { padding: 30px var(--gutter) 80px; }
+  .footer { padding: 26px var(--gutter) 44px; }
 }
 @media (max-width: 760px) {
   .tabs { gap: 17px; }
 }
 @media (max-width: 720px) {
+  :root { --gutter: 20px; }
   .header { padding: 18px 20px; gap: 14px; }
   .brand { font-size: 21px; }
   .tabs { width: 100%; justify-content: flex-start; overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -356,7 +361,7 @@ a.card--lead:hover .card-title { color: var(--accent); }
   iframe:not([data-tally-src]) { height: 70vh !important; }
 }
 @media (max-width: 460px) {
-  .headline { font-size: clamp(34px, 11vw, 44px); }
+  .headline { font-size: var(--page-title); }
 }
 
 /* =========================================================
