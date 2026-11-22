@@ -158,14 +158,22 @@ body.theme-data {--accent:#5802a8;}
 #torus-db .td-catalogue-grid {display:grid;grid-template-columns:minmax(0,1fr);gap:24px;align-items:start;}
 #torus-db .td-catalogue-main {min-width:0;}
 #torus-db .td-result-actions {flex-wrap:wrap;gap:4px 16px;}
-#torus-db .td-recent {min-width:0;line-height:1.35;}
-#torus-db .td-recent h2 {font-size:17px;}
-#torus-db .td-recent ol {list-style:none;padding:0 4px 0 0;margin:6px 0 0;max-height:220px;overflow:auto;}
-#torus-db .td-recent li {padding:4px 0;overflow-wrap:anywhere;}
-#torus-db .td-recent li+li {margin-top:5px;}
-#torus-db .td-recent li strong {display:block;font-size:14px;font-weight:600;}
+#torus-db .td-recent {min-width:0;line-height:1.28;}
+#torus-db .td-recent h2 {font-size:15px;}
+#torus-db .td-recent ol {list-style:none;padding:0 5px 0 0;margin:5px 0 0;max-height:205px;overflow:auto;scrollbar-width:thin;}
+#torus-db .td-recent li {position:relative;padding:3px 0 3px 11px;overflow-wrap:anywhere;}
+#torus-db .td-recent li+li {margin-top:3px;}
+#torus-db .td-recent li::before {content:"";position:absolute;inset-inline-start:1px;top:.58em;width:4px;height:4px;border-radius:50%;background:var(--td-muted);opacity:.5;}
+#torus-db .td-recent li:first-child::before {background:var(--accent);opacity:.8;}
+#torus-db .td-recent li strong {display:block;font-size:13px;font-weight:600;}
 #torus-db .td-recent li p,#torus-db .td-recent time {font-size:12px;color:var(--td-muted);}
-#torus-db .td-recent time {display:block;margin-top:1px;}
+#torus-db .td-recent time {display:block;}
 @media(min-width:980px){
- #torus-db .td-catalogue-grid {grid-template-columns:minmax(0,1fr) minmax(170px,190px);gap:24px;}
+ #torus-db .td-catalogue-grid {grid-template-columns:minmax(0,1fr) 156px;gap:30px;}
+ #torus-db .td-recent {transform:translateX(calc(var(--gutter) + max(0px,(100vw - var(--maxw))/2) - 20px));}
+}
+@media(min-width:1680px){
+ /* An outer rail fits without taking any width from the centered catalogue. */
+ #torus-db .td-catalogue-grid {position:relative;grid-template-columns:minmax(0,1fr);}
+ #torus-db .td-recent {position:absolute;inset-inline-start:calc(100% + var(--gutter) + 14px);inset-block-start:0;width:156px;transform:none;}
 }
