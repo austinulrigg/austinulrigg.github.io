@@ -1,4 +1,4 @@
-import {fields,operations,defaults,normalize,issues,graphID,fromURL,toURL} from './query.mjs?v=2026-10-12-minor';
+import {fields,operations,defaults,minorFilter,normalize,issues,graphID,fromURL,toURL} from './query.mjs?v=2026-11-22-catalogue';
 import {decodeGraph6,layout,upper,exportFormats,encoding,exportGraph} from './graph.mjs';
 import {mountSurface} from './surface.mjs';
 import {catalogueRelease} from './config.mjs?v=2026-11-11';
@@ -28,16 +28,52 @@ function renderSorts(){
  $('#td-sort-panel').hidden=!sortOpen;$('#td-sort-button').setAttribute('aria-expanded',String(sortOpen));$('[data-action="add-sort"]').disabled=state.sorts.length>=numericKeys.length;
 }
 function renderChips(){const symbols={lt:'<',le:'≤',eq:'=',ge:'≥',gt:'>'};$('#td-chips').innerHTML=state.filters.map((r,i)=>{const text=r.op==='unknown'?`${fields[r.field]} unknown`:['bipartite','regular','minor'].includes(r.field)?`${fields[r.field]} ${r.value==='true'?'yes':r.field==='minor'?'not recorded':'no'}`:r.op==='between'?`${r.value} ≤ ${fields[r.field].toLowerCase()} ≤ ${r.upper}`:`${fields[r.field]} ${symbols[r.op]} ${r.value}`;return `<span class="td-chip">${esc(text)}<button data-action="remove-filter" data-index="${i}" aria-label="Remove ${esc(text)}">×</button></span>`;}).join('')+(state.filters.length>1&&state.mode==='any'?'<span class="td-helper">Match any</span>':'');}
+const minorOnly=()=>state.filters.length===1&&state.filters[0].field==='minor'&&state.filters[0].op==='eq'&&state.filters[0].value==='true';
+function renderScope(){
+  const button=$('#td-scope-button');
+  button.hidden=!!state.query||(!minorOnly()&&state.filters.length>0);
+  button.textContent=minorOnly()?'Show all graphs':'Show minor obstructions';
+}
+async function loadRecent(){
+  const message=$('#td-recent-status'),list=$('#td-recent-list');
+  try{
+    const response=await fetch(new URL('data/toroidal/recent-additions.json',location.href),{cache:'no-cache'});
+    if(!response.ok)throw Error('Release history unavailable');
+    const {batches}=await response.json();
+    const rows=batches.filter(row=>row&&typeof row.release==='string'&&Number.isFinite(Date.parse(row.publishedAt))&&
+      Number.isSafeInteger(row.added)&&row.added>0&&Number.isSafeInteger(row.minorAdded)&&row.minorAdded>=0&&row.minorAdded<=row.added&&
+      Array.isArray(row.creditedTo)&&row.creditedTo.length>0&&row.creditedTo.every(name=>typeof name==='string'&&name.trim())&&
+      /^https:\/\/github\.com\/austinulrigg\/austinulrigg\.github\.io\/commit\/[0-9a-f]{40}$/.test(row.source))
+      .sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt)).slice(0,6);
+    if(!rows.length){message.textContent='No verified release batches yet.';return;}
+    const when=new Intl.DateTimeFormat(undefined,{dateStyle:'medium',timeStyle:'short'});
+    for(const row of rows){
+      const item=document.createElement('li'),title=document.createElement('strong'),detail=document.createElement('p'),
+        credit=document.createElement('p'),time=document.createElement('time'),link=document.createElement('a');
+      title.textContent=`+${row.added.toLocaleString()} ${row.added===1?'obstruction':'obstructions'}`;
+      detail.textContent=`${row.minorAdded.toLocaleString()} minor-order`;
+      credit.textContent=`Credited to ${row.creditedTo.join(' and ')}`;
+      time.dateTime=row.publishedAt;
+      link.href=row.source;
+      link.textContent=when.format(new Date(row.publishedAt));
+      link.setAttribute('aria-label',`Source for release ${row.release}, published ${link.textContent}`);
+      time.append(link);
+      item.append(title,detail,credit,time);
+      list.append(item);
+    }
+    message.hidden=true;list.hidden=false;
+  }catch{message.textContent='Recent additions are temporarily unavailable.';}
+}
 function tableHead(){ $('#td-table-head').innerHTML=[['id','Graph'],['n','Vertices'],['m','Edges'],['kappa','Vertex connectivity κ'],['lambda','Edge connectivity λ']].map(([key,name])=>{const r=state.sorts.find(s=>s.field===key),primary=state.sorts[0]?.field===key;return `<th scope="col"${primary?` aria-sort="${r.direction==='asc'?'ascending':'descending'}"`:''}>${key==='id'?name:`<button data-sort-column="${key}" aria-label="Sort by ${fields[key]}">${name}${r?' '+(r.direction==='asc'?'↑':'↓'):''}</button>`}</th>`;}).join('');}
 async function results(){
- const gen=++generation;renderChips();tableHead();persist();
+ const gen=++generation;renderChips();renderScope();tableHead();persist();
  const errors=issues(state);$('#td-filter-error').hidden=!errors.length;$('#td-filter-error').textContent=errors.join(' ');
  $('#td-sort-description').textContent=state.sorts.map(r=>`${fields[r.field]} ${r.direction==='asc'?'↑':'↓'}`).join(' · ')||'Graph ID ↑';
  $('#td-table-body').setAttribute('aria-busy','true');
  try{const response=await request('search');if(gen!==generation)return;
   if(response.errors.length)throw Error(response.errors.join(' '));
   total=response.count;state.page=response.page;currentRows=response.rows;persist();
-  $('#td-result-count').textContent=`${total.toLocaleString()} ${total===1?'graph':'graphs'}`;
+  $('#td-result-count').textContent=`${total.toLocaleString()} ${minorOnly()?(total===1?'minor-order obstruction':'minor-order obstructions'):(total===1?'graph':'graphs')}`;
   $('#td-export-summary').textContent=`${total.toLocaleString()} matching graphs`;
   const graphs=await Promise.all(currentRows.map(r=>graph(r.id,r)));if(gen!==generation)return;
   $('#td-table-body').innerHTML=graphs.map(g=>`<tr><td><a class="td-record" href="${esc(toURL(state,release,g.id))}" data-graph="${g.id}"><span>${graphID(g.id)}</span></a></td><td>${g.n}</td><td>${g.m}</td><td>${g.kappa??'Unknown'}</td><td>${g.lambda??'Unknown'}</td></tr>`).join('');
@@ -106,6 +142,7 @@ root.addEventListener('click',async e=>{const b=e.target.closest('button,a');if(
  if(a==='add-filter'&&state.filters.length<12){state.filters.push(state.filters.length?{field:'kappa',op:'ge',value:'3',upper:'6'}:{field:'n',op:'lt',value:'15',upper:'20'});filterOpen=true;}
  if(a==='remove-filter')state.filters.splice(i,1);
  if(a==='clear-filters')state.filters=[];
+ if(a==='toggle-scope')state.filters=minorOnly()?[]:[minorFilter()];
  if(a==='clear-query'){state.filters=[];state.query='';$('#td-search').value='';}
  if(a==='add-sort'){const f=numericKeys.find(k=>!state.sorts.some(r=>r.field===k));if(f)state.sorts.push({field:f,direction:'asc'});}
  if(a==='remove-sort')state.sorts.splice(i,1);
@@ -136,7 +173,8 @@ root.addEventListener('keydown', e => {
  $(`#td-tab-${tab}`).focus();
 });
 window.addEventListener('popstate',()=>{const url=new URL(location.href);if((url.searchParams.get('v')||catalogueRelease)!==release){location.reload();return;}state=fromURL(location.href);$('#td-search').value=state.query;renderFilters();renderSorts();const id=/^TO-(\d{6})$/.exec(url.searchParams.get('graph')||'');if(id)detail(+id[1],false);else back(false);});
-async function init(){try{worker=new Worker(new URL(`./search-worker.mjs?v=2026-10-12-minor`,import.meta.url),{type:'module'});worker.onmessage=({data})=>{const p=pending.get(data.request);if(!p)return;pending.delete(data.request);data.error?p.reject(Error(data.error)):p.resolve(data);};worker.onerror=()=>{for(const p of pending.values())p.reject(Error('The search could not start. Reload this page.'));pending.clear();fail(Error('The search could not start. Reload this page.'));};manifest=(await request('init',{release})).manifest;
- $('#td-search').value=state.query;renderFilters();renderSorts();const target=/^TO-(\d{6})$/.exec(new URL(location.href).searchParams.get('graph')||'');await results();if(target)await detail(+target[1],false);
+async function init(){try{worker=new Worker(new URL(`./search-worker.mjs?v=2026-11-22-catalogue`,import.meta.url),{type:'module'});worker.onmessage=({data})=>{const p=pending.get(data.request);if(!p)return;pending.delete(data.request);data.error?p.reject(Error(data.error)):p.resolve(data);};worker.onerror=()=>{for(const p of pending.values())p.reject(Error('The search could not start. Reload this page.'));pending.clear();fail(Error('The search could not start. Reload this page.'));};manifest=(await request('init',{release})).manifest;
+ $('#td-search').value=state.query;renderFilters();renderSorts();const target=/^TO-(\d{6})$/.exec(new URL(location.href).searchParams.get('graph')||'');if(target)await detail(+target[1],false);else await results();
  }catch(e){fail(e);}}
 init();
+loadRecent();

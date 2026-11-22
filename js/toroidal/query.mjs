@@ -1,6 +1,7 @@
 export const fields = {n:'Vertices',m:'Edges',kappa:'Vertex connectivity',lambda:'Edge connectivity',mindeg:'Minimum degree',maxdeg:'Maximum degree',components:'Connected components',bipartite:'Bipartite',regular:'Regular',minor:'Minor-order obstruction'};
 export const operations = {lt:'less than',le:'at most',eq:'equals',ge:'at least',gt:'greater than',between:'between',unknown:'unknown'};
 export const defaults = () => ({query:'',filters:[],mode:'all',sorts:[{field:'n',direction:'asc'},{field:'m',direction:'asc'}],page:0});
+export const minorFilter = () => ({field:'minor',op:'eq',value:'true',upper:''});
 export const graphID = n => `TO-${String(n).padStart(6,'0')}`;
 export function normalize(raw={}) {
   const d=defaults();
@@ -41,8 +42,11 @@ export function parameters(index,manifest,id) {
 }
 export function fromURL(url) {
   const p=new URL(url).searchParams;
+  // An unparameterized landing page is distinct from legacy saved queries.
+  // Serialized All links include v and sort, but intentionally no f.
+  const landing=!['v','q','f','match','sort','page','graph'].some(key=>p.has(key));
   return normalize({query:p.get('q')||'',mode:p.get('match'),page:p.get('page')||0,
-    filters:p.has('f')?p.get('f').split(';').filter(Boolean).map(s=>{const [field,op,value,upper]=s.split(':');return {field,op,value,upper};}):[],
+    filters:p.has('f')?p.get('f').split(';').filter(Boolean).map(s=>{const [field,op,value,upper]=s.split(':');return {field,op,value,upper};}):landing?[minorFilter()]:[],
     sorts:p.has('sort')?p.get('sort').split(',').filter(Boolean).map(s=>{const [field,direction]=s.split(':');return {field,direction};}):defaults().sorts});
 }
 export function toURL(state,release,graph=null) {
