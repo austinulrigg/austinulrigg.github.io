@@ -1,0 +1,20 @@
+{
+  "batches": [
+    {
+      "release": "2026-11-11",
+      "publishedAt": "2026-11-12T02:52:53Z",
+      "added": 106,
+      "minorAdded": 8,
+      "creditedTo": ["Alexander Metzger", "Austin Ulrigg"],
+      "source": "https://github.com/austinulrigg/austinulrigg.github.io/commit/b09a3afaabf0d9f1a8dd7f6ee4c56321ad4ea020"
+    },
+    {
+      "release": "2026-10-12-r2",
+      "publishedAt": "2026-10-13T04:47:04Z",
+      "added": 14,
+      "minorAdded": 14,
+      "creditedTo": ["Austin Ulrigg"],
+      "source": "https://github.com/austinulrigg/austinulrigg.github.io/commit/9dc70f2d6aa6fdcbd82701c2b988cfde225e7ecb"
+    }
+  ]
+}
