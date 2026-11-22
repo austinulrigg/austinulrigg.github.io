@@ -68,15 +68,21 @@ def load_release(directory, release):
     return result, manifest["canonicalization"]
 
 
+def public_names(values):
+    names = [name.strip() for name in values]
+    if any(not name for name in names) or len(set(names)) != len(names):
+        raise ValueError("supply each public display name once")
+    return names
+
+
 def record_batch(args):
     if args.previous == args.release:
         raise ValueError("use the immediately preceding published release as --previous")
     if not SOURCE.fullmatch(args.source):
         raise ValueError("use the public catalogue's full GitHub release commit permalink")
     published = publication_time(args.published_at)
-    names = [name.strip() for name in args.credit]
-    if any(not name for name in names) or len(set(names)) != len(names):
-        raise ValueError("supply each credited public display name once")
+    names = public_names(args.credit)
+    submitters = public_names(args.submitted_by)
     previous, old_canon = load_release(args.data, args.previous)
     current, new_canon = load_release(args.data, args.release)
     if old_canon != new_canon:
@@ -93,13 +99,15 @@ def record_batch(args):
         "creditedTo": names,
         "source": args.source,
     }
+    if submitters:
+        entry["submittedBy"] = submitters
     target = args.data / "recent-additions.json"
     contents = target.read_text(encoding="utf-8") if target.exists() else ""
     batches = json.loads(contents)["batches"] if contents else []
     for batch in batches:
         if batch["release"] != args.release:
             continue
-        if batch == entry:
+        if all(batch.get(key) == value for key, value in entry.items()):
             print(f"{args.release}: verified existing entry ({entry['added']} added).")
             return
         raise ValueError(f"{args.release}: recorded information differs; review before correcting it")
@@ -130,6 +138,7 @@ def main():
     parser.add_argument("--release", required=True, help="new verified release ID")
     parser.add_argument("--published-at", required=True, help="public release timestamp with UTC offset")
     parser.add_argument("--credit", action="append", required=True, help="public contributor display name; repeat as needed")
+    parser.add_argument("--submitted-by", action="append", default=[], help="verified public submitter; repeat as needed")
     parser.add_argument("--source", required=True, help="full public GitHub release commit permalink")
     args = parser.parse_args()
     try:

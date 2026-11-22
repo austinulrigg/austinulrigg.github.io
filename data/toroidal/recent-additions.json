@@ -14,7 +14,17 @@
       "added": 14,
       "minorAdded": 14,
       "creditedTo": ["Austin Ulrigg"],
+      "submittedBy": ["Austin Ulrigg"],
       "source": "https://github.com/austinulrigg/austinulrigg.github.io/commit/9dc70f2d6aa6fdcbd82701c2b988cfde225e7ecb"
+    },
+    {
+      "kind": "initial-import",
+      "release": "2026-10-12",
+      "publishedAt": "2026-10-13T02:50:08Z",
+      "added": 250815,
+      "minorAdded": 17535,
+      "creditedTo": ["Wendy Myrvold’s torus obstruction database"],
+      "source": "https://github.com/austinulrigg/austinulrigg.github.io/commit/f6b4ba8cf4d330970571059b289041f7f03b3a80"
     }
   ]
 }
