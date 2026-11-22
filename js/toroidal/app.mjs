@@ -48,17 +48,19 @@ async function loadRecent(){
     if(!rows.length){message.textContent='No verified release batches yet.';return;}
     const when=new Intl.DateTimeFormat(undefined,{dateStyle:'medium',timeStyle:'short'});
     for(const row of rows){
-      const item=document.createElement('li'),title=document.createElement('strong'),detail=document.createElement('p'),
+      const item=document.createElement('li'),title=document.createElement('strong'),
         credit=document.createElement('p'),time=document.createElement('time'),link=document.createElement('a');
-      title.textContent=`+${row.added.toLocaleString()} ${row.added===1?'obstruction':'obstructions'}`;
-      detail.textContent=`${row.minorAdded.toLocaleString()} minor-order`;
-      credit.textContent=`Credited to ${row.creditedTo.join(' and ')}`;
+      title.textContent=row.kind==='initial-import'?`Initial import · ${row.added.toLocaleString()} graphs`:`+${row.added.toLocaleString()} ${row.added===1?'obstruction':'obstructions'}`;
+      title.title=`${row.minorAdded.toLocaleString()} minor-order obstructions`;
+      const submittedBy=Array.isArray(row.submittedBy)?row.submittedBy.filter(name=>typeof name==='string'&&name.trim()):[];
+      credit.textContent=row.kind==='initial-import'?`From ${row.creditedTo.join(' and ')}`:
+        submittedBy.length?`Submitted by ${submittedBy.join(' and ')}`:'Submitted by: not recorded';
       time.dateTime=row.publishedAt;
       link.href=row.source;
       link.textContent=when.format(new Date(row.publishedAt));
       link.setAttribute('aria-label',`Source for release ${row.release}, published ${link.textContent}`);
       time.append(link);
-      item.append(title,detail,credit,time);
+      item.append(title,credit,time);
       list.append(item);
     }
     message.hidden=true;list.hidden=false;

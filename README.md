@@ -13,8 +13,10 @@ On the two-week catalogue review, record each new **published, verified** releas
 against its immediately preceding published snapshot. Skip reviews with no new
 release. Use the public release timestamp and public contributor display names
 confirmed by the maintainers, not submitter contact details or commit author
-names inferred to be contributors. A release timestamp records when a batch
-was published, not when its graphs were originally submitted. For example:
+names inferred to be contributors. Add `--submitted-by "Display Name"` only
+when the actual submitter is publicly documented; credit is not evidence of
+submission. A release timestamp records when a batch was published, not when
+its graphs were originally submitted. For example:
 
 ```sh
 python3 scripts/update_toroidal_recent_additions.py \
