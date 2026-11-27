@@ -11,7 +11,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap" rel="stylesheet">
 <!-- The graph names are typeset ahead of time with KaTeX 0.16.9, like the posts, so no math script runs here -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-<link rel="stylesheet" href="css/style.css?v=2026-10-12-nav">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="stylesheet" href="css/style.css?v=2026-11-27-look">
 
 <style>
 /* =========================================================
@@ -21,8 +22,9 @@
    ========================================================= */
 
 body.theme-lab {
-  background: linear-gradient(135deg, #e8f0eb 0%, #dfe9e3 50%, #d5e2da 100%);
-  --paper: #dfe9e3;                      /* halo behind labels drawn on the page */
+  background: #e7dfee;
+  --paper: #e7dfee;                      /* halo behind labels drawn on the page */
+  --fig: #223a5e;                        /* ink for vertices and rotation marks in the drawings */
   --rule: rgba(22, 24, 58, 0.16);
   --rule-soft: rgba(22, 24, 58, 0.09);
   --vB: #1f7ae0;                         /* second vertex color, the part {2,4,6} of K3,3 */
@@ -38,7 +40,7 @@ body.theme-lab {
 
 /* ---- Segmented choice (graphs, and the two views of step 4) ---- */
 .pick { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px; }
-.pick-label { font: 500 15.5px/1.3 'Source Sans 3', system-ui, sans-serif; color: var(--muted); margin: 0; }
+.pick-label { font: 500 16px/1.3 'Source Sans 3', system-ui, sans-serif; color: var(--muted); margin: 0; }
 .seg {
   display: inline-flex; flex-wrap: wrap; gap: 3px; padding: 3px;
   border: 1px solid var(--rule); border-radius: 7px; background: rgba(255, 255, 255, 0.4);
@@ -56,14 +58,14 @@ body.theme-lab {
 .step { border-top: 1px solid var(--rule); padding: 38px 0 46px; margin-top: 44px; }
 .step + .step { margin-top: 0; }
 .step-head { display: flex; align-items: baseline; gap: 14px; font-family: 'Source Serif 4', serif; font-size: 30px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.2; margin: 0 0 22px; }
-.step-num { font: 600 17px/1 'Source Sans 3', system-ui, sans-serif; color: var(--accent); font-variant-numeric: lining-nums tabular-nums; flex: 0 0 auto; }
+.step-num { font: 600 16px/1 'Source Sans 3', system-ui, sans-serif; color: var(--accent); font-variant-numeric: lining-nums tabular-nums; flex: 0 0 auto; }
 .step-num::after { content: "."; }
 .duo { display: grid; grid-template-columns: minmax(300px, 410px) minmax(0, 1fr); grid-template-rows: repeat(5, auto) 1fr; column-gap: 60px; align-items: start; }
 .duo > .col-fig { grid-column: 2; grid-row: 1 / -1; align-self: start; }
 .duo > :not(.col-fig) { grid-column: 1; min-width: 0; }
 .duo > * + :not(.col-fig) { margin-top: 14px; }
-.lede { font-size: 18.5px; line-height: 1.68; color: var(--ink-soft); max-width: 62ch; margin: 0 0 6px; }
-.lab h3 { font: 500 18px/1.3 'Source Serif 4', serif; margin: 0 0 4px; }
+.lede { font-size: 19px; line-height: 1.68; color: var(--ink-soft); max-width: 62ch; margin: 0 0 6px; }
+.lab h3 { font: 500 19px/1.3 'Source Serif 4', serif; margin: 0 0 4px; }
 .fig { margin: 0; }
 .fig > svg { display: block; width: 100%; height: auto; margin: 0 auto; }
 #graphSvg, #faceSvg { max-width: 500px; max-height: 500px; }
@@ -72,15 +74,15 @@ body.theme-lab {
 .rot-row { display: flex; align-items: center; gap: 12px; padding: 7px 0 7px 6px; border-top: 1px solid var(--rule-soft); border-radius: 4px; transition: background 0.15s ease; }
 .rot-row:first-child { border-top: none; }
 .rot-row.is-hot { background: rgba(255, 255, 255, 0.5); }
-.req { display: inline-flex; align-items: baseline; font-size: 20px; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
+.req { display: inline-flex; align-items: baseline; font-size: 21px; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
 .req .sig { font-style: italic; font-size: 21px; }
 .req .sub { font: 700 12.5px/1 'Source Sans 3', system-ui, sans-serif; padding-left: 1px; }
-.req .sub.pAt { color: var(--accent); }
+.req .sub.pAt { color: var(--fig); }
 .req .sub.pBt { color: #1863b8; }
 .req .eq { margin: 0 9px; color: var(--muted); }
 .req .paren { color: var(--muted); }
 .req .seq { letter-spacing: 0.16em; font-weight: 600; padding: 0 2px 0 7px; }
-.rotidx { margin-left: auto; font: 400 13.5px/1 'Source Sans 3', system-ui, sans-serif; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rotidx { margin-left: auto; font: 400 14px/1 'Source Sans 3', system-ui, sans-serif; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .flip-btn {
   flex: 0 0 auto; width: 42px; height: 42px; border-radius: 5px; cursor: pointer;
   border: 1px solid rgba(22, 24, 58, 0.18); background: rgba(255, 255, 255, 0.7); color: var(--accent);
@@ -91,20 +93,20 @@ body.theme-lab {
 .flip-btn.did svg { animation: turnOnce 0.42s ease; }
 @keyframes turnOnce { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
 .go { margin-top: 18px; }
-#genBtn { font-size: 17px; padding: 12px 24px; }
+#genBtn { font-size: 16px; padding: 12px 24px; }
 
 /* ---- Graph drawings ---- */
 .edge { stroke: rgba(22, 24, 58, 0.42); stroke-width: 1.5; stroke-linecap: round; }
 .vert { stroke: var(--paper); stroke-width: 3; paint-order: stroke; }
-.vert.pA { fill: var(--accent); }
+.vert.pA { fill: var(--fig); }
 .vert.pB { fill: var(--vB); }
 .vlabel { fill: #fff; font: 600 13px 'Source Sans 3', system-ui, sans-serif; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
-.dir { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; }
-.ahf { fill: var(--accent); }
-.ordt { fill: var(--accent); font: 700 11px 'Source Sans 3', system-ui, sans-serif; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: var(--paper); stroke-width: 3.2px; stroke-linejoin: round; }
+.dir { fill: none; stroke: var(--fig); stroke-width: 2; stroke-linecap: round; }
+.ahf { fill: var(--fig); }
+.ordt { fill: var(--fig); font: 700 11px 'Source Sans 3', system-ui, sans-serif; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: var(--paper); stroke-width: 3.2px; stroke-linejoin: round; }
 .vx { cursor: pointer; }
 .vx-hit { fill: transparent; }
-.vx-ring { fill: none; stroke: var(--accent); stroke-width: 1.4; opacity: 0; transition: opacity 0.15s ease; }
+.vx-ring { fill: none; stroke: var(--fig); stroke-width: 1.4; opacity: 0; transition: opacity 0.15s ease; }
 .vx.is-hot .vx-ring { opacity: 0.55; }
 .vx.is-new .dir { stroke-dasharray: 1; stroke-dashoffset: 1; animation: drawIn 0.42s ease forwards; }
 .vx.is-new .ordt { animation: popIn 0.34s ease both; }
@@ -126,8 +128,8 @@ body.theme-lab {
 .tb--play:hover:not(:disabled) { background: var(--accent); filter: brightness(1.14); }
 .tb--play .i-pause, .tb--play.is-playing .i-play { display: none; }
 .tb--play.is-playing .i-pause { display: block; }
-.count { font: 400 14.5px/1.2 'Source Sans 3', system-ui, sans-serif; color: var(--muted); font-variant-numeric: tabular-nums; }
-.say { font-size: 18.5px; line-height: 1.55; color: var(--ink); margin: 12px 0 0; min-height: 3.1em; max-width: 46ch; }
+.count { font: 400 14px/1.2 'Source Sans 3', system-ui, sans-serif; color: var(--muted); font-variant-numeric: tabular-nums; }
+.say { font-size: 19px; line-height: 1.55; color: var(--ink); margin: 12px 0 0; min-height: 3.1em; max-width: 46ch; }
 .dart { white-space: nowrap; font-variant-numeric: lining-nums; }
 
 /* ---- Facial walks ---- */
@@ -136,13 +138,13 @@ body.theme-lab {
 .walk-row:first-child { border-top: none; }
 .walk-row.is-hot { background: rgba(255, 255, 255, 0.5); }
 .fswatch { width: 11px; height: 11px; border-radius: 2px; flex: 0 0 auto; align-self: center; }
-.flabel { font: 500 14.5px/1.2 'Source Sans 3', system-ui, sans-serif; color: var(--ink-soft); width: 50px; flex: 0 0 auto; }
-.fseq { font-size: 18px; line-height: 1.5; font-variant-numeric: lining-nums tabular-nums; flex: 1 1 auto; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; }
+.flabel { font: 500 14px/1.2 'Source Sans 3', system-ui, sans-serif; color: var(--ink-soft); width: 50px; flex: 0 0 auto; }
+.fseq { font-size: 19px; line-height: 1.5; font-variant-numeric: lining-nums tabular-nums; flex: 1 1 auto; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; }
 .fseq .vtx { font-weight: 600; color: var(--ink); }
 .fseq .ar { margin: 0 4px; }
 .fseq .pending { color: rgba(22, 24, 58, 0.3); font-weight: 400; }
 .fseq .now { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
-.flen { flex: 0 0 auto; font: 400 13.5px/1.2 'Source Sans 3', system-ui, sans-serif; color: var(--muted); white-space: nowrap; }
+.flen { flex: 0 0 auto; font: 400 14px/1.2 'Source Sans 3', system-ui, sans-serif; color: var(--muted); white-space: nowrap; }
 .strand { fill: none; stroke-width: 2.5; stroke-linecap: round; }
 .strand.is-cur { stroke-width: 3.6; }
 .strand.is-new { stroke-dasharray: 1; stroke-dashoffset: 1; animation: drawIn 0.3s ease-out forwards; }
@@ -161,7 +163,7 @@ body.theme-lab {
 .poly-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 280px)); gap: 28px 44px; align-items: start; margin-top: 22px; }
 .poly-card { margin: 0; min-width: 0; }
 .poly-card.is-wide { grid-column: span 2; }
-.poly-card figcaption { display: flex; align-items: center; gap: 8px; font: 500 14.5px/1.2 'Source Sans 3', system-ui, sans-serif; color: var(--ink-soft); margin: 0 0 2px; }
+.poly-card figcaption { display: flex; align-items: center; gap: 8px; font: 500 14px/1.2 'Source Sans 3', system-ui, sans-serif; color: var(--ink-soft); margin: 0 0 2px; }
 .polysvg { display: block; width: 100%; height: auto; }
 .polylab { font: 700 13.5px 'Source Sans 3', system-ui, sans-serif; fill: var(--ink); text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: var(--paper); stroke-width: 3.2px; stroke-linejoin: round; }
 .poly-card { animation: popIn 0.4s ease both; }
@@ -175,7 +177,7 @@ body.theme-lab {
 .seam.is-cur { stroke: var(--ink); stroke-width: 3.2; stroke-dasharray: none; }
 .result { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 16px; padding-top: 18px; border-top: 1px solid var(--rule); animation: popIn 0.45s ease both; }
 .result .surfsvg { height: 70px; width: auto; flex: 0 0 auto; }
-.result p { margin: 0; flex: 1 1 240px; font-size: 18.5px; line-height: 1.6; color: var(--ink-soft); font-variant-numeric: lining-nums; }
+.result p { margin: 0; flex: 1 1 240px; font-size: 19px; line-height: 1.6; color: var(--ink-soft); font-variant-numeric: lining-nums; }
 .result strong { color: var(--ink); }
 .stage3d {
   position: relative; width: 100%; aspect-ratio: 3 / 2; min-height: 300px; max-height: 500px; overflow: hidden;
@@ -200,8 +202,8 @@ body.theme-lab {
 }
 @media (max-width: 720px) {
   .step { padding: 28px 0 34px; margin-top: 30px; }
-  .step-head { font-size: 26px; margin-bottom: 18px; }
-  .lede, .say, .result p { font-size: 17.5px; }
+  .step-head { font-size: 25px; margin-bottom: 18px; }
+  .lede, .say, .result p, .fseq { font-size: 18px; }
   .seg-item { padding: 8px 13px; }
   .poly-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px 18px; }
 }
@@ -379,7 +381,7 @@ body.theme-lab {
   const NAME_TEXT = { k33: 'K3,3', k5: 'K5', k5e: 'K5 minus an edge', oct: 'the octahedral graph' };
 
   // One color per face (checked for color-blind readers, no two alike among eight) and one per edge.
-  const FACE = ['#db327b', '#3d3bb8', '#0d6332', '#268bb6', '#8c0779', '#83870b', '#9657e8', '#b00d10'];
+  const FACE = ['#db327b', '#3d3bb8', '#0d6332', '#2188b3', '#8c0779', '#808402', '#9657e8', '#b00d10'];
   const EDGE = ["#575e0a", "#0d91c9", "#9a1a5b", "#139a91", "#72339f", "#489d2b", "#0f51b4", "#dc4f77", "#006472", "#bf59b3", "#0d6849", "#7c73e7"];
 
   // active-graph state (set by setGraph)
@@ -773,7 +775,7 @@ body.theme-lab {
     if (g <= 0) return `<svg viewBox="0 0 96 96" class="surfsvg" aria-hidden="true"><circle cx="48" cy="48" r="38" fill="rgba(34,58,94,0.10)" stroke="#223a5e" stroke-width="2"/><path d="M10 48 Q48 66 86 48" ${ST} opacity="0.55"/></svg>`;
     const step = 52, W = 2 * 30 + g * step + 8, cx = W / 2, x0 = cx - (g - 1) * step / 2;
     let t = `<ellipse cx="${cx}" cy="48" rx="${(W - 8) / 2}" ry="35" fill="rgba(34,58,94,0.12)" stroke="#223a5e" stroke-width="2"/>`;
-    for (let i = 0; i < g; i++) t += `<ellipse cx="${x0 + i * step}" cy="45" rx="16" ry="7.5" fill="#dfe9e3" stroke="#223a5e" stroke-width="1.8"/>`;
+    for (let i = 0; i < g; i++) t += `<ellipse cx="${x0 + i * step}" cy="45" rx="16" ry="7.5" fill="#e7dfee" stroke="#223a5e" stroke-width="1.8"/>`;
     return `<svg viewBox="0 0 ${W} 96" class="surfsvg" aria-hidden="true">${t}</svg>`;
   }
   function renderGlueText() {
@@ -860,8 +862,8 @@ body.theme-lab {
   // a vertex: the same numbered disk as in the drawings, always turned to face the viewer
   function tdDisk(v, size, onTop) {
     const S = 128, c = document.createElement('canvas'), x = c.getContext('2d'); c.width = c.height = S;
-    x.beginPath(); x.arc(S / 2, S / 2, S / 2 - 2, 0, Math.PI * 2); x.fillStyle = css('--paper') || '#dfe9e3'; x.fill();
-    x.beginPath(); x.arc(S / 2, S / 2, S / 2 - 12, 0, Math.PI * 2); x.fillStyle = part(v) === 'pA' ? (css('--accent') || '#223a5e') : (css('--vB') || '#1f7ae0'); x.fill();
+    x.beginPath(); x.arc(S / 2, S / 2, S / 2 - 2, 0, Math.PI * 2); x.fillStyle = css('--paper') || '#e7dfee'; x.fill();
+    x.beginPath(); x.arc(S / 2, S / 2, S / 2 - 12, 0, Math.PI * 2); x.fillStyle = part(v) === 'pA' ? (css('--fig') || '#223a5e') : (css('--vB') || '#1f7ae0'); x.fill();
     x.font = `600 ${Math.round(S * 0.54)}px 'Source Sans 3', system-ui, sans-serif`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#fff';
     x.fillText(String(v), S / 2, S / 2 + S * 0.04);
     const mat = new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), transparent: true, depthTest: !onTop, depthWrite: false });
@@ -1188,9 +1190,9 @@ body.theme-lab {
   // soft studio shading for the surface, drawn once: light from the upper left, darker toward the rim
   function tdMatcap() {
     const S = 256, c = document.createElement('canvas'), x = c.getContext('2d'); c.width = c.height = S;
-    x.fillStyle = '#7f8c86'; x.fillRect(0, 0, S, S);
+    x.fillStyle = '#8a878e'; x.fillRect(0, 0, S, S);
     const g = x.createRadialGradient(S * 0.37, S * 0.31, S * 0.02, S * 0.5, S * 0.5, S * 0.56);
-    g.addColorStop(0, '#fbfcfb'); g.addColorStop(0.3, '#e9edea'); g.addColorStop(0.62, '#cdd5d0'); g.addColorStop(0.86, '#a9b4ae'); g.addColorStop(1, '#84918a');
+    g.addColorStop(0, '#fcfbfd'); g.addColorStop(0.3, '#edebef'); g.addColorStop(0.62, '#d4d1d9'); g.addColorStop(0.86, '#b2afb7'); g.addColorStop(1, '#8f8c93');
     x.fillStyle = g; x.beginPath(); x.arc(S / 2, S / 2, S / 2, 0, Math.PI * 2); x.fill();
     return new THREE.CanvasTexture(c);
   }
