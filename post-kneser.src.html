@@ -82,7 +82,7 @@
           <figcaption>Figure 2. The sphere, the equator, and the two hemispheres.</figcaption>
         </figure>
 
-        <p>Now, a theorem similar to Borsuk–Ulam says that if $S^m$ is covered by $m+1$ sets, each of them open or closed, then one of the sets contains two antipodal points $x$ and $-x$. If that set is some $U_i$, then $H(x)$ and $H(-x)$ each contain a subset from group $i$. Because opposite hemispheres are disjoint, so group $i$ contains two disjoint subsets, a contradiction. If instead the set is $F$, then the two hemispheres contain at most $2k-2$ points in total, so that at least $n-2k+2 = m+1$ points lie on the equator between them, and the equator spans a hyperplane through the center. Because general position does not allow for $m+1$ points on such a hyperplane, this is also a contradiction. This is basically the whole proof. <sup class="fn-ref"><a href="#fn1" id="fnr1">1</a></sup></p>
+        <p>Now, a theorem similar to Borsuk–Ulam says that if $S^m$ is covered by $m+1$ sets, each of them open or closed, then one of the sets contains two antipodal points $x$ and $-x$. If that set is some $U_i$, then $H(x)$ and $H(-x)$ each contain a subset from group $i$. Because opposite hemispheres are disjoint, group $i$ contains two disjoint subsets, a contradiction. If instead the set is $F$, then the two hemispheres contain at most $2k-2$ points in total, so that at least $n-2k+2 = m+1$ points lie on the equator between them, and the equator spans a hyperplane through the center. Because general position does not allow for $m+1$ points on such a hyperplane, this is also a contradiction. This is basically the whole proof. <sup class="fn-ref"><a href="#fn1" id="fnr1">1</a></sup></p>
 
         <h2>Intersecting families</h2>
 
@@ -110,9 +110,9 @@
           <figcaption>Figure 4. The middle levels graph for $k=1$.</figcaption>
         </figure>
 
-        <p>A famous conjecture about the middle levels graph was whether or not it always has a Hamiltonian cycle. If such a cycle existed, then walking along it would list every one of these subsets exactly once. Each subsequent step of the walk would change from the previous by adding or removing only a single element. In computer science, such a list is called a Gray code, which turns out to be useful for many things.</p>
+        <p>Start at $\{1\}$ in Figure 4 and walk clockwise. You add $2$ to get to $\{1,2\}$, then remove $1$ to get to $\{2\}$. Going around the hexagon lists all six subsets, adding or removing one element at each step, even on the way back to $\{1\}$. Such a list is called a Gray code. The middle levels conjecture asked whether we could do this for every $k$. In other words, does $H(2k+1,k)$ always have a Hamiltonian cycle?</p>
 
-        <p>In 1991, Simpson conjectured that every bipartite Kneser graph has a Hamiltonian cycle, and Mütze and Su proved it years later.<a href="https://arxiv.org/abs/1503.09175" target="_blank" rel="noopener">(Mütze and Su, 2017)</a>. The Kneser graphs themselves were proven to have a Hamiltonian cycle in 2023, with exactly one exception <a href="https://arxiv.org/abs/2212.03918" target="_blank" rel="noopener">(Merino, Mütze, and Namrata, 2023)</a>. The one exception is, of course, the Petersen graph.</p>
+        <p>In 1991, Simpson conjectured that every bipartite Kneser graph has a Hamiltonian cycle, and Mütze and Su proved it years later.<a href="https://arxiv.org/abs/1503.09175" target="_blank" rel="noopener">(Mütze and Su, 2017)</a>. For $n>2k$, the Kneser graphs themselves have Hamiltonian cycles, with one exception <a href="https://arxiv.org/abs/2212.03918" target="_blank" rel="noopener">(Merino, Mütze, and Namrata, 2023)</a>. The one exception is, of course, the Petersen graph.</p>
 
         <h2>Why I bring them up</h2>
 

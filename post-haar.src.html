@@ -141,14 +141,14 @@
 
         <p>We can also choose rotations at the base vertices. Each copy then gets the same cyclic order of the corresponding edge ends. For our dipole, these are the two orders $\alpha$ and $\beta$.</p>
 
-        <p>A walk in the base graph determines a walk in the derived graph once we choose a copy of its starting vertex. This is called a <em>lift</em>. For example, take edge $0$ forward and edge $1$ backward in the dipole. The backward step contributes $-1$. The base walk returns to $A$, but its lift from $A_0$ ends at $A_6$.</p>
+        <p>Take edge $0$ from $A$ to $B$ in the dipole and come back along edge $1$. Where does that walk take us if we start at $A_0$ in the Heawood graph? Edge $0$ takes us to $B_0$. We cross edge $1$ backward, so we subtract $1$ from the subscript and arrive at $A_6$. The walk $A_0,B_0,A_6$ is called a <em>lift</em> of our walk in the dipole. Once we choose the starting vertex, the edge labels determine the lift.</p>
 
         <figure class="post-figure">
           <img class="current-detail" src="images/posts/haar-voltage-walk.svg?v=interleaved-1" alt="A closed base walk takes edge 0 from A to B and edge 1 backward from B to A. Its signed voltages are 0 and minus 1. The lifted walk goes from A0 to B0, named Mohar, and ends at A6 rather than A0.">
           <figcaption>Figure 5. A closed base walk whose lift does not close.</figcaption>
         </figure>
 
-        <p>Each pair of steps subtracts $1$ modulo $7$, so seven repetitions give a fourteen-cycle. More generally, multiply the voltages along a walk in the order they are encountered, using inverses when traveling backward. This product is its <em>net voltage</em>. A closed base walk lifts to a closed walk exactly when its net voltage is the identity. For additive groups, we add the labels instead.</p>
+        <p>If we make the same trip again, we go from $A_6$ to $A_5$. Each trip subtracts $1$ modulo $7$, so it takes seven trips to get back to $A_0$, giving a fourteen-cycle. Here we added the signed labels. In a group written multiplicatively, we multiply the labels in the order we cross the edges, using the inverse each time we go backward. The product $h$ is called the <em>net voltage</em>. If the base walk is closed, its lift from $u_g$ ends at $u_{gh}$, so it closes exactly when $h$ is the identity.</p>
 
         <p id="current-graphs">A <em>current graph</em> starts with an embedded graph whose directed edges have group labels, called <em>currents</em>. Reversing an edge inverts its current. For example, take the dipole below, with currents $1$, $2$, and $4$ in $\mathbb Z_7$, all directed from $u$ to $v$. The cyclic order $(1\ 2\ 4)$ at both vertices specifies an orientable cellular embedding.</p>
 
