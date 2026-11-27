@@ -5,248 +5,217 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rotation Systems | Austin Ulrigg</title>
 
-<!-- Site fonts: Source Serif 4 (headings and prose) + Source Sans 3 (navigation and details) -->
+<!-- Site fonts: Source Serif 4 (headings and prose) + Source Sans 3 (controls and details) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap" rel="stylesheet">
-
-<!-- MathJax for math labels like $K_{3,3}$ -->
-<script>
-  window.MathJax = {
-    tex: { inlineMath: [['$', '$']] },
-    svg: { fontCache: 'global' }
-  };
-</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
+<!-- The graph names are typeset ahead of time with KaTeX 0.16.9, like the posts, so no math script runs here -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <link rel="stylesheet" href="css/style.css?v=2026-10-12-nav">
 
 <style>
 /* =========================================================
-   ===== LAB-SPECIFIC STYLES =====
-   Everything below is unique to lab.html. Keep separate from
-   the shared design system above for easy integration later.
+   Rotation Systems page
+   Everything below belongs to rotations.html only. It builds on
+   css/style.css (fonts, --ink, --accent, .btn, .headline, .blurb).
    ========================================================= */
 
-/* Intro block */
+body.theme-lab {
+  background: linear-gradient(135deg, #e8f0eb 0%, #dfe9e3 50%, #d5e2da 100%);
+  --paper: #dfe9e3;                      /* halo behind labels drawn on the page */
+  --rule: rgba(22, 24, 58, 0.16);
+  --rule-soft: rgba(22, 24, 58, 0.09);
+  --vB: #1f7ae0;                         /* second vertex color, the part {2,4,6} of K3,3 */
+  --muted: rgba(22, 24, 58, 0.66);
+}
+.lab [hidden] { display: none !important; }
+
+/* ---- Intro ---- */
 .lab-intro { max-width: 70ch; }
-.lab-intro .headline { max-width: 16ch; }
-.lab-intro .blurb { margin-bottom: 18px; }
+.lab-intro .headline { max-width: none; margin-bottom: 18px; }
+.lab-intro .blurb { margin-bottom: 26px; }
+.katex { font-size: 1.1em; }
 
-/* MathJax sizes inline math to the surrounding text automatically, no overrides,
-   and graph SVGs are targeted by direct-child selectors so they never catch
-   MathJax's own inline <svg> output. */
-
-/* Subtle "in progress" hint chip */
-.wip-chip {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
-  padding: 7px 14px; border-radius: 999px;
-  background: var(--glass-strong); border: 1px solid var(--glass-border);
-  color: var(--ink-soft); backdrop-filter: blur(8px);
-}
-.wip-chip::before {
-  content: ""; width: 8px; height: 8px; border-radius: 50%;
-  background: var(--accent);
-}
-
-/* ---- Graph selector (segmented control across the top) ---- */
-.selector-block { margin: 34px 0 8px; }
-.selector-label {
-  font-size: 14px; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--ink-faint); margin: 0 0 12px;
-}
+/* ---- Segmented choice (graphs, and the two views of step 4) ---- */
+.pick { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px; }
+.pick-label { font: 500 15.5px/1.3 'Source Sans 3', system-ui, sans-serif; color: var(--muted); margin: 0; }
 .seg {
-  display: inline-flex; flex-wrap: wrap; gap: 4px;
-  padding: 6px; border-radius: 999px;
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 10px rgba(18, 22, 60, 0.08);
+  display: inline-flex; flex-wrap: wrap; gap: 3px; padding: 3px;
+  border: 1px solid var(--rule); border-radius: 7px; background: rgba(255, 255, 255, 0.4);
 }
 .seg-item {
-  font-family: 'Source Sans 3', sans-serif;
-  font-size: 16.5px; font-weight: 500;
-  display: inline-flex; align-items: center; gap: 9px;
-  padding: 10px 22px; border-radius: 999px;
-  border: 1px solid transparent; background: transparent;
-  color: var(--ink-faint); cursor: pointer;
-  transition: color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  font: 500 16px/1.2 'Source Sans 3', system-ui, sans-serif; color: var(--muted);
+  min-height: 40px; padding: 8px 17px; border-radius: 5px;
+  border: 1px solid transparent; background: transparent; cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
 }
-.seg-item:hover:not(.is-active):not(.is-disabled) { color: var(--ink); }
-.seg-item.is-active {
-  color: var(--accent); background: #fff; cursor: default;
-  box-shadow: 0 2px 8px rgba(18, 22, 60, 0.14);
-}
-.seg-item.is-disabled { opacity: 0.45; cursor: not-allowed; }
-.seg-item .soon {
-  font-size: 10.5px; font-weight: 600; letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 2px 8px; border-radius: 999px;
-  background: rgba(22, 24, 58, 0.10); color: var(--ink-faint);
-}
-.seg-note { font-size: 14.5px; color: var(--ink-faint); margin: 13px 0 0; }
-.seg-note .accent { color: var(--accent); font-weight: 500; }
+.seg-item:hover { color: var(--ink); }
+.seg-item.is-active { color: var(--ink); background: #fff; border-color: rgba(22, 24, 58, 0.14); cursor: default; }
 
-/* ---- Rotation-system editor (checkpoint 3) ---- */
-:root { --vB: #1f7ae0; }   /* second vertex color for part B {2,4,6} */
+/* ---- Steps: a ruled band each, text on the left and the figure on the right ---- */
+.step { border-top: 1px solid var(--rule); padding: 38px 0 46px; margin-top: 44px; }
+.step + .step { margin-top: 0; }
+.step-head { display: flex; align-items: baseline; gap: 14px; font-family: 'Source Serif 4', serif; font-size: 30px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.2; margin: 0 0 22px; }
+.step-num { font: 600 17px/1 'Source Sans 3', system-ui, sans-serif; color: var(--accent); font-variant-numeric: lining-nums tabular-nums; flex: 0 0 auto; }
+.step-num::after { content: "."; }
+.duo { display: grid; grid-template-columns: minmax(300px, 410px) minmax(0, 1fr); grid-template-rows: repeat(5, auto) 1fr; column-gap: 60px; align-items: start; }
+.duo > .col-fig { grid-column: 2; grid-row: 1 / -1; align-self: start; }
+.duo > :not(.col-fig) { grid-column: 1; min-width: 0; }
+.duo > * + :not(.col-fig) { margin-top: 14px; }
+.lede { font-size: 18.5px; line-height: 1.68; color: var(--ink-soft); max-width: 62ch; margin: 0 0 6px; }
+.lab h3 { font: 500 18px/1.3 'Source Serif 4', serif; margin: 0 0 4px; }
+.fig { margin: 0; }
+.fig > svg { display: block; width: 100%; height: auto; margin: 0 auto; }
+#graphSvg, #faceSvg { max-width: 500px; max-height: 500px; }
 
-.editor {
-  display: grid; grid-template-columns: minmax(240px, 300px) 1fr;
-  gap: 20px; margin: 10px 0 0; align-items: start;
-  max-width: 800px;
-}
-.epanel {
-  background: var(--glass); border: 1px solid var(--glass-border);
-  border-radius: 18px; backdrop-filter: blur(10px); padding: 20px 22px;
-}
-.epanel h3 {
-  font-family: 'Source Serif 4', serif; font-weight: 500; font-size: 18px; margin: 0 0 4px;
-}
-.epanel .hint { font-size: 13px; color: var(--ink-faint); margin: 0 0 14px; line-height: 1.5; }
-
-.rot-row {
-  display: flex; align-items: center; gap: 14px;
-  padding: 12px 4px; border-top: 1px solid rgba(22, 24, 58, 0.07);
-}
-.rot-row:first-of-type { border-top: none; }
-.req {
-  display: inline-flex; align-items: baseline;
-  font-size: 18px; color: var(--ink); font-variant-numeric: tabular-nums;
-}
-.req .sig { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 19px; }
-.req .sub { font-size: 12.5px; font-weight: 700; padding-left: 1px; }
+/* ---- Local rotations ---- */
+.rot-row { display: flex; align-items: center; gap: 12px; padding: 7px 0 7px 6px; border-top: 1px solid var(--rule-soft); border-radius: 4px; transition: background 0.15s ease; }
+.rot-row:first-child { border-top: none; }
+.rot-row.is-hot { background: rgba(255, 255, 255, 0.5); }
+.req { display: inline-flex; align-items: baseline; font-size: 20px; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
+.req .sig { font-style: italic; font-size: 21px; }
+.req .sub { font: 700 12.5px/1 'Source Sans 3', system-ui, sans-serif; padding-left: 1px; }
 .req .sub.pAt { color: var(--accent); }
-.req .sub.pBt { color: var(--vB); }
-.req .eq { margin: 0 9px; color: var(--ink-faint); }
-.req .paren { color: var(--ink-faint); }
+.req .sub.pBt { color: #1863b8; }
+.req .eq { margin: 0 9px; color: var(--muted); }
+.req .paren { color: var(--muted); }
 .req .seq { letter-spacing: 0.16em; font-weight: 600; padding: 0 2px 0 7px; }
-.rotidx {
-  margin-left: auto; flex: 0 0 auto;
-  font-size: 12px; color: var(--ink-faint);
-  font-variant-numeric: tabular-nums; white-space: nowrap;
-}
+.rotidx { margin-left: auto; font: 400 13.5px/1 'Source Sans 3', system-ui, sans-serif; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .flip-btn {
-  margin-left: 10px; flex: 0 0 auto;
-  width: 36px; height: 36px; border-radius: 50%;
-  border: 1px solid var(--glass-border); background: var(--glass-strong);
-  color: var(--accent); cursor: pointer;
-  display: grid; place-items: center;
-  transition: transform 0.3s ease, background 0.2s ease, box-shadow 0.2s ease;
+  flex: 0 0 auto; width: 42px; height: 42px; border-radius: 5px; cursor: pointer;
+  border: 1px solid rgba(22, 24, 58, 0.18); background: rgba(255, 255, 255, 0.7); color: var(--accent);
+  display: grid; place-items: center; transition: background 0.15s ease, border-color 0.15s ease;
 }
-.flip-btn svg { width: 17px; height: 17px; display: block; }
-.flip-btn:hover { background: #fff; box-shadow: 0 2px 8px rgba(18, 22, 60, 0.12); transform: rotate(-110deg); }
-.flip-btn:active { transform: rotate(-220deg); }
+.flip-btn svg { width: 18px; height: 18px; display: block; }
+.flip-btn:hover { background: #fff; border-color: var(--accent); }
+.flip-btn.did svg { animation: turnOnce 0.42s ease; }
+@keyframes turnOnce { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+.go { margin-top: 18px; }
+#genBtn { font-size: 17px; padding: 12px 24px; }
 
-.draw-wrap { padding: 10px 12px 14px; }
-.draw-wrap > svg { width: 100%; height: auto; display: block; }
-#graphSvg { max-width: 420px; margin: 0 auto; }   /* keep the editor drawing compact */
-#faceSvg { max-width: 430px; margin: 0 auto; }
-.draw-cap { font-size: 13px; color: var(--ink-faint); margin: 8px 6px 0; line-height: 1.5; }
-
-/* SVG element styling for the K(3,3) drawing */
-.edge { stroke: rgba(22, 24, 58, 0.40); stroke-width: 1.7; stroke-linecap: round; }
-.vert { stroke: #fff; stroke-width: 2.5; filter: drop-shadow(0 2px 3px rgba(18, 22, 60, 0.22)); }
+/* ---- Graph drawings ---- */
+.edge { stroke: rgba(22, 24, 58, 0.42); stroke-width: 1.5; stroke-linecap: round; }
+.vert { stroke: var(--paper); stroke-width: 3; paint-order: stroke; }
 .vert.pA { fill: var(--accent); }
 .vert.pB { fill: var(--vB); }
-.vlabel { fill: #fff; font: 600 13px 'Source Sans 3', sans-serif; text-anchor: middle; dominant-baseline: central; }
-.dir { fill: none; stroke: var(--accent); stroke-width: 2.1; stroke-linecap: round; opacity: 0.95; }
+.vlabel { fill: #fff; font: 600 13px 'Source Sans 3', system-ui, sans-serif; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.dir { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; }
 .ahf { fill: var(--accent); }
-.ordt {
-  fill: var(--accent); font: 700 10.5px 'Source Sans 3', sans-serif;
-  text-anchor: middle; dominant-baseline: central;
-  paint-order: stroke; stroke: #fff; stroke-width: 3px;
-}
-.editor-note { font-size: 13px; color: var(--ink-faint); line-height: 1.55; margin: 14px 2px 0; max-width: 78ch; }
+.ordt { fill: var(--accent); font: 700 11px 'Source Sans 3', system-ui, sans-serif; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: var(--paper); stroke-width: 3.2px; stroke-linejoin: round; }
+.vx { cursor: pointer; }
+.vx-hit { fill: transparent; }
+.vx-ring { fill: none; stroke: var(--accent); stroke-width: 1.4; opacity: 0; transition: opacity 0.15s ease; }
+.vx.is-hot .vx-ring { opacity: 0.55; }
+.vx.is-new .dir { stroke-dasharray: 1; stroke-dashoffset: 1; animation: drawIn 0.42s ease forwards; }
+.vx.is-new .ordt { animation: popIn 0.34s ease both; }
+@keyframes drawIn { to { stroke-dashoffset: 0; } }
+@keyframes popIn { from { opacity: 0; } to { opacity: 1; } }
 
-@media (max-width: 820px) {
-  .editor { grid-template-columns: 1fr; }
+/* ---- Stepping controls ---- */
+.ctl { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 2px 0 0; }
+.transport { display: inline-flex; gap: 5px; }
+.tb {
+  width: 42px; height: 42px; display: grid; place-items: center; padding: 0; cursor: pointer;
+  border: 1px solid rgba(22, 24, 58, 0.18); border-radius: 5px; background: rgba(255, 255, 255, 0.7); color: var(--ink);
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
+.tb svg { width: 16px; height: 16px; display: block; fill: currentColor; }
+.tb:hover:not(:disabled) { background: #fff; border-color: var(--accent); }
+.tb:disabled { opacity: 0.38; cursor: default; }
+.tb--play { background: var(--accent); border-color: var(--accent); color: #fff; width: 50px; }
+.tb--play:hover:not(:disabled) { background: var(--accent); filter: brightness(1.14); }
+.tb--play .i-pause, .tb--play.is-playing .i-play { display: none; }
+.tb--play.is-playing .i-pause { display: block; }
+.count { font: 400 14.5px/1.2 'Source Sans 3', system-ui, sans-serif; color: var(--muted); font-variant-numeric: tabular-nums; }
+.say { font-size: 18.5px; line-height: 1.55; color: var(--ink); margin: 12px 0 0; min-height: 3.1em; max-width: 46ch; }
+.dart { white-space: nowrap; font-variant-numeric: lining-nums; }
 
-/* ---- Generate + facial walks (checkpoint 4) ---- */
-.gen-row { display: flex; justify-content: center; margin: 34px 0 4px; }
-#genBtn { font-size: 17px; padding: 13px 26px; text-align: center; }
-.walks { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 18px; align-items: start; }
-.walks-bar { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin: 2px 0 14px; }
-.walks-bar .hint { margin: 0; }
+/* ---- Facial walks ---- */
+.walk-list { margin-top: 8px; border-top: 1px solid var(--rule); }
+.walk-row { display: flex; align-items: baseline; gap: 10px; padding: 9px 0 9px 6px; border-top: 1px solid var(--rule-soft); border-radius: 4px; transition: background 0.15s ease; }
+.walk-row:first-child { border-top: none; }
+.walk-row.is-hot { background: rgba(255, 255, 255, 0.5); }
+.fswatch { width: 11px; height: 11px; border-radius: 2px; flex: 0 0 auto; align-self: center; }
+.flabel { font: 500 14.5px/1.2 'Source Sans 3', system-ui, sans-serif; color: var(--ink-soft); width: 50px; flex: 0 0 auto; }
+.fseq { font-size: 18px; line-height: 1.5; font-variant-numeric: lining-nums tabular-nums; flex: 1 1 auto; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; }
+.fseq .vtx { font-weight: 600; color: var(--ink); }
+.fseq .ar { margin: 0 4px; }
+.fseq .pending { color: rgba(22, 24, 58, 0.3); font-weight: 400; }
+.fseq .now { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.flen { flex: 0 0 auto; font: 400 13.5px/1.2 'Source Sans 3', system-ui, sans-serif; color: var(--muted); white-space: nowrap; }
+.strand { fill: none; stroke-width: 2.5; stroke-linecap: round; }
+.strand.is-cur { stroke-width: 3.6; }
+.strand.is-new { stroke-dasharray: 1; stroke-dashoffset: 1; animation: drawIn 0.3s ease-out forwards; }
+.tip.is-new { animation: popIn 0.2s ease 0.24s both; }
+.fgrp { transition: opacity 0.2s ease; }
+.fgrp.is-dim { opacity: 0.16; }
+.fgrp.is-closing .strand { animation: closePulse 0.7s ease; }
+@keyframes closePulse { 0%, 100% { stroke-width: 2.5; } 45% { stroke-width: 5.5; } }
+.pivot .dir { stroke: var(--ink); stroke-width: 1.5; opacity: 0.6; }
+.ahf2 { fill: var(--ink); opacity: 0.6; }
+.pivot .ordt { fill: var(--ink); opacity: 0.45; font-size: 10.5px; }
+.pivot .ordt.is-key { opacity: 1; font-size: 13px; }
+.pivot-ring { fill: none; stroke: var(--ink); stroke-width: 1.6; }
 
-/* numbered step badge on section headings */
-.section-head .step-num {
-  display: inline-grid; place-items: center; vertical-align: 0.12em;
-  width: 30px; height: 30px; border-radius: 50%;
-  background: var(--accent); color: #fff;
-  font: 600 14px 'Source Sans 3', sans-serif;
-  margin-right: 14px;
+/* ---- Faces as polygons ---- */
+.poly-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 280px)); gap: 28px 44px; align-items: start; margin-top: 22px; }
+.poly-card { margin: 0; min-width: 0; }
+.poly-card.is-wide { grid-column: span 2; }
+.poly-card figcaption { display: flex; align-items: center; gap: 8px; font: 500 14.5px/1.2 'Source Sans 3', system-ui, sans-serif; color: var(--ink-soft); margin: 0 0 2px; }
+.polysvg { display: block; width: 100%; height: auto; }
+.polylab { font: 700 13.5px 'Source Sans 3', system-ui, sans-serif; fill: var(--ink); text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: var(--paper); stroke-width: 3.2px; stroke-linejoin: round; }
+.poly-card { animation: popIn 0.4s ease both; }
+
+/* ---- Building the surface ---- */
+.views { margin: 0 0 22px; }
+#glueSvg { height: clamp(300px, 44vw, 470px); }
+.dartlab { font: 600 11px 'Source Sans 3', system-ui, sans-serif; fill: var(--ink); text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: var(--paper); stroke-width: 3px; stroke-linejoin: round; }
+.gvlabel { fill: #fff; font: 600 10.5px 'Source Sans 3', system-ui, sans-serif; text-anchor: middle; dominant-baseline: central; }
+.seam { stroke: rgba(22, 24, 58, 0.34); stroke-width: 1.4; stroke-dasharray: 3 4; stroke-linecap: round; }
+.seam.is-cur { stroke: var(--ink); stroke-width: 3.2; stroke-dasharray: none; }
+.result { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 16px; padding-top: 18px; border-top: 1px solid var(--rule); animation: popIn 0.45s ease both; }
+.result .surfsvg { height: 70px; width: auto; flex: 0 0 auto; }
+.result p { margin: 0; flex: 1 1 240px; font-size: 18.5px; line-height: 1.6; color: var(--ink-soft); font-variant-numeric: lining-nums; }
+.result strong { color: var(--ink); }
+.stage3d {
+  position: relative; width: 100%; aspect-ratio: 3 / 2; min-height: 300px; max-height: 500px; overflow: hidden;
+  border: 1px solid var(--rule); border-radius: 6px; background: rgba(255, 255, 255, 0.3);
 }
-/* gentle entrance for the generated sections */
-@keyframes sectionIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-#walksView, #fundpoly, #embedding { animation: sectionIn 0.5s ease both; }
-.walk-controls { display: flex; gap: 8px; }
-.walk-controls .btn { padding: 8px 15px; font-size: 14.5px; }
-.btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
-.walk-row { display: flex; align-items: center; gap: 10px; padding: 11px 4px; border-top: 1px solid rgba(22, 24, 58, 0.07); }
-.walk-row:first-of-type { border-top: none; }
-.fswatch { width: 14px; height: 14px; border-radius: 4px; flex: 0 0 auto; }
-.flabel { font-size: 13px; color: var(--ink-faint); width: 50px; flex: 0 0 auto; }
-.fseq { font-size: 18px; font-variant-numeric: tabular-nums; display: flex; flex-wrap: wrap; align-items: center; flex: 1 1 auto; min-width: 0; }
-.fseq .vtx { font-weight: 600; padding: 0 1px; }
-.fseq .ar { margin: 0 5px; color: var(--ink); }
-.fseq .pending { color: var(--ink-faint); opacity: 0.4; }
-.formed { flex: 0 0 auto; margin-left: 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; }
-.faceloop { fill: none; stroke-width: 3.2; stroke-linejoin: round; stroke-linecap: round; }
-.faceglow { fill: none; stroke-width: 9; stroke-linejoin: round; stroke-linecap: round; filter: blur(3px); opacity: 0.28; }
-.faceglow.pulse { animation: facepulse 1.15s ease-in-out infinite; }
-@keyframes facepulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
-@media (max-width: 820px) { .walks { grid-template-columns: 1fr; } }
-
-/* ---- Fundamental polygons (checkpoint 5) ---- */
-.fundpoly-block { margin-top: 10px; }
-.poly-intro { max-width: 74ch; margin: 0 0 16px; }
-.poly-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; align-items: start; }
-.poly-card { padding: 14px 16px 16px; }
-.poly-head { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--ink-soft); margin-bottom: 2px; }
-.polysvg { width: 100%; height: auto; display: block; max-width: 258px; margin: 4px auto 0; }
-.polylab { font: 700 13px 'Source Sans 3', sans-serif; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: #fff; stroke-width: 3.2px; }
-
-/* ---- Embedding, glue the fundamental polygons (checkpoint 6) ---- */
-.embed-block { margin-top: 12px; }
-#glueSvg { width: 100%; height: 450px; display: block; max-width: 760px; margin: 0 auto; }
-.dartlab { font: 600 10.5px 'Source Sans 3', sans-serif; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: #fff; stroke-width: 3px; }
-.vnum { font: 700 11.5px 'Source Sans 3', sans-serif; fill: #4f29d6; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: #fff; stroke-width: 3px; }
-.glue-result {
-  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
-  margin: 16px 2px 0; padding: 16px 20px; border-radius: 16px;
-  background: var(--glass); border: 1px solid var(--glass-border); backdrop-filter: blur(10px);
-  max-width: 80ch;
+.stage3d canvas { display: block; width: 100%; height: 100%; outline-offset: -3px; }
+.stage3d.is-busy::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px;
+  border: 2.5px solid rgba(22, 24, 58, 0.16); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.9s linear infinite;
 }
-.glue-result .surfsvg { height: 92px; width: auto; flex: 0 0 auto; }
-.glue-result p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--ink-soft); }
-.glue-result strong { color: var(--ink); font-size: 17px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .stage3d.is-busy::after { animation-duration: 2.4s !important; } }
 
-/* ---- 3D embedding viewer (K_{3,3}) ---- */
-.emb3d-tag {
-  font-family: 'Source Sans 3', sans-serif; font-size: 12px; font-weight: 600;
-  color: var(--ink-faint); background: var(--glass-strong); border: 1px solid var(--glass-border);
-  padding: 3px 11px; border-radius: 999px; vertical-align: middle; margin-left: 10px;
-  letter-spacing: 0.02em;
+/* ---- Narrow screens: one column, the figure straight after its controls ---- */
+@media (max-width: 960px) {
+  .duo { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+  .duo > .col-fig, .duo > :not(.col-fig) { grid-column: 1; grid-row: auto; }
+  .duo > .col-fig { order: 2; margin-top: 16px; }
+  .duo > .after-fig { order: 3; }
+  .say { max-width: none; min-height: 2.9em; }
+  #graphSvg, #faceSvg { max-height: 420px; }
 }
-.emb-tabs { margin: 4px 0 16px; }
-.emb3d-bar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 4px 0 10px; }
-.emb3d-bar .walk-controls .btn { min-width: 40px; font-size: 14px; }
-.emb3d-canvas {
-  width: 100%; max-width: 760px; height: 460px; margin: 4px auto 0;
-  border-radius: 16px; overflow: hidden;
-  background: rgba(255, 255, 255, 0.34); border: 1px solid var(--glass-border);
+@media (max-width: 720px) {
+  .step { padding: 28px 0 34px; margin-top: 30px; }
+  .step-head { font-size: 26px; margin-bottom: 18px; }
+  .lede, .say, .result p { font-size: 17.5px; }
+  .seg-item { padding: 8px 13px; }
+  .poly-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px 18px; }
 }
-.emb3d-canvas canvas { display: block; width: 100%; height: 100%; }
-#emb3dExplain { margin-top: 12px; max-width: 76ch; }
+@media (min-width: 1100px) {
+  .step-head { margin-left: -34px; }
+  .step-num { width: 20px; text-align: right; }
+}
 </style>
 </head>
 
 <body class="theme-lab">
 <div class="page">
 
-  <!-- ===== Site header / nav (Rotations active) ===== -->
+  <!-- ===== Site header / nav ===== -->
   <header class="header">
     <a class="brand" href="index.html">Austin Ulrigg</a>
     <nav class="tabs" aria-label="Primary">
@@ -258,119 +227,88 @@
       </nav>
       <div class="subnav">
         <nav class="tabs" aria-label="Secondary">
-          <a class="tab" href="tools.html">Tools and data</a>
+          <a class="tab is-active" href="tools.html" aria-current="page">Tools and data</a>
         </nav>
       </div>
   </header>
 
   <!-- ===== Main ===== -->
-  <main class="main">
+  <main class="main lab">
 
     <section class="lab-intro">
       <h1 class="headline">Rotation Systems</h1>
       <p class="blurb">
         A rotation system picks a cyclic order of the edges at each vertex, and this determines
         an embedding of the graph on an orientable surface. Here you can change the rotations of
-        $K_{3,3}$, $K_5$, $K_5 \setminus e$, or the octahedral graph and see what faces and surface you get.
+        <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mrow><mn>3</mn><mo separator="true">,</mo><mn>3</mn></mrow></msub></mrow><annotation encoding="application/x-tex">K_{3,3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mpunct mtight">,</span><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mn>5</mn></msub></mrow><annotation encoding="application/x-tex">K_5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mn>5</mn></msub><mo>∖</mo><mi>e</mi></mrow><annotation encoding="application/x-tex">K_5 \setminus e</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∖</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">e</span></span></span></span>, or the octahedral graph and see what faces and surface you get.
       </p>
-    </section>
-
-    <!-- ===== 1 · Graph selector ===== -->
-    <section class="selector-block" id="graph-selector">
-      <p class="selector-label">Choose a graph</p>
-      <div class="seg" role="tablist" aria-label="Choose a graph">
-        <button class="seg-item is-active" role="tab" aria-selected="true" data-graph="k33">$K_{3,3}$</button>
-        <button class="seg-item" role="tab" aria-selected="false" data-graph="k5">$K_5$</button>
-        <button class="seg-item" role="tab" aria-selected="false" data-graph="k5e">$K_5 \setminus e$</button>
-        <button class="seg-item" role="tab" aria-selected="false" data-graph="oct">Octahedral</button>
-      </div>
-    </section>
-
-    <!-- ===== 1 · Rotation-system editor ===== -->
-    <section class="editor-block" id="editor">
-      <h2 class="section-head" id="editorTitle"><span class="step-num">1</span>Rotation system, $K_{3,3}$</h2>
-      <div class="editor">
-        <div class="epanel">
-          <h3>Local rotations &sigma;<sub>v</sub></h3>
-          <div id="rotList"></div>
-        </div>
-        <div class="epanel draw-wrap">
-          <svg id="graphSvg" viewBox="55 30 370 340" role="img" aria-label="Standard drawing of K(3,3) with live local-rotation indicators"></svg>
+      <div class="pick" id="graph-selector">
+        <p class="pick-label" id="graphLabel">Choose a graph</p>
+        <div class="seg" role="tablist" aria-labelledby="graphLabel">
+          <button class="seg-item is-active" role="tab" aria-selected="true" aria-controls="editor" data-graph="k33"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mrow><mn>3</mn><mo separator="true">,</mo><mn>3</mn></mrow></msub></mrow><annotation encoding="application/x-tex">K_{3,3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mpunct mtight">,</span><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></button>
+          <button class="seg-item" role="tab" aria-selected="false" aria-controls="editor" tabindex="-1" data-graph="k5"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mn>5</mn></msub></mrow><annotation encoding="application/x-tex">K_5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></button>
+          <button class="seg-item" role="tab" aria-selected="false" aria-controls="editor" tabindex="-1" data-graph="k5e"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mn>5</mn></msub><mo>∖</mo><mi>e</mi></mrow><annotation encoding="application/x-tex">K_5 \setminus e</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∖</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">e</span></span></span></span></button>
+          <button class="seg-item" role="tab" aria-selected="false" aria-controls="editor" tabindex="-1" data-graph="oct">Octahedral</button>
         </div>
       </div>
     </section>
 
-    <!-- ===== 3 · Generate + facial walks (K_{3,3}) ===== -->
-    <section class="walks-block" id="walks">
-      <div class="gen-row">
-        <button class="btn btn--primary" id="genBtn">Generate this rotation system's facial walks</button>
-      </div>
-      <div id="walksView" hidden>
-        <h2 class="section-head"><span class="step-num">2</span>Facial walks</h2>
-        <div class="walks-bar">
-          <div class="walk-controls">
-            <button class="btn" id="stepBtn">Step ▶</button>
-            <button class="btn" id="restartBtn">Restart</button>
-          </div>
-          <p class="hint" id="walkStatus"></p>
-        </div>
-        <div class="walks">
-          <div class="epanel"><div id="walkList"></div></div>
-          <div class="epanel draw-wrap">
-            <svg id="faceSvg" viewBox="55 30 370 340" role="img" aria-label="K(3,3) with facial walks traced dart by dart"></svg>
-          </div>
-        </div>
+    <!-- ===== 1 · The rotation system ===== -->
+    <section class="step" id="editor" role="tabpanel" aria-labelledby="editorTitle">
+      <h2 class="step-head"><span class="step-num">1</span><span id="editorTitle">Rotation system, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mrow><mn>3</mn><mo separator="true">,</mo><mn>3</mn></mrow></msub></mrow><annotation encoding="application/x-tex">K_{3,3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mpunct mtight">,</span><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span></h2>
+      <div class="duo">
+        <h3>Local rotations &sigma;<sub>v</sub></h3>
+        <div id="rotList"></div>
+        <div class="go after-fig"><button class="btn btn--primary" id="genBtn" type="button">Trace the faces</button></div>
+        <figure class="fig col-fig"><svg id="graphSvg" viewBox="100 34 280 332" role="img"></svg></figure>
       </div>
     </section>
 
-    <!-- ===== 4 · Fundamental polygons ===== -->
-    <section class="fundpoly-block" id="fundpoly" hidden>
-      <h2 class="section-head"><span class="step-num">3</span>Fundamental polygons</h2>
-      <p class="hint poly-intro">Each face opens out into a polygon whose sides are its facial walk. Sides sharing a letter (and color) are the same edge, glue them, matching the arrows, and the polygons reassemble the surface.</p>
+    <!-- ===== 2 · Facial walks ===== -->
+    <section class="step" id="walks" hidden>
+      <h2 class="step-head"><span class="step-num">2</span><span>Facial walks</span></h2>
+      <div class="duo">
+        <div class="ctl"><div class="transport" role="group" aria-label="Facial walk steps"><button class="tb" type="button" id="walkStart" aria-label="Restart" title="Restart"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2.5h2.2v11H3zM13.5 2.5v11L6 8z"/></svg></button><button class="tb" type="button" id="walkBack" aria-label="Step back" title="Step back"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.2 3L5.2 8l5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="tb tb--play" type="button" id="walkPlay" aria-label="Play" title="Play"><svg viewBox="0 0 16 16" aria-hidden="true"><path class="i-play" d="M4.5 2.3l9.5 5.7-9.5 5.7z"/><path class="i-pause" d="M3.8 2.5h3.2v11H3.8zM9 2.5h3.2v11H9z"/></svg></button><button class="tb" type="button" id="walkFwd" aria-label="Step forward" title="Step forward"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.8 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="tb" type="button" id="walkEnd" aria-label="Skip to end" title="Skip to end"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5v11L10 8zM10.8 2.5H13v11h-2.2z"/></svg></button></div><span class="count" id="walkCount"></span></div>
+        <p class="say" id="walkStatus" role="status" aria-live="polite"></p>
+        <div class="walk-list after-fig" id="walkList"></div>
+        <figure class="fig col-fig"><svg id="faceSvg" viewBox="100 34 280 332" role="img"></svg></figure>
+      </div>
+    </section>
+
+    <!-- ===== 3 · Faces as polygons ===== -->
+    <section class="step" id="fundpoly" hidden>
+      <h2 class="step-head"><span class="step-num">3</span><span>Faces as polygons</span></h2>
+      <p class="lede">Each face is cut open into a polygon. Sides with the same letter are the two darts of one edge.</p>
       <div class="poly-grid" id="polyGrid"></div>
     </section>
 
-    <!-- ===== 5 · Building the embedding (fundamental polygons + 3D surface, tabbed) ===== -->
-    <section class="embed-block" id="embedding" hidden>
-      <h2 class="section-head"><span class="step-num">4</span>Building the embedding</h2>
-      <div class="seg emb-tabs" role="tablist" aria-label="Embedding view">
-        <button class="seg-item is-active" role="tab" aria-selected="true" data-emb="2d">Fundamental polygons</button>
-        <button class="seg-item" role="tab" aria-selected="false" data-emb="3d" id="embTab3d">3D surface</button>
+    <!-- ===== 4 · Building the surface (fundamental polygon, or the surface in 3D) ===== -->
+    <section class="step" id="embedding" hidden>
+      <h2 class="step-head"><span class="step-num">4</span><span id="embTitle">Building the surface</span></h2>
+      <div class="seg views" role="tablist" aria-labelledby="embTitle">
+        <button class="seg-item is-active" role="tab" aria-selected="true" aria-controls="emb2dPanel" id="embTab2d" data-emb="2d">Fundamental polygon</button>
+        <button class="seg-item" role="tab" aria-selected="false" aria-controls="emb3dPanel" id="embTab3d" tabindex="-1" data-emb="3d">3D surface</button>
       </div>
 
-      <div id="emb2dPanel">
-        <p class="hint poly-intro">Identify a shared edge {a,b} with its reverse {b,a} to merge the face polygons into one. Once they're a single fundamental polygon, the leftover boundary edges are identified in pairs (arrows), those identifications determine the surface.</p>
-        <div class="walk-controls" style="margin: 2px 0 12px;">
-          <button class="btn" id="glueBtn">Glue ▶</button>
-          <button class="btn" id="glueRestart">Restart</button>
-        </div>
-        <p class="hint" id="glueStatus"></p>
-        <div class="epanel draw-wrap"><svg id="glueSvg" role="img" aria-label="Gluing the fundamental polygons into the surface"></svg></div>
-        <div id="glueResult"></div>
+      <div class="duo" id="emb2dPanel" role="tabpanel" aria-labelledby="embTab2d">
+        <p class="lede">Glue two faces along an edge they share, <i>u</i>&rarr;<i>v</i> to <i>v</i>&rarr;<i>u</i>. When one polygon is left, its sides are identified in pairs. This is a fundamental polygon of the surface.</p>
+        <div class="ctl"><div class="transport" role="group" aria-label="Gluing steps"><button class="tb" type="button" id="glueStart" aria-label="Restart" title="Restart"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2.5h2.2v11H3zM13.5 2.5v11L6 8z"/></svg></button><button class="tb" type="button" id="glueBack" aria-label="Step back" title="Step back"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.2 3L5.2 8l5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="tb tb--play" type="button" id="gluePlay" aria-label="Play" title="Play"><svg viewBox="0 0 16 16" aria-hidden="true"><path class="i-play" d="M4.5 2.3l9.5 5.7-9.5 5.7z"/><path class="i-pause" d="M3.8 2.5h3.2v11H3.8zM9 2.5h3.2v11H9z"/></svg></button><button class="tb" type="button" id="glueFwd" aria-label="Step forward" title="Step forward"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.8 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="tb" type="button" id="glueEnd" aria-label="Skip to end" title="Skip to end"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5v11L10 8zM10.8 2.5H13v11h-2.2z"/></svg></button></div><span class="count" id="glueCount"></span></div>
+        <p class="say" id="glueStatus" role="status" aria-live="polite"></p>
+        <div class="after-fig" id="glueResult"></div>
+        <figure class="fig col-fig"><svg id="glueSvg" role="img" aria-label="The faces being glued into a fundamental polygon"></svg></figure>
       </div>
 
-      <div id="emb3dPanel" hidden>
-        <p class="hint poly-intro">The same embedding in 3D: walk each face dart by dart, lift the faces apart, then fetch the real surface from Alexander Metzger's live solver (genus.fly.dev, used with permission) and morph the faces onto it. Drag to rotate once it's 3D.</p>
-        <div class="emb3d-bar">
-          <button class="btn btn--primary" id="emb3dLaunch">Launch 3D view</button>
-          <div class="walk-controls" id="emb3dControls" hidden>
-            <button class="btn" id="emb3dStart" type="button" aria-label="Skip to start" title="Start">⏮</button>
-            <button class="btn" id="emb3dBack" type="button" aria-label="Step back" title="Back">◀</button>
-            <button class="btn" id="emb3dFwd" type="button" aria-label="Step forward" title="Forward">▶</button>
-            <button class="btn" id="emb3dEnd" type="button" aria-label="Skip to end" title="End">⏭</button>
-          </div>
-          <span class="rotidx" id="emb3dGenus"></span>
-        </div>
-        <p class="hint" id="emb3dStatus"></p>
-        <div id="emb3dCanvas" class="emb3d-canvas"></div>
-        <p class="hint" id="emb3dExplain"></p>
-        <p class="hint" id="emb3dNote" hidden>The 3D surface view is built for K₃,₃ for now, switch to K₃,₃ to use it.</p>
+      <div class="duo" id="emb3dPanel" role="tabpanel" aria-labelledby="embTab3d" hidden>
+        <p class="lede">The same embedding in 3D. The faces are traced, cut open, and placed on the surface. The surface comes from Alexander Metzger's live solver (genus.fly.dev, used with permission).</p>
+        <div class="ctl"><div class="transport" role="group" aria-label="3D steps"><button class="tb" type="button" id="emb3dStart" aria-label="Restart" title="Restart"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2.5h2.2v11H3zM13.5 2.5v11L6 8z"/></svg></button><button class="tb" type="button" id="emb3dBack" aria-label="Step back" title="Step back"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.2 3L5.2 8l5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="tb tb--play" type="button" id="emb3dPlay" aria-label="Play" title="Play"><svg viewBox="0 0 16 16" aria-hidden="true"><path class="i-play" d="M4.5 2.3l9.5 5.7-9.5 5.7z"/><path class="i-pause" d="M3.8 2.5h3.2v11H3.8zM9 2.5h3.2v11H9z"/></svg></button><button class="tb" type="button" id="emb3dFwd" aria-label="Step forward" title="Step forward"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.8 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="tb" type="button" id="emb3dEnd" aria-label="Skip to end" title="Skip to end"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5v11L10 8zM10.8 2.5H13v11h-2.2z"/></svg></button></div><span class="count" id="emb3dCount"></span></div>
+        <p class="say" id="emb3dStatus" role="status" aria-live="polite"></p>
+        <figure class="fig col-fig"><div id="emb3dCanvas" class="stage3d"></div></figure>
       </div>
     </section>
 
   </main>
 
-  <!-- ===== Footer (verbatim) ===== -->
+  <!-- ===== Footer ===== -->
   <footer class="footer">
     <span>&copy; 2026 Austin Ulrigg</span>
     <a href="https://github.com/austinulrigg" target="_blank" rel="noopener">GitHub</a>
@@ -379,18 +317,20 @@
 
 </div>
 
-<!-- Three.js (global build) + OrbitControls for the 3D embedding viewer -->
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-
-<!-- ===== LAB SCRIPT: rotation-system editor (checkpoint 3) ===== -->
+<!-- Three.js r128 (global build) + OrbitControls, used only by the 3D view. Deferred so the page is usable before they arrive. -->
+<script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 (function () {
-  // Fixed two-column "standard drawing" of K(3,3).
-  // Left column (part A) = 1,3,5 ; right column (part B) = 2,4,6.
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const motionQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  const calm = () => !!(motionQuery && motionQuery.matches);
+
+  // ===== The four graphs. Left column of K(3,3) is the part {1,3,5}, right column is {2,4,6}. =====
   const EKEY = (a, b) => Math.min(a, b) + '-' + Math.max(a, b);
 
-  // angular (CCW) cyclic order of each vertex's neighbours, a clean default rotation
+  // clockwise order of each vertex's neighbors in the drawing, a clean default rotation
   function angularRot(pos, edges, order) {
     const adj = {}; order.forEach(v => { adj[v] = []; });
     edges.forEach(([a, b]) => { adj[a].push(b); adj[b].push(a); });
@@ -414,7 +354,7 @@
 
   const GRAPHS = {
     k33: {
-      viewBox: '55 30 370 340',
+      viewBox: '118 48 244 304',
       pos: { 1: { x: 150, y: 80 }, 3: { x: 150, y: 200 }, 5: { x: 150, y: 320 }, 2: { x: 330, y: 80 }, 4: { x: 330, y: 200 }, 6: { x: 330, y: 320 } },
       order: [1, 2, 3, 4, 5, 6],
       edges: [[1, 2], [1, 4], [1, 6], [3, 2], [3, 4], [3, 6], [5, 2], [5, 4], [5, 6]],
@@ -422,29 +362,37 @@
       color: v => ([1, 3, 5].includes(v) ? 'pA' : 'pB')
     },
     k5: {
-      viewBox: '45 12 380 372', pos: PENT, order: [1, 2, 3, 4, 5], edges: K5E,
+      viewBox: '67 30 336 323', pos: PENT, order: [1, 2, 3, 4, 5], edges: K5E,
       rot0: angularRot(PENT, K5E, [1, 2, 3, 4, 5]), color: () => 'pA'
     },
     k5e: {
-      viewBox: '45 12 380 372', pos: PENT, order: [1, 2, 3, 4, 5], edges: K5EE,
+      viewBox: '67 30 336 323', pos: PENT, order: [1, 2, 3, 4, 5], edges: K5EE,
       rot0: angularRot(PENT, K5EE, [1, 2, 3, 4, 5]), color: () => 'pA'
     },
     oct: {
-      viewBox: '60 14 350 372', pos: OCTPOS, order: [1, 2, 3, 4, 5, 6], edges: OCTE,
+      viewBox: '73 18 324 364', pos: OCTPOS, order: [1, 2, 3, 4, 5, 6], edges: OCTE,
       rot0: angularRot(OCTPOS, OCTE, [1, 2, 3, 4, 5, 6]), color: () => 'pA'
     }
   };
+  // graph names, as typeset math for the page and as plain words for screen readers
+  const NAME_HTML = { k33: "<span class=\"katex\"><span class=\"katex-mathml\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><semantics><mrow><msub><mi>K</mi><mrow><mn>3</mn><mo separator=\"true\">,</mo><mn>3</mn></mrow></msub></mrow><annotation encoding=\"application/x-tex\">K_{3,3}</annotation></semantics></math></span><span class=\"katex-html\" aria-hidden=\"true\"><span class=\"base\"><span class=\"strut\" style=\"height:0.9694em;vertical-align:-0.2861em;\"></span><span class=\"mord\"><span class=\"mord mathnormal\" style=\"margin-right:0.07153em;\">K</span><span class=\"msupsub\"><span class=\"vlist-t vlist-t2\"><span class=\"vlist-r\"><span class=\"vlist\" style=\"height:0.3011em;\"><span style=\"top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;\"><span class=\"pstrut\" style=\"height:2.7em;\"></span><span class=\"sizing reset-size6 size3 mtight\"><span class=\"mord mtight\"><span class=\"mord mtight\">3</span><span class=\"mpunct mtight\">,</span><span class=\"mord mtight\">3</span></span></span></span></span><span class=\"vlist-s\">​</span></span><span class=\"vlist-r\"><span class=\"vlist\" style=\"height:0.2861em;\"><span></span></span></span></span></span></span></span></span></span>", k5: "<span class=\"katex\"><span class=\"katex-mathml\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><semantics><mrow><msub><mi>K</mi><mn>5</mn></msub></mrow><annotation encoding=\"application/x-tex\">K_5</annotation></semantics></math></span><span class=\"katex-html\" aria-hidden=\"true\"><span class=\"base\"><span class=\"strut\" style=\"height:0.8333em;vertical-align:-0.15em;\"></span><span class=\"mord\"><span class=\"mord mathnormal\" style=\"margin-right:0.07153em;\">K</span><span class=\"msupsub\"><span class=\"vlist-t vlist-t2\"><span class=\"vlist-r\"><span class=\"vlist\" style=\"height:0.3011em;\"><span style=\"top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;\"><span class=\"pstrut\" style=\"height:2.7em;\"></span><span class=\"sizing reset-size6 size3 mtight\"><span class=\"mord mtight\">5</span></span></span></span><span class=\"vlist-s\">​</span></span><span class=\"vlist-r\"><span class=\"vlist\" style=\"height:0.15em;\"><span></span></span></span></span></span></span></span></span></span>", k5e: "<span class=\"katex\"><span class=\"katex-mathml\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><semantics><mrow><msub><mi>K</mi><mn>5</mn></msub><mo>∖</mo><mi>e</mi></mrow><annotation encoding=\"application/x-tex\">K_5 \\setminus e</annotation></semantics></math></span><span class=\"katex-html\" aria-hidden=\"true\"><span class=\"base\"><span class=\"strut\" style=\"height:1em;vertical-align:-0.25em;\"></span><span class=\"mord\"><span class=\"mord mathnormal\" style=\"margin-right:0.07153em;\">K</span><span class=\"msupsub\"><span class=\"vlist-t vlist-t2\"><span class=\"vlist-r\"><span class=\"vlist\" style=\"height:0.3011em;\"><span style=\"top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;\"><span class=\"pstrut\" style=\"height:2.7em;\"></span><span class=\"sizing reset-size6 size3 mtight\"><span class=\"mord mtight\">5</span></span></span></span><span class=\"vlist-s\">​</span></span><span class=\"vlist-r\"><span class=\"vlist\" style=\"height:0.15em;\"><span></span></span></span></span></span></span><span class=\"mspace\" style=\"margin-right:0.2222em;\"></span><span class=\"mbin\">∖</span><span class=\"mspace\" style=\"margin-right:0.2222em;\"></span></span><span class=\"base\"><span class=\"strut\" style=\"height:0.4306em;\"></span><span class=\"mord mathnormal\">e</span></span></span></span>", oct: 'the octahedral graph' };
+  const NAME_TEXT = { k33: 'K3,3', k5: 'K5', k5e: 'K5 minus an edge', oct: 'the octahedral graph' };
+
+  // One color per face (checked for color-blind readers, no two alike among eight) and one per edge.
+  const FACE = ['#db327b', '#3d3bb8', '#0d6332', '#268bb6', '#8c0779', '#83870b', '#9657e8', '#b00d10'];
+  const EDGE = ["#575e0a", "#0d91c9", "#9a1a5b", "#139a91", "#72339f", "#489d2b", "#0f51b4", "#dc4f77", "#006472", "#bf59b3", "#0d6849", "#7c73e7"];
 
   // active-graph state (set by setGraph)
-  let V, ORDER, EDGES, rot, partFn, edgeIndex = {};
+  let V, ORDER, EDGES, rot, partFn, edgeIndex = {}, currentGraphKey = 'k33';
   const part = n => partFn(n);
   const edgeLabel = (a, b) => 'abcdefghijklmnopqrstuvwxyz'[edgeIndex[EKEY(a, b)]];
-  const edgeColor = (a, b) => `hsl(${Math.round(edgeIndex[EKEY(a, b)] * 360 / EDGES.length)} 70% 45%)`;
+  const edgeColor = (a, b) => EDGE[edgeIndex[EKEY(a, b)] % EDGE.length];
+  const D = (a, b) => `<span class="dart">${a}&rarr;${b}</span>`;       // a dart, written the way the walks are
 
-  const svg = document.getElementById('graphSvg');
-  const list = document.getElementById('rotList');
+  const svg = $('graphSvg'), list = $('rotList');
+  const walksView = $('walks'), polyView = $('fundpoly'), embedView = $('embedding');
 
-  // cycle a vertex through ALL (d-1)! distinct cyclic orders (next permutation of the tail)
+  // ----- cycling a vertex through all (d-1)! cyclic orders (next permutation of the tail) -----
   function factorial(n) { let f = 1; for (let i = 2; i <= n; i++) f *= i; return f; }
   function nextPerm(a0) {
     const a = a0.slice(); let i = a.length - 2;
@@ -472,83 +420,90 @@
     return `M${x0.toFixed(1)} ${y0.toFixed(1)} A${r} ${r} 0 ${large} ${sweep} ${x1.toFixed(1)} ${y1.toFixed(1)}`;
   }
 
-  function indicator(v) {
-    // One clean circular arrow per vertex, hugging the node, opening toward the
-    // edges, sweeping in the cyclic order's orientation. Flipping reverses it.
+  // The rotation at v: one circular arrow hugging the vertex, opening toward its edges and sweeping the way
+  // the cyclic order turns, plus the position 1, 2, 3, ... of each edge in that order.
+  function indicator(v, marker, keys) {
     const c = V[v];
     const angs = rot[v].map(n => Math.atan2(V[n].y - c.y, V[n].x - c.x));
     const u = angs.map(a => [Math.cos(a), Math.sin(a)]);
-    // signed area (shoelace) of the neighbours in rotation order, any degree:
-    // < 0 => the cyclic order winds counter-clockwise on screen
+    // signed area (shoelace) of the neighbors in rotation order: < 0 means the order winds counterclockwise on screen
     let area = 0;
     for (let i = 0; i < u.length; i++) { const j = (i + 1) % u.length; area += u[i][0] * u[j][1] - u[j][0] * u[i][1]; }
     const ccw = area < 0;
-    // centre the ring's gap on the mean edge direction so the opening faces the edges
     const mean = Math.atan2(angs.reduce((s, a) => s + Math.sin(a), 0), angs.reduce((s, a) => s + Math.cos(a), 0));
     const R = 20, gapHalf = 0.95, span = 2 * Math.PI - 2 * gapHalf;
     const a0 = ccw ? mean - gapHalf : mean + gapHalf;
     const a1 = ccw ? a0 - span : a0 + span;
-    let s = `<path d="${arc(c.x, c.y, R, a0, a1)}" class="dir" marker-end="url(#ah)"/>`;
-    // exact cyclic order: a small number on each incident edge, in rotation order
+    let s = `<path d="${arc(c.x, c.y, R, a0, a1)}" class="dir" pathLength="1" marker-end="url(#${marker})"/>`;
     const NR = 40;
     rot[v].forEach((n, i) => {
-      const a = angs[i];
-      s += `<text x="${(c.x + NR * Math.cos(a)).toFixed(1)}" y="${(c.y + NR * Math.sin(a)).toFixed(1)}" class="ordt">${i + 1}</text>`;
+      const a = angs[i], key = keys && keys.includes(n);
+      s += `<text x="${(c.x + NR * Math.cos(a)).toFixed(1)}" y="${(c.y + NR * Math.sin(a)).toFixed(1)}" class="ordt${key ? ' is-key' : ''}">${i + 1}</text>`;
     });
     return s;
   }
+  const markerDef = (id, cls) => `<marker id="${id}" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 L4 6 Z" class="${cls}"/></marker>`;
+  const dot = (v, r) => { const c = V[v]; return `<circle cx="${c.x}" cy="${c.y}" r="${r}" class="vert ${part(v)}"/><text x="${c.x}" y="${c.y}" class="vlabel">${v}</text>`; };
+  const baseEdges = () => EDGES.map(([a, b]) => `<line x1="${V[a].x}" y1="${V[a].y}" x2="${V[b].x}" y2="${V[b].y}" class="edge"/>`).join('');
 
-  function render() {
-    // left panel rows, σ_v = ( a b c ), with a flip control
-    const ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a8 8 0 1 1-2.4-5.7"/><path d="M20 4.5v4h-4"/></svg>';
+  // ===== 1 · The rotation system =====
+  const ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 1 1-2.4-5.7"/><path d="M20 4.5v4h-4"/></svg>';
+  let hotV = null;
+  function rowText(v) {
+    const tail = rot[v].slice(1), m = factorial(tail.length), k = permRank(tail) + 1;
+    return { seq: rot[v].join(' '), idx: `${k}/${m}`, title: `rotation ${k} of ${m}` };
+  }
+  function renderRows() {
     let rows = '';
     ORDER.forEach(v => {
-      const subCls = part(v) === 'pA' ? 'pAt' : 'pBt';
-      const seq = rot[v].join(' ');
-      const tail = rot[v].slice(1), m = factorial(tail.length), k = permRank(tail) + 1;
-      rows += `<div class="rot-row">` +
+      const t = rowText(v), subCls = part(v) === 'pA' ? 'pAt' : 'pBt';
+      rows += `<div class="rot-row" data-v="${v}">` +
         `<span class="req"><span class="sig">&sigma;</span><sub class="sub ${subCls}">${v}</sub>` +
-        `<span class="eq">=</span><span class="paren">(</span><span class="seq">${seq}</span><span class="paren">)</span></span>` +
-        `<span class="rotidx" title="rotation ${k} of ${m}">${k}/${m}</span>` +
-        `<button class="flip-btn" data-v="${v}" title="Cycle local rotation" aria-label="Cycle local rotation at vertex ${v}">${ICON}</button>` +
+        `<span class="eq">=</span><span class="paren">(</span><span class="seq">${t.seq}</span><span class="paren">)</span></span>` +
+        `<span class="rotidx" title="${t.title}">${t.idx}</span>` +
+        `<button class="flip-btn" type="button" data-v="${v}" title="Next local rotation" aria-label="Next local rotation at vertex ${v}">${ICON}</button>` +
         `</div>`;
     });
     list.innerHTML = rows;
-
-    // svg
-    let s = '<defs><marker id="ah" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 L4 6 Z" class="ahf"/></marker></defs>';
-    EDGES.forEach(([a, b]) => {
-      s += `<line x1="${V[a].x}" y1="${V[a].y}" x2="${V[b].x}" y2="${V[b].y}" class="edge"/>`;
-    });
-    ORDER.forEach(v => { s += indicator(v); });
+  }
+  function updateRow(v) {
+    const row = list.querySelector(`.rot-row[data-v="${v}"]`); if (!row) return;
+    const t = rowText(v);
+    row.querySelector('.seq').textContent = t.seq;
+    const idx = row.querySelector('.rotidx'); idx.textContent = t.idx; idx.title = t.title;
+  }
+  function renderGraph(changed) {
+    let s = '<defs>' + markerDef('ah', 'ahf') + '</defs>' + baseEdges();
     ORDER.forEach(v => {
       const c = V[v];
-      s += `<circle cx="${c.x}" cy="${c.y}" r="12" class="vert ${part(v)}"/>` +
-        `<text x="${c.x}" y="${c.y}" class="vlabel">${v}</text>`;
+      s += `<g class="vx${v === changed ? ' is-new' : ''}${v === hotV ? ' is-hot' : ''}" data-v="${v}">` +
+        `<circle cx="${c.x}" cy="${c.y}" r="27" class="vx-hit"/><circle cx="${c.x}" cy="${c.y}" r="25.5" class="vx-ring"/>` +
+        indicator(v, 'ah') + dot(v, 12) + '</g>';
     });
     svg.innerHTML = s;
   }
+  function setHot(v) {
+    if (hotV === v) return;
+    [hotV, v].forEach((w, i) => {
+      if (w == null) return;
+      const g = svg.querySelector(`.vx[data-v="${w}"]`), r = list.querySelector(`.rot-row[data-v="${w}"]`);
+      if (g) g.classList.toggle('is-hot', i === 1); if (r) r.classList.toggle('is-hot', i === 1);
+    });
+    hotV = v;
+  }
+  function cycle(v, btn) {
+    cycleRotation(v);
+    updateRow(v);
+    renderGraph(v);
+    if (btn) { btn.classList.remove('did'); void btn.offsetWidth; btn.classList.add('did'); }
+    markStale();
+  }
 
-  // ===== Facial walks (checkpoint 4) =====
-  const COLORS = ['#ec4899', '#14b8a6', '#8b5cf6', '#0ea5e9', '#f43f5e', '#facc15'];
-  const genBtn = document.getElementById('genBtn');
-  const stepBtn = document.getElementById('stepBtn');
-  const restartBtn = document.getElementById('restartBtn');
-  const walksView = document.getElementById('walksView');
-  const walkList = document.getElementById('walkList');
-  const walkStatus = document.getElementById('walkStatus');
-  const faceSvg = document.getElementById('faceSvg');
-  const polyView = document.getElementById('fundpoly');
-  const polyGrid = document.getElementById('polyGrid');
-  const embedView = document.getElementById('embedding');
-  const embTabs = document.querySelector('#embedding .emb-tabs');
-  const glueSvg = document.getElementById('glueSvg');
-  const glueBtn = document.getElementById('glueBtn');
-  const glueRestart = document.getElementById('glueRestart');
-  const glueStatus = document.getElementById('glueStatus');
-  const glueResult = document.getElementById('glueResult');
-
-  let faces = [], seq = [], total = 0, dartTotal = 0, genus = 0, chi = 0, s = 0, embLayout = null, glueStep = 0, currentGraphKey = 'k33';
+  // ===== 2 · Facial walks =====
+  const walkList = $('walkList'), walkStatus = $('walkStatus'), walkCount = $('walkCount'), faceSvg = $('faceSvg');
+  const polyGrid = $('polyGrid');
+  const glueSvg = $('glueSvg'), glueStatus = $('glueStatus'), glueCount = $('glueCount'), glueResult = $('glueResult');
+  let faces = [], seq = [], total = 0, dartTotal = 0, genus = 0, chi = 0, s = 0, embLayout = null, glueStep = 0, hotFace = null;
 
   // Standard orientable face tracing: the dart after (u->v) leaves v along the
   // successor of u in v's local rotation.  (Faces of phi = sigma . alpha.)
@@ -569,14 +524,35 @@
     return out;
   }
 
-  // geometry for a dart, nudged 'off' px to the left of travel so opposite darts separate
-  function dartGeom(u, v, off) {
+  // ----- what each step says, in the same words for the drawing and the 3D view -----
+  const facesPhrase = F => F.length === 1 ? 'There is 1 face' : `There are ${F.length} faces`;
+  const startLine = () => `Each of the ${EDGES.length} edges gives two darts.`;
+  const endLine = (F, g) => `Every dart has been used. ${facesPhrase(F)}, so the genus is ${g}.`;
+  function dartLine(F, fi, k) {
+    const [x, z] = F[fi][k];
+    if (k === 0) return fi === 0 ? `Start with the dart ${D(x, z)}.` : `Start a new face with the unused dart ${D(x, z)}.`;
+    const y = F[fi][k - 1][0];
+    return `In the rotation at ${x}, the neighbor after ${y} is ${z}, so next we take ${D(x, z)}.`;
+  }
+  function walkLine(n) {
+    if (n === 0) return startLine();
+    if (n >= total) return endLine(faces, genus);
+    const st = seq[n - 1];
+    if (st.type === 'done') { const f = faces[st.fi]; return `We have returned to the starting dart ${D(f[0][0], f[0][1])}. Face ${st.fi + 1} has length ${f.length}.`; }
+    return dartLine(faces, st.fi, st.k);
+  }
+
+  // a dart is drawn as a strand beside its edge, so the two darts of an edge sit on its two sides
+  const OFF = 4.6;
+  function dartGeom(u, v) {
     const a = V[u], b = V[v], dx = b.x - a.x, dy = b.y - a.y, L = Math.hypot(dx, dy);
     const ux = dx / L, uy = dy / L, px = -uy, py = ux;
-    return {
-      sx: a.x + ux * 18 + px * off, sy: a.y + uy * 18 + py * off,
-      ex: b.x - ux * 20 + px * off, ey: b.y - uy * 20 + py * off
-    };
+    return { sx: a.x + ux * 16 + px * OFF, sy: a.y + uy * 16 + py * OFF, ex: b.x - ux * 19.5 + px * OFF, ey: b.y - uy * 19.5 + py * OFF, ux, uy };
+  }
+  function tip(gm, col, big, cls) {
+    const L = big ? 10.5 : 8.5, W = big ? 8.5 : 7, x = gm.ex + gm.ux * 3.5, y = gm.ey + gm.uy * 3.5;
+    const bx = x - gm.ux * L, by = y - gm.uy * L, ox = -gm.uy * W / 2, oy = gm.ux * W / 2;
+    return `<polygon class="tip${cls}" points="${x.toFixed(1)},${y.toFixed(1)} ${(bx + ox).toFixed(1)},${(by + oy).toFixed(1)} ${(bx - ox).toFixed(1)},${(by - oy).toFixed(1)}" fill="${col}"/>`;
   }
 
   // how much of each face is revealed, which are complete, and the last step taken
@@ -586,85 +562,64 @@
     return { revealed, done, last: s > 0 ? seq[s - 1] : null };
   }
 
-  // continuous closed boundary of a face, inset to the left of travel (no breaks)
-  function faceLoopPath(face, off) {
-    const gap = 14; let d = '';
-    face.forEach(([u, v], i) => {
-      const a = V[u], b = V[v], dx = b.x - a.x, dy = b.y - a.y, L = Math.hypot(dx, dy);
-      const ux = dx / L, uy = dy / L, px = -uy, py = ux;
-      const ax = a.x + ux * gap + px * off, ay = a.y + uy * gap + py * off;
-      const bx = b.x - ux * gap + px * off, by = b.y - uy * gap + py * off;
-      d += (i === 0 ? 'M' : 'L') + `${ax.toFixed(1)} ${ay.toFixed(1)} L${bx.toFixed(1)} ${by.toFixed(1)} `;
-    });
-    return d + 'Z';
-  }
-
-  function renderFaceSvg() {
-    const { revealed, done, last } = stepState();
-    let g = '<defs>';
-    COLORS.forEach((col, ci) => {
-      g += `<marker id="dh${ci}" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 L4 6 Z" fill="${col}"/></marker>`;
-    });
-    g += '</defs>';
-    EDGES.forEach(([a, b]) => { g += `<line x1="${V[a].x}" y1="${V[a].y}" x2="${V[b].x}" y2="${V[b].y}" class="edge"/>`; });
-    // completed faces -> one continuous glowing loop (cycle formed)
+  function renderFaceSvg(fresh) {
+    const { revealed, last } = stepState();
+    let g = '<defs>' + markerDef('ahp', 'ahf2') + '</defs>' + baseEdges();
     faces.forEach((face, fi) => {
-      if (!done[fi]) return;
-      const col = COLORS[fi % COLORS.length], path = faceLoopPath(face, 5);
-      const pulse = last && last.type === 'done' && last.fi === fi;
-      g += `<path d="${path}" class="faceglow${pulse ? ' pulse' : ''}" style="stroke:${col}"/>`;
-      g += `<path d="${path}" class="faceloop" style="stroke:${col}"/>`;
-    });
-    // tracing faces -> dart-by-dart arrows
-    faces.forEach((face, fi) => {
-      if (done[fi]) return;
-      const ci = fi % COLORS.length, col = COLORS[ci];
+      if (!revealed[fi]) return;
+      const col = FACE[fi % FACE.length];
+      const closing = fresh && last && last.type === 'done' && last.fi === fi;
+      g += `<g class="fgrp${closing ? ' is-closing' : ''}${hotFace != null && hotFace !== fi ? ' is-dim' : ''}" data-f="${fi}">`;
       for (let k = 0; k < revealed[fi]; k++) {
-        const gm = dartGeom(face[k][0], face[k][1], 5);
-        const cur = last && last.type === 'dart' && last.fi === fi && last.k === k;
-        g += `<line x1="${gm.sx.toFixed(1)}" y1="${gm.sy.toFixed(1)}" x2="${gm.ex.toFixed(1)}" y2="${gm.ey.toFixed(1)}" stroke="${col}" stroke-width="${cur ? 3.4 : 2.2}" stroke-linecap="round" opacity="${cur ? 1 : 0.82}" marker-end="url(#dh${ci})"/>`;
+        const gm = dartGeom(face[k][0], face[k][1]);
+        const cur = !!last && last.type === 'dart' && last.fi === fi && last.k === k, nw = cur && fresh ? ' is-new' : '';
+        g += `<path d="M${gm.sx.toFixed(1)} ${gm.sy.toFixed(1)} L${gm.ex.toFixed(1)} ${gm.ey.toFixed(1)}" class="strand${cur ? ' is-cur' : ''}${nw}" pathLength="1" stroke="${col}"/>` + tip(gm, col, cur, nw);
       }
+      g += '</g>';
     });
-    ORDER.forEach(v => {
-      const c = V[v];
-      g += `<circle cx="${c.x}" cy="${c.y}" r="12" class="vert ${part(v)}"/><text x="${c.x}" y="${c.y}" class="vlabel">${v}</text>`;
-    });
+    // the vertex whose rotation was just read: its order numbers, with the edge we came in on and the next one picked out
+    if (last && last.type === 'dart') {
+      const x = last.dart[0], c = V[x];
+      if (last.k > 0) g += `<g class="pivot">${indicator(x, 'ahp', [faces[last.fi][last.k - 1][0], last.dart[1]])}</g>`;
+      else g += `<circle cx="${c.x}" cy="${c.y}" r="18" class="pivot-ring"/>`;
+    }
+    ORDER.forEach(v => { g += dot(v, 12); });
     faceSvg.innerHTML = g;
   }
 
-  function renderWalks() {
+  function renderWalks(fresh) {
     const { revealed, done, last } = stepState();
-    if (s >= total) {
-      walkStatus.textContent = `Complete: ${faces.length} ${faces.length === 1 ? 'face' : 'faces'}, ` +
-        (Number.isInteger(genus) ? `genus ${genus}.` : `Euler characteristic ${chi}.`);
-    } else if (last && last.type === 'done') {
-      walkStatus.textContent = `Face ${last.fi + 1} cycle formed, step to continue.`;
-    } else {
-      const dr = revealed.reduce((a, b) => a + b, 0);
-      walkStatus.textContent = `Dart ${dr} of ${dartTotal}, keep stepping.`;
-    }
+    walkStatus.innerHTML = walkLine(s);
+    walkCount.textContent = `Dart ${revealed.reduce((a, b) => a + b, 0)} of ${dartTotal}`;
     let html = '';
     faces.forEach((face, fi) => {
-      const col = COLORS[fi % COLORS.length], rev = revealed[fi];
+      const col = FACE[fi % FACE.length], rev = revealed[fi];
       const seqV = [face[0][0], ...face.map(d => d[1])];
+      const here = last && last.type === 'dart' && last.fi === fi ? rev : -1;
       let inner = '';
       seqV.forEach((vtx, i) => {
-        const on = i <= rev;
-        inner += `<span class="vtx${on ? '' : ' pending'}"${on ? ` style="color:${col}"` : ''}>${vtx}</span>`;
+        const on = rev > 0 && i <= rev;
+        inner += `<span class="vtx${on ? '' : ' pending'}${i === here ? ' now' : ''}">${vtx}</span>`;
         if (i < seqV.length - 1) {
           const aon = (i + 1) <= rev;
-          inner += `<span class="ar${aon ? '' : ' pending'}"${aon ? ` style="color:${col}"` : ''}>→</span>`;
+          inner += `<span class="ar${aon ? '' : ' pending'}"${aon ? ` style="color:${col}"` : ''}>&rarr;</span>`;
         }
       });
-      const badge = done[fi] ? `<span class="formed" style="color:${col}">● cycle</span>` : '';
-      html += `<div class="walk-row${done[fi] ? ' is-done' : ''}"><span class="fswatch" style="background:${col}"></span><span class="flabel">Face ${fi + 1}</span><span class="fseq">${inner}</span>${badge}</div>`;
+      const badge = done[fi] ? `<span class="flen">length ${face.length}</span>` : '';
+      html += `<div class="walk-row${hotFace === fi ? ' is-hot' : ''}" data-f="${fi}"><span class="fswatch" style="background:${col}"></span><span class="flabel">Face ${fi + 1}</span><span class="fseq">${inner}</span>${badge}</div>`;
     });
     walkList.innerHTML = html;
-    renderFaceSvg();
-    stepBtn.disabled = s >= total;
+    renderFaceSvg(fresh);
+    setCtl('walk', s <= 0, s >= total);
+  }
+  function walkGo(n, fresh) { s = Math.max(0, Math.min(total, n)); renderWalks(fresh); }
+  function setHotFace(fi) {
+    if (hotFace === fi) return; hotFace = fi;
+    walkList.querySelectorAll('.walk-row').forEach(r => r.classList.toggle('is-hot', +r.dataset.f === fi));
+    faceSvg.querySelectorAll('.fgrp').forEach(g => g.classList.toggle('is-dim', fi != null && +g.dataset.f !== fi));
   }
 
-  // ----- Fundamental polygons (checkpoint 5) -----
+  // ===== 3 · Faces as polygons =====
   function arrowHead(x, y, ang, col) {
     const L = 11, W = 7.5;
     const tx = x + Math.cos(ang) * L / 2, ty = y + Math.sin(ang) * L / 2;
@@ -672,49 +627,45 @@
     const ox = Math.cos(ang + Math.PI / 2), oy = Math.sin(ang + Math.PI / 2);
     return `<polygon points="${tx.toFixed(1)},${ty.toFixed(1)} ${(bx + ox * W / 2).toFixed(1)},${(by + oy * W / 2).toFixed(1)} ${(bx - ox * W / 2).toFixed(1)},${(by - oy * W / 2).toFixed(1)}" fill="${col}"/>`;
   }
-
-  function polygonSVG(face, faceColor) {
-    const n = face.length, cx = 115, cy = 117, R = 76, start = -Math.PI / 2;
+  function polygonSVG(face, fi) {
+    // long faces get a larger polygon so their corners do not crowd
+    const n = face.length, R = Math.max(72, 15.5 / Math.sin(Math.PI / n)), S = Math.round(2 * (R + 40)), cx = S / 2, cy = S / 2, start = -Math.PI / 2;
     const cor = face.map((d, i) => {
       const a = start + i * 2 * Math.PI / n;
       return { x: cx + R * Math.cos(a), y: cy + R * Math.sin(a), v: d[0] };
     });
-    let s = '';
     const pts = cor.map(c => `${c.x.toFixed(1)},${c.y.toFixed(1)}`).join(' ');
-    s += `<polygon points="${pts}" fill="${faceColor}" fill-opacity="0.08" stroke="${faceColor}" stroke-opacity="0.3" stroke-width="1.4"/>`;
+    let t = `<polygon points="${pts}" fill="${FACE[fi % FACE.length]}" fill-opacity="0.13"/>`;
     face.forEach((d, i) => {
       const c0 = cor[i], c1 = cor[(i + 1) % n];
       const col = edgeColor(d[0], d[1]), lab = edgeLabel(d[0], d[1]);
       const mx = (c0.x + c1.x) / 2, my = (c0.y + c1.y) / 2;
       const ang = Math.atan2(c1.y - c0.y, c1.x - c0.x);
-      s += `<line x1="${c0.x.toFixed(1)}" y1="${c0.y.toFixed(1)}" x2="${c1.x.toFixed(1)}" y2="${c1.y.toFixed(1)}" stroke="${col}" stroke-width="3" stroke-linecap="round"/>`;
-      s += arrowHead(mx, my, ang, col);
+      t += `<line x1="${c0.x.toFixed(1)}" y1="${c0.y.toFixed(1)}" x2="${c1.x.toFixed(1)}" y2="${c1.y.toFixed(1)}" stroke="${col}" stroke-width="3" stroke-linecap="round"/>`;
+      t += arrowHead(mx, my, ang, col);
       const ux = (mx - cx) || 0.01, uy = (my - cy) || 0.01, ul = Math.hypot(ux, uy);
-      s += `<text x="${(mx + ux / ul * 16).toFixed(1)}" y="${(my + uy / ul * 16).toFixed(1)}" class="polylab" fill="${col}">${lab}</text>`;
+      t += `<text x="${(mx + ux / ul * 17).toFixed(1)}" y="${(my + uy / ul * 17).toFixed(1)}" class="polylab">${lab}</text>`;
     });
     cor.forEach(c => {
-      s += `<circle cx="${c.x.toFixed(1)}" cy="${c.y.toFixed(1)}" r="11" class="vert ${part(c.v)}"/>` +
+      t += `<circle cx="${c.x.toFixed(1)}" cy="${c.y.toFixed(1)}" r="11" class="vert ${part(c.v)}"/>` +
         `<text x="${c.x.toFixed(1)}" y="${c.y.toFixed(1)}" class="vlabel">${c.v}</text>`;
     });
-    return `<svg viewBox="0 0 230 234" class="polysvg" role="img" aria-label="Fundamental polygon for face">${s}</svg>`;
+    return `<svg viewBox="0 0 ${S} ${S}" class="polysvg" role="img" aria-label="Face ${fi + 1}, a polygon with ${n} sides">${t}</svg>`;
   }
-
   function renderPolys() {
     let html = '';
     faces.forEach((face, fi) => {
-      const col = COLORS[fi % COLORS.length];
-      html += `<div class="epanel poly-card"><div class="poly-head"><span class="fswatch" style="background:${col}"></span>Face ${fi + 1} · ${face.length}-gon</div>${polygonSVG(face, col)}</div>`;
+      html += `<figure class="poly-card${face.length > 13 ? ' is-wide' : ''}" style="animation-delay:${Math.min(fi * 60, 420)}ms"><figcaption><span class="fswatch" style="background:${FACE[fi % FACE.length]}"></span>Face ${fi + 1}, length ${face.length}</figcaption>${polygonSVG(face, fi)}</figure>`;
     });
     polyGrid.innerHTML = html;
   }
 
-  // ----- Embedding: merge the face polygons into one fundamental polygon (checkpoint 6) -----
+  // ===== 4 · Building the surface: glue the faces into one fundamental polygon =====
   // regular polygon with a fixed SIDE length, so shared edges line up when merging
   function regPoly(n) { const R = 70 / (2 * Math.sin(Math.PI / n)), p = []; for (let i = 0; i < n; i++) { const a = 2 * Math.PI * i / n - Math.PI / 2; p.push({ x: R * Math.cos(a), y: R * Math.sin(a) }); } return p; }
   // rigid motion mapping local segment la->lb onto assembly segment A->B (equal length)
   function iso(la, lb, A, B) { const r = Math.atan2(B.y - A.y, B.x - A.x) - Math.atan2(lb.y - la.y, lb.x - la.x), c = Math.cos(r), s = Math.sin(r); return p => { const x = p.x - la.x, y = p.y - la.y; return { x: A.x + (x * c - y * s), y: A.y + (x * s + y * c) }; }; }
   function centroid(cs) { let x = 0, y = 0; cs.forEach(c => { x += c.x; y += c.y; }); return { x: x / cs.length, y: y / cs.length }; }
-  function dartStr(d) { return `{${d[0]},${d[1]}}`; }
 
   function buildEmbedding(F) {
     const inc = {};
@@ -730,85 +681,170 @@
     return { F, inc, tree, treeKeys, pos, nonTree, M: tree.length, N: nonTree.length };
   }
 
-  // draw one face given absolute corner positions; sides labelled by darts {a,b}
-  function faceDraw(fi, corners, o) {
-    const F = embLayout.F, n = F[fi].length, cen = centroid(corners); let s = '';
-    for (let i = 0; i < n; i++) {
-      const d = F[fi][i], c0 = corners[i], c1 = corners[(i + 1) % n], key = EKEY(d[0], d[1]);
-      const mid = { x: (c0.x + c1.x) / 2, y: (c0.y + c1.y) / 2 }, ang = Math.atan2(c1.y - c0.y, c1.x - c0.x);
-      if (o.seams && embLayout.treeKeys.has(key)) {
-        const cur = key === o.seamKey;
-        s += `<line x1="${c0.x.toFixed(1)}" y1="${c0.y.toFixed(1)}" x2="${c1.x.toFixed(1)}" y2="${c1.y.toFixed(1)}" stroke="${cur ? '#4f29d6' : 'rgba(22,24,58,0.22)'}" stroke-width="${cur ? 3.5 : 1.4}" stroke-linecap="round"${cur ? '' : ' stroke-dasharray="2 4"'}/>`;
-      } else {
-        const id = o.idMap && o.idMap[key], col = edgeColor(d[0], d[1]);
-        s += `<line x1="${c0.x.toFixed(1)}" y1="${c0.y.toFixed(1)}" x2="${c1.x.toFixed(1)}" y2="${c1.y.toFixed(1)}" stroke="${col}" stroke-width="${id && id.cur ? 5 : 3}" stroke-linecap="round" opacity="${id ? 1 : 0.95}"/>`;
-        if (id) s += arrowHead(mid.x, mid.y, ang, col);
-        const ux = (mid.x - cen.x) || 0.01, uy = (mid.y - cen.y) || 0.01, ul = Math.hypot(ux, uy);
-        s += `<text x="${(mid.x + ux / ul * 16).toFixed(1)}" y="${(mid.y + uy / ul * 16).toFixed(1)}" class="dartlab" fill="${col}">${dartStr(d)}</text>`;
-      }
-    }
-    for (let i = 0; i < n; i++) { const c = corners[i], ox = (c.x - cen.x) || 0.01, oy = (c.y - cen.y) || 0.01, ol = Math.hypot(ox, oy); s += `<circle cx="${c.x.toFixed(1)}" cy="${c.y.toFixed(1)}" r="6.5" fill="#16183a"/><text x="${(c.x + ox / ol * 15).toFixed(1)}" y="${(c.y + oy / ol * 15).toFixed(1)}" class="vnum">${F[fi][i][0]}</text>`; }
-    return s;
-  }
-
-  function surfaceName(g) { return g === 0 ? 'a sphere' : g === 1 ? 'a torus' : g === 2 ? 'a genus-2 surface (double torus)' : `a genus-${g} surface`; }
-
-  function surfaceSVG(g) {
-    const AC = '#4f29d6', TINT = 'rgba(79,41,214,0.16)', HOLE = '#e6eaf8';
-    if (g <= 0) return `<svg viewBox="0 0 110 104" class="surfsvg"><circle cx="55" cy="54" r="40" fill="${TINT}" stroke="${AC}" stroke-width="2.5"/><ellipse cx="43" cy="42" rx="13" ry="8" fill="#fff" opacity="0.5"/></svg>`;
-    const hRx = 16, gap = 22, innerW = g * 2 * hRx + (g - 1) * gap, bodyRx = innerW / 2 + 34;
-    const W = bodyRx * 2 + 22, cx = W / 2;
-    let s = `<ellipse cx="${cx.toFixed(0)}" cy="56" rx="${bodyRx.toFixed(0)}" ry="32" fill="${TINT}" stroke="${AC}" stroke-width="2.5"/>`;
-    const sx = cx - innerW / 2 + hRx;
-    for (let i = 0; i < g; i++) { const hx = sx + i * (2 * hRx + gap); s += `<ellipse cx="${hx.toFixed(0)}" cy="52" rx="${hRx}" ry="8" fill="${HOLE}" stroke="${AC}" stroke-width="1.8"/>`; }
-    return `<svg viewBox="0 0 ${Math.round(W)} 104" class="surfsvg">${s}</svg>`;
-  }
-
-  function renderEmbed() {
-    if (!embLayout) return;
-    const F = embLayout.F, M = embLayout.M, N = embLayout.N, GMAX = M + N;
-    const merged = glueStep === 0 ? 0 : Math.min(glueStep + 1, F.length);   // faces placed in the assembly
-    const idsShown = Math.max(0, glueStep - M);
-    const idMap = {}; for (let i = 0; i < idsShown; i++) idMap[embLayout.nonTree[i].key] = { cur: i === idsShown - 1 };
-    const seamKey = (glueStep >= 1 && glueStep <= M) ? embLayout.tree[glueStep - 1].key : null;
-    // place the not-yet-merged faces in a row beneath the assembly
+  // Where everything sits after `step` steps. The faces glued so far are in the assembly (face 0, then each face
+  // in the order it is glued on); the rest wait in a row below it.
+  function glueFrame(step) {
+    const L = embLayout, F = L.F, M = L.M, glued = Math.min(step, M);
+    const inAsm = F.map(() => false);
+    if (step > 0) { inAsm[0] = true; for (let i = 0; i < glued; i++) inAsm[L.tree[i].child] = true; }
     let amxy = -1e9, amnx = 1e9;
-    for (let fi = 0; fi < merged; fi++) embLayout.pos[fi].forEach(c => { amxy = Math.max(amxy, c.y); amnx = Math.min(amnx, c.x); });
-    if (merged === 0) { amxy = -120; amnx = 0; }
-    const sep = {}; let rowY = amxy + 130, rowX = amnx;
-    for (let fi = merged; fi < F.length; fi++) { const loc = regPoly(F[fi].length); let lr = 0; loc.forEach(p => lr = Math.max(lr, Math.hypot(p.x, p.y))); rowX += lr + 28; sep[fi] = loc.map(p => ({ x: rowX + p.x, y: rowY + p.y })); rowX += lr + 28; }
-    let g = '';
-    for (let fi = 0; fi < merged; fi++) g += faceDraw(fi, embLayout.pos[fi], { seams: true, seamKey, idMap });
-    for (let fi = merged; fi < F.length; fi++) g += faceDraw(fi, sep[fi], { seams: false, idMap: null });
-    glueSvg.innerHTML = g;
-    // fit the viewBox to everything on screen
+    F.forEach((_, fi) => { if (inAsm[fi]) L.pos[fi].forEach(c => { amxy = Math.max(amxy, c.y); amnx = Math.min(amnx, c.x); }); });
+    const radius = n => 70 / (2 * Math.sin(Math.PI / n));
+    let tallest = 0; F.forEach((face, fi) => { if (!inAsm[fi]) tallest = Math.max(tallest, radius(face.length)); });
+    if (step === 0) { amxy = -tallest - 46; amnx = 0; }
+    const corners = F.map(() => null), rowY = amxy + 46 + tallest; let rowX = amnx;
+    F.forEach((face, fi) => {
+      if (inAsm[fi]) { corners[fi] = L.pos[fi]; return; }
+      const loc = regPoly(face.length), lr = radius(face.length);
+      rowX += lr + 28; corners[fi] = loc.map(p => ({ x: rowX + p.x, y: rowY + p.y })); rowX += lr + 28;
+    });
+    const seams = new Set(); for (let i = 0; i < glued; i++) seams.add(L.tree[i].key);
+    const ids = Math.max(0, step - M), idMap = {};
+    for (let i = 0; i < ids; i++) idMap[L.nonTree[i].key] = { cur: i === ids - 1 };
     let mnx = 1e9, mxx = -1e9, mny = 1e9, mxy = -1e9;
-    const acc = c => { mnx = Math.min(mnx, c.x); mxx = Math.max(mxx, c.x); mny = Math.min(mny, c.y); mxy = Math.max(mxy, c.y); };
-    for (let fi = 0; fi < merged; fi++) embLayout.pos[fi].forEach(acc);
-    for (let fi = merged; fi < F.length; fi++) sep[fi].forEach(acc);
-    const pad = 46; glueSvg.setAttribute('viewBox', `${(mnx - pad).toFixed(0)} ${(mny - pad).toFixed(0)} ${(mxx - mnx + 2 * pad).toFixed(0)} ${(mxy - mny + 2 * pad).toFixed(0)}`);
-    // caption
-    if (glueStep === 0) glueStatus.textContent = `Start with the ${F.length} face polygons, each side is a dart {a,b}. Press Glue ▶.`;
-    else if (glueStep <= M) { const d = embLayout.tree[glueStep - 1].pInc.d; glueStatus.textContent = `Identify ${dartStr(d)} with ${dartStr([d[1], d[0]])}, merge the polygons.`; }
-    else if (glueStep < GMAX) { const dd = embLayout.nonTree[idsShown - 1].darts; glueStatus.textContent = `Identify ${dartStr(dd[0])} with ${dartStr(dd[1])}.`; }
-    else glueStatus.textContent = `All edges identified, the fundamental polygon closes into the surface.`;
-    glueResult.innerHTML = glueStep >= GMAX
-      ? `<div class="glue-result">${surfaceSVG(genus)}<p>&chi; = V − E + F = ${ORDER.length} − ${EDGES.length} + ${faces.length} = ${chi}, so genus = (2 − &chi;) / 2 = <strong>${genus}</strong>. The surface is ${surfaceName(genus)}.</p></div>`
+    corners.forEach(cs => cs.forEach(c => { mnx = Math.min(mnx, c.x); mxx = Math.max(mxx, c.x); mny = Math.min(mny, c.y); mxy = Math.max(mxy, c.y); }));
+    const pad = 46;
+    return { corners, seams, curSeam: step >= 1 && step <= M ? L.tree[step - 1].key : null, idMap, box: [mnx - pad, mny - pad, mxx - mnx + 2 * pad, mxy - mny + 2 * pad] };
+  }
+  function drawGlue(fr) {
+    const F = embLayout.F; let fills = '', sides = '', seamSvg = '', marks = ''; const seen = new Set();
+    const labels = [];
+    F.forEach((face, fi) => {
+      const cs = fr.corners[fi], n = face.length, cen = centroid(cs);
+      fills += `<polygon points="${cs.map(c => `${c.x.toFixed(1)},${c.y.toFixed(1)}`).join(' ')}" fill="${FACE[fi % FACE.length]}" fill-opacity="0.12"/>`;
+      for (let i = 0; i < n; i++) {
+        const d = face[i], c0 = cs[i], c1 = cs[(i + 1) % n], key = EKEY(d[0], d[1]);
+        const line = `x1="${c0.x.toFixed(1)}" y1="${c0.y.toFixed(1)}" x2="${c1.x.toFixed(1)}" y2="${c1.y.toFixed(1)}"`;
+        if (fr.seams.has(key)) { if (!seen.has(key)) { seen.add(key); seamSvg += `<line ${line} class="seam${key === fr.curSeam ? ' is-cur' : ''}"/>`; } }
+        else {
+          const id = fr.idMap[key], col = edgeColor(d[0], d[1]), mid = { x: (c0.x + c1.x) / 2, y: (c0.y + c1.y) / 2 };
+          sides += `<line ${line} stroke="${col}" stroke-width="${id && id.cur ? 5.5 : 3}" stroke-linecap="round"/>`;
+          if (id) sides += arrowHead(mid.x, mid.y, Math.atan2(c1.y - c0.y, c1.x - c0.x), col);
+          const ux = (mid.x - cen.x) || 0.01, uy = (mid.y - cen.y) || 0.01, ul = Math.hypot(ux, uy);
+          const sl = Math.hypot(c1.x - c0.x, c1.y - c0.y) || 1;
+          labels.push({ x: mid.x + ux / ul * 16, y: mid.y + uy / ul * 16, tx: (c1.x - c0.x) / sl, ty: (c1.y - c0.y) / sl, s: `${d[0]}&rarr;${d[1]}` });
+        }
+        marks += `<circle cx="${c0.x.toFixed(1)}" cy="${c0.y.toFixed(1)}" r="9.5" class="vert ${part(d[0])}"/><text x="${c0.x.toFixed(1)}" y="${c0.y.toFixed(1)}" class="gvlabel">${d[0]}</text>`;
+      }
+    });
+    // two labels that would sit on top of each other slide apart along their own sides
+    for (let pass = 0; pass < 4; pass++) for (let i = 0; i < labels.length; i++) for (let j = i + 1; j < labels.length; j++) {
+      const a = labels[i], b = labels[j], dx = b.x - a.x, dy = b.y - a.y, dist = Math.hypot(dx, dy);
+      if (dist >= 25) continue;
+      const push = (25 - dist) / 2 + 1, nx = dist > 0.5 ? dx / dist : a.tx, ny = dist > 0.5 ? dy / dist : a.ty;
+      a.x -= nx * push; a.y -= ny * push; b.x += nx * push; b.y += ny * push;
+    }
+    labels.forEach(l => { sides += `<text x="${l.x.toFixed(1)}" y="${l.y.toFixed(1)}" class="dartlab">${l.s}</text>`; });
+    glueSvg.innerHTML = fills + seamSvg + sides + marks;
+    glueSvg.setAttribute('viewBox', fr.box.map(v => v.toFixed(1)).join(' '));
+  }
+  // slide each polygon from where it is to where it goes, without bending it
+  let glueAnim = 0;
+  function glueTween(A, B) {
+    const id = ++glueAnim;
+    if (calm()) { drawGlue(B); return; }
+    const pose = cs => { const c = centroid(cs); return { c, a: Math.atan2(cs[0].y - c.y, cs[0].x - c.x), r: Math.hypot(cs[0].x - c.x, cs[0].y - c.y), n: cs.length }; };
+    const pa = A.corners.map(pose), pb = B.corners.map(pose), t0 = performance.now(), dur = 520;
+    const seams = new Set([...A.seams].filter(k => B.seams.has(k))), idMap = {};
+    Object.keys(A.idMap).forEach(k => { if (B.idMap[k]) idMap[k] = { cur: false }; });
+    (function tick() {
+      if (id !== glueAnim) return;
+      const raw = Math.min(1, (performance.now() - t0) / dur), t = raw * raw * (3 - 2 * raw);
+      if (raw >= 1) { drawGlue(B); return; }
+      const corners = pa.map((p, fi) => {
+        const q = pb[fi]; let da = q.a - p.a; while (da > Math.PI) da -= 2 * Math.PI; while (da < -Math.PI) da += 2 * Math.PI;
+        const a = p.a + da * t, x = p.c.x + (q.c.x - p.c.x) * t, y = p.c.y + (q.c.y - p.c.y) * t;
+        return Array.from({ length: p.n }, (_, i) => ({ x: x + p.r * Math.cos(a + 2 * Math.PI * i / p.n), y: y + p.r * Math.sin(a + 2 * Math.PI * i / p.n) }));
+      });
+      drawGlue({ corners, seams, curSeam: null, idMap, box: A.box.map((v, i) => v + (B.box[i] - v) * t) });
+      requestAnimationFrame(tick);
+    })();
+  }
+  function glueLine(step) {
+    const L = embLayout, M = L.M, G = M + L.N;
+    if (step === 0) return L.F.length === 1 ? 'There is one face, so it is already a single polygon.' : `Start with the ${L.F.length} faces.`;
+    if (step <= M) { const d = L.tree[step - 1].pInc.d; return `Glue ${D(d[0], d[1])} to ${D(d[1], d[0])}.`; }
+    const dd = L.nonTree[step - M - 1].darts;
+    return `Identify ${D(dd[0][0], dd[0][1])} with ${D(dd[1][0], dd[1][1])}.` + (step >= G ? ' Every side is now identified.' : '');
+  }
+  function surfaceName(g) { return g === 0 ? 'a sphere' : g === 1 ? 'a torus' : g === 2 ? 'a genus-2 surface (double torus)' : `a genus-${g} surface`; }
+  function surfaceSVG(g) {
+    const ST = 'stroke="#223a5e" stroke-width="2" fill="none" stroke-linecap="round"';
+    if (g <= 0) return `<svg viewBox="0 0 96 96" class="surfsvg" aria-hidden="true"><circle cx="48" cy="48" r="38" fill="rgba(34,58,94,0.10)" stroke="#223a5e" stroke-width="2"/><path d="M10 48 Q48 66 86 48" ${ST} opacity="0.55"/></svg>`;
+    const step = 52, W = 2 * 30 + g * step + 8, cx = W / 2, x0 = cx - (g - 1) * step / 2;
+    let t = `<ellipse cx="${cx}" cy="48" rx="${(W - 8) / 2}" ry="35" fill="rgba(34,58,94,0.12)" stroke="#223a5e" stroke-width="2"/>`;
+    for (let i = 0; i < g; i++) t += `<ellipse cx="${x0 + i * step}" cy="45" rx="16" ry="7.5" fill="#dfe9e3" stroke="#223a5e" stroke-width="1.8"/>`;
+    return `<svg viewBox="0 0 ${W} 96" class="surfsvg" aria-hidden="true">${t}</svg>`;
+  }
+  function renderGlueText() {
+    const G = embLayout.M + embLayout.N;
+    glueStatus.innerHTML = glueLine(glueStep);
+    glueCount.textContent = `Step ${glueStep} of ${G}`;
+    glueResult.innerHTML = glueStep >= G
+      ? `<div class="result">${surfaceSVG(genus)}<p>&chi; = V &minus; E + F = ${ORDER.length} &minus; ${EDGES.length} + ${faces.length} = ${chi < 0 ? '&minus;' + (-chi) : chi}, so genus = (2 &minus; &chi;) / 2 = <strong>${genus}</strong>. The surface is ${surfaceName(genus)}.</p></div>`
       : '';
-    glueBtn.disabled = glueStep >= GMAX;
+    setCtl('glue', glueStep <= 0, glueStep >= G);
+  }
+  function glueGo(n) {
+    const G = embLayout.M + embLayout.N, to = Math.max(0, Math.min(G, n)); if (to === glueStep) return;
+    const from = glueFrame(glueStep); glueStep = to;
+    glueTween(from, glueFrame(to));
+    renderGlueText();
   }
 
-  // ===== 3D embedding viewer (K_{3,3}), client-side port of the reference's trace stage =====
-  const TDFC = [0xec4899, 0x14b8a6, 0x8b5cf6, 0x0ea5e9, 0xf43f5e, 0xfacc15];
+  // ===== Stepping controls: restart, back, play or pause, forward, end =====
+  function setCtl(p, atStart, atEnd) {
+    $(p + 'Start').disabled = atStart; $(p + 'Back').disabled = atStart;
+    $(p + 'Fwd').disabled = atEnd; $(p + 'End').disabled = atEnd;
+  }
+  function makePlayer(p, say, tick) {     // tick() takes one step and returns how long to wait before the next, or 0 to stop
+    const btn = $(p + 'Play'); let timer = 0, on = false;
+    function set(v) {
+      on = v; btn.classList.toggle('is-playing', v);
+      btn.setAttribute('aria-label', v ? 'Pause' : 'Play'); btn.title = v ? 'Pause' : 'Play';
+      say.setAttribute('aria-live', v ? 'off' : 'polite');      // do not read every step aloud while it plays
+    }
+    function loop() { if (!on) return; const wait = tick(); if (!wait) { set(false); return; } timer = setTimeout(loop, wait); }
+    return {
+      toggle() { if (on) { clearTimeout(timer); set(false); } else { set(true); loop(); } },
+      stop() { clearTimeout(timer); if (on) set(false); }
+    };
+  }
+  const walkPlayer = makePlayer('walk', walkStatus, () => {
+    if (s >= total) walkGo(0, false); else walkGo(s + 1, true);
+    return s >= total ? 0 : (s > 0 && seq[s - 1].type === 'done') ? 1150 : 640;
+  });
+  const gluePlayer = makePlayer('glue', glueStatus, () => {
+    const G = embLayout.M + embLayout.N;
+    if (glueStep >= G) glueGo(0); else glueGo(glueStep + 1);
+    return glueStep >= G ? 0 : 950;
+  });
+  $('walkStart').addEventListener('click', () => { walkPlayer.stop(); walkGo(0, false); });
+  $('walkBack').addEventListener('click', () => { walkPlayer.stop(); walkGo(s - 1, false); });
+  $('walkFwd').addEventListener('click', () => { walkPlayer.stop(); walkGo(s + 1, true); });
+  $('walkEnd').addEventListener('click', () => { walkPlayer.stop(); walkGo(total, false); });
+  $('walkPlay').addEventListener('click', () => walkPlayer.toggle());
+  $('glueStart').addEventListener('click', () => { gluePlayer.stop(); glueGo(0); });
+  $('glueBack').addEventListener('click', () => { gluePlayer.stop(); glueGo(glueStep - 1); });
+  $('glueFwd').addEventListener('click', () => { gluePlayer.stop(); glueGo(glueStep + 1); });
+  $('glueEnd').addEventListener('click', () => { gluePlayer.stop(); glueGo(embLayout.M + embLayout.N); });
+  $('gluePlay').addEventListener('click', () => gluePlayer.toggle());
+
+  // ===== The same embedding in 3D: trace the faces, lift them apart, then place them on the real surface =====
   const TD_SURFACE_URL = 'wss://genus.fly.dev/stream_calc_genus';
   // my vertex labels are 1..n; the solver uses 0..n-1, so the maps are just -1 / +1
-  const td = { ren: null, scene: null, cam: null, flat: null, trace: null, faces: [], timeline: [], step: 0, genus: 0 };
+  const td = { ren: null, scene: null, cam: null, controls: null, flat: null, trace: null, faces: [], timeline: [], step: 0, genus: 0, epoch: 0, animating: false, visible: true, failed: false, surface: null, spin: null };
+  const stage = $('emb3dCanvas'), tdStatus = $('emb3dStatus'), tdCount = $('emb3dCount');
+  const TDFC = FACE.map(h => parseInt(h.slice(1), 16));
+  const INK3 = 0x16183a, TD_OFF = 0.06, TD_R0 = 0.19, TD_SWAY = 0.36;
+  const css = name => getComputedStyle(document.body).getPropertyValue(name).trim();
 
   function tdPos(v) { return (td.pos3d && td.pos3d.get(v)) ? td.pos3d.get(v).clone() : new THREE.Vector3(); }
   function tdTube(a, b, r, color, opacity) {
     const d = new THREE.Vector3().subVectors(b, a), L = Math.max(d.length(), 1e-4);
     const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, L, 14),
       new THREE.MeshBasicMaterial({ color, transparent: (opacity ?? 1) < 1, opacity: opacity ?? 1, depthTest: false }));
+    m.material.userData.base = opacity ?? 1;
     m.position.copy(a).addScaledVector(d, 0.5);
     m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.clone().normalize());
     return m;
@@ -816,20 +852,21 @@
   function tdArrow(a, b, color, r, h) {
     const d = new THREE.Vector3().subVectors(b, a).normalize();
     const m = new THREE.Mesh(new THREE.ConeGeometry(r, h, 18), new THREE.MeshBasicMaterial({ color, depthTest: false }));
+    m.userData.arrow = true;
     m.position.copy(b).addScaledVector(d, -h * 0.5);
     m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d);
     return m;
   }
-  function tdLabel(text) {
-    const c = document.createElement('canvas'), x = c.getContext('2d'), fs = 56, pad = 14;
-    x.font = `800 ${fs}px 'Source Sans 3', system-ui, sans-serif`;
-    c.width = Math.ceil(x.measureText(text).width + pad * 2); c.height = fs + pad * 2;
-    x.font = `800 ${fs}px 'Source Sans 3', system-ui, sans-serif`;
-    x.textBaseline = 'middle'; x.lineWidth = 8; x.lineJoin = 'round';
-    x.strokeStyle = 'rgba(247,247,250,0.96)'; x.fillStyle = '#16183a';
-    x.strokeText(text, pad, c.height / 2); x.fillText(text, pad, c.height / 2);
-    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), transparent: true, depthTest: false }));
-    sp.scale.set(0.22 * (c.width / c.height), 0.22, 1);
+  // a vertex: the same numbered disk as in the drawings, always turned to face the viewer
+  function tdDisk(v, size, onTop) {
+    const S = 128, c = document.createElement('canvas'), x = c.getContext('2d'); c.width = c.height = S;
+    x.beginPath(); x.arc(S / 2, S / 2, S / 2 - 2, 0, Math.PI * 2); x.fillStyle = css('--paper') || '#dfe9e3'; x.fill();
+    x.beginPath(); x.arc(S / 2, S / 2, S / 2 - 12, 0, Math.PI * 2); x.fillStyle = part(v) === 'pA' ? (css('--accent') || '#223a5e') : (css('--vB') || '#1f7ae0'); x.fill();
+    x.font = `600 ${Math.round(S * 0.54)}px 'Source Sans 3', system-ui, sans-serif`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#fff';
+    x.fillText(String(v), S / 2, S / 2 + S * 0.04);
+    const mat = new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), transparent: true, depthTest: !onTop, depthWrite: false });
+    mat.userData.alpha = true;
+    const sp = new THREE.Sprite(mat); sp.scale.set(size, size, 1); sp.renderOrder = 10;
     return sp;
   }
   function tdClear(g) {
@@ -842,63 +879,99 @@
   function tdInit() {
     if (td.ren) return true;
     if (typeof THREE === 'undefined') return false;
-    const mount = document.getElementById('emb3dCanvas');
-    const ren = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    ren.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    mount.appendChild(ren.domElement);
+    let ren;
+    try { ren = new THREE.WebGLRenderer({ antialias: true, alpha: true }); } catch (e) { return false; }
+    ren.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    const cv = ren.domElement; cv.tabIndex = 0; cv.setAttribute('role', 'img');
+    stage.appendChild(cv);
     const scene = new THREE.Scene();
     const cam = new THREE.PerspectiveCamera(42, 1, 0.01, 100);
+    cam.up.set(0, 0, 1);                    // z is up, so dragging turns the picture like a turntable
     cam.position.set(0, -1.55, 6.2);
-    const controls = (typeof THREE.OrbitControls === 'function') ? new THREE.OrbitControls(cam, ren.domElement) : null;
-    if (controls) { controls.enableDamping = true; controls.dampingFactor = 0.08; controls.enableRotate = false; controls.enablePan = false; controls.target.set(0, 0, 0); controls.update(); }
-    else cam.lookAt(0, 0, 0);
+    const controls = (typeof THREE.OrbitControls === 'function') ? new THREE.OrbitControls(cam, cv) : null;
+    if (controls) {
+      controls.enableDamping = true; controls.dampingFactor = 0.08; controls.enablePan = false;
+      controls.minDistance = 1.6; controls.maxDistance = 40; controls.enabled = false;      // off while the picture is flat, so the page still scrolls over it
+      controls.target.set(0, 0, 0); controls.update();
+      controls.addEventListener('start', () => { td.spin = null; });
+    } else cam.lookAt(0, 0, 0);
     scene.add(new THREE.HemisphereLight(0xeef0f4, 0x8a8f96, 0.7));
     const dl = new THREE.DirectionalLight(0xffffff, 1.05); dl.position.set(4, -6, 7); scene.add(dl);
     const dl2 = new THREE.DirectionalLight(0xffffff, 0.4); dl2.position.set(-5, 3, 4); scene.add(dl2);
     const flat = new THREE.Group(), trace = new THREE.Group();
     scene.add(flat); scene.add(trace);
     Object.assign(td, { ren, scene, cam, controls, flat, trace });
-    const rs = () => { const w = mount.clientWidth || 640, h = mount.clientHeight || 440; ren.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); };
-    td.resize = rs; new ResizeObserver(rs).observe(mount); rs();
-    (function loop() { requestAnimationFrame(loop); if (td.controls && !td.animating) td.controls.update(); ren.render(scene, cam); })();
+    const rs = () => { const w = stage.clientWidth || 640, h = stage.clientHeight || 440; ren.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); };
+    td.resize = rs; if (window.ResizeObserver) new ResizeObserver(rs).observe(stage); rs();
+    if (window.IntersectionObserver) new IntersectionObserver(es => { td.visible = es[es.length - 1].isIntersecting; }).observe(stage);
+    // arrow keys turn the picture and + / - zoom, for anyone not using a mouse
+    cv.addEventListener('keydown', e => {
+      if (!controls || !controls.enabled || !['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', '+', '=', '-'].includes(e.key)) return;
+      e.preventDefault(); td.spin = null;
+      const sph = new THREE.Spherical().setFromVector3(new THREE.Vector3(cam.position.x - controls.target.x, cam.position.z - controls.target.z, -(cam.position.y - controls.target.y)));
+      if (e.key === 'ArrowLeft') sph.theta -= 0.12; if (e.key === 'ArrowRight') sph.theta += 0.12;
+      if (e.key === 'ArrowUp') sph.phi -= 0.1; if (e.key === 'ArrowDown') sph.phi += 0.1;
+      if (e.key === '+' || e.key === '=') sph.radius *= 0.9; if (e.key === '-') sph.radius *= 1.1;
+      sph.makeSafe(); sph.radius = Math.max(controls.minDistance, Math.min(controls.maxDistance, sph.radius));
+      const o = new THREE.Vector3().setFromSpherical(sph);
+      cam.position.set(controls.target.x + o.x, controls.target.y - o.z, controls.target.z + o.y); controls.update();
+    });
+    let last = performance.now();
+    (function loop(now) {
+      requestAnimationFrame(loop);
+      const t = now || performance.now(), dt = Math.min(0.05, (t - last) / 1000); last = t;
+      if (!td.visible) return;                 // nothing is drawn while the picture is off screen
+      if (td.spin) tdSpinFrame(dt);
+      if (td.controls && !td.animating) td.controls.update();
+      if (td.surface && td.surface.face) td.surface.face(cam);
+      ren.render(scene, cam);
+    })();
     return true;
   }
   function tdBuildFlat() {
     tdClear(td.flat);
-    EDGES.forEach(([a, b]) => td.flat.add(tdTube(tdPos(a), tdPos(b), 0.014, 0x16183a, 0.92)));
-    ORDER.forEach(v => {
-      const p = tdPos(v);
-      const dot = new THREE.Mesh(new THREE.SphereGeometry(0.085, 24, 16), new THREE.MeshStandardMaterial({ color: 0xf4f4ef, roughness: 0.6, metalness: 0.0 }));
-      dot.position.copy(p); td.flat.add(dot);
-      const ring = new THREE.Mesh(new THREE.SphereGeometry(0.094, 24, 12), new THREE.MeshBasicMaterial({ color: 0x16183a, side: THREE.BackSide }));
-      ring.position.copy(p); td.flat.add(ring);
-      const out = p.clone(); if (out.lengthSq() < 1e-6) out.set(0, 1, 0); else out.normalize();
-      const lab = tdLabel(String(v)); lab.position.copy(p).add(new THREE.Vector3(out.x * 0.22, out.y * 0.22 + 0.08, 0.05)); td.flat.add(lab);
-    });
+    EDGES.forEach(([a, b]) => td.flat.add(tdTube(tdPos(a), tdPos(b), 0.011, INK3, 0.42)));
+    ORDER.forEach(v => { const d = tdDisk(v, 0.31, true); d.position.copy(tdPos(v)); td.flat.add(d); });
+  }
+  // the strand of dart from->to beside its edge, on the same side as in the drawing above
+  function tdFlatDart(from, to) {
+    const a = tdPos(from), b = tdPos(to), dir = new THREE.Vector3().subVectors(b, a).normalize();
+    const side = new THREE.Vector3(dir.y, -dir.x, 0).multiplyScalar(TD_OFF);
+    return [a.addScaledVector(dir, TD_R0).add(side), b.addScaledVector(dir, -TD_R0 - 0.03).add(side)];
   }
   function tdTimeline(fs) { const t = []; fs.forEach((f, fi) => f.forEach((d, di) => t.push({ from: d[0], to: d[1], fi, di }))); return t; }
   function tdRenderStep() {
     tdClear(td.trace);
     for (let i = 0; i < td.step; i++) {
-      const s = td.timeline[i], col = TDFC[s.fi % TDFC.length], cur = (i === td.step - 1);
-      const a = tdPos(s.from), b = tdPos(s.to), dir = new THREE.Vector3().subVectors(b, a).normalize();
-      const a2 = a.clone().addScaledVector(dir, 0.11), b2 = b.clone().addScaledVector(dir, -0.13);
-      td.trace.add(tdTube(a2, b2, cur ? 0.026 : 0.018, col, 1));
-      td.trace.add(tdArrow(a2, b2, col, cur ? 0.062 : 0.046, cur ? 0.17 : 0.12));
+      const st = td.timeline[i], col = TDFC[st.fi % TDFC.length], cur = (i === td.step - 1);
+      const [a2, b2] = tdFlatDart(st.from, st.to);
+      td.trace.add(tdTube(a2, b2, cur ? 0.027 : 0.018, col, 1));
+      td.trace.add(tdArrow(a2, b2, col, cur ? 0.066 : 0.05, cur ? 0.17 : 0.13));
     }
-    tdExplain();
+    tdSay();
   }
-  function tdExplain() {
-    const exp = document.getElementById('emb3dExplain'), st = document.getElementById('emb3dStatus'), T = td.timeline.length;
-    if (td.step === 0) { exp.textContent = 'Choose a starting dart, then follow each vertex’s rotation to walk the faces.'; st.textContent = `genus ${td.genus} · ${td.faces.length} faces`; return; }
-    if (td.step > T) { exp.textContent = `The faces lift apart. Step ▶ to fetch the real genus-${td.genus} surface from Alexander Metzger's solver and morph the faces onto it.`; st.textContent = 'Faces lifted, ▶ for the surface'; return; }
-    if (td.step === T) { exp.textContent = 'Every dart is used, these are the faces of the embedding. Step forward to lift them into 3D.'; st.textContent = 'Trace complete'; return; }
-    const s = td.timeline[td.step - 1], x = s.to, y = s.from, r = rot[x], z = r[(r.indexOf(y) + 1) % r.length];
-    exp.textContent = `Entered ${x} from ${y}, so the next neighbor after ${y} in ${x}’s rotation is ${z}.`;
-    st.textContent = `Tracing face ${s.fi + 1} / ${td.faces.length} · dart ${td.step} / ${T}`;
+  function tdSay(text) {
+    const T = td.timeline.length; let html = text, count = '';
+    if (html == null) {
+      if (td.step <= T) {
+        count = `Dart ${td.step} of ${T}`;
+        if (td.step === 0) html = startLine(); else if (td.step === T) html = endLine(td.faces, td.genus);
+        else { const st = td.timeline[td.step - 1]; html = dartLine(td.faces, st.fi, st.di); }
+      } else if (td.step === T + 1) html = 'Each face is cut open into a polygon.';
+      else html = `The embedding on ${surfaceName(td.genus)}. Drag to rotate and scroll to zoom.`;
+    }
+    tdStatus.innerHTML = html; tdCount.textContent = count;
+    if (td.ren) td.ren.domElement.setAttribute('aria-label', '3D view. ' + tdStatus.textContent);
+    tdUI();
+  }
+  function tdUI() {
+    const T = td.timeline.length, busy = td.animating || !td.ren;
+    $('emb3dStart').disabled = busy || td.step === 0; $('emb3dBack').disabled = busy || td.step === 0;
+    $('emb3dFwd').disabled = busy || td.step >= T + 2; $('emb3dEnd').disabled = busy || td.step >= T + 2;
   }
   function tdShow() {
-    if (!tdInit()) { document.getElementById('emb3dExplain').textContent = 'Could not start WebGL / Three.js in this browser.'; return; }
+    if (!tdInit()) { tdStatus.textContent = 'This browser could not start the 3D view.'; return; }
+    td.epoch++;
     // 3D flat layout derived from the active graph's 2D positions, centred and normalized
     const P = GRAPHS[currentGraphKey].pos;
     let mnx = Infinity, mxx = -Infinity, mny = Infinity, mxy = -Infinity;
@@ -909,19 +982,19 @@
     td.faces = computeFaces(rot);
     td.genus = (2 - (ORDER.length - EDGES.length + td.faces.length)) / 2;
     td.timeline = tdTimeline(td.faces);
-    td.step = 0; td.animating = false;
+    td.step = 0; td.animating = false; td.failed = false; td.spin = null;
+    stage.classList.remove('is-busy');
     tdRemoveSurface();
     tdBuildFlat();
     tdSetFlatOpacity(1);
+    if (td.resize) td.resize();
     tdSetCameraFlat();
     tdRenderStep();
-    document.getElementById('emb3dGenus').textContent = `genus ${td.genus}`;
-    if (td.resize) td.resize();
   }
   function tdStep(action) {
     if (!td.ren || !td.timeline.length || td.animating) return;
-    const T = td.timeline.length;
-    if (action === 'start') { td.step = 0; tdRemoveSurface(); tdSetFlatOpacity(1); tdSetCameraFlat(); tdRenderStep(); return; }
+    const T = td.timeline.length; td.spin = null;
+    if (action === 'start') { td.epoch++; td.step = 0; tdRemoveSurface(); tdSetFlatOpacity(1); tdSetCameraFlat(); tdRenderStep(); return; }
     if (action === 'forward') {
       if (td.step < T) { td.step++; tdRenderStep(); }
       else if (td.step === T) tdAnimateLift(1);
@@ -942,11 +1015,17 @@
   }
 
   function tdSetFlatOpacity(o) {
-    td.flat.traverse(c => { if (c.material) (Array.isArray(c.material) ? c.material : [c.material]).forEach(m => { m.transparent = true; m.opacity = o; }); });
+    td.flat.traverse(c => { if (c.material) (Array.isArray(c.material) ? c.material : [c.material]).forEach(m => { m.transparent = true; m.opacity = o * (m.userData.base == null ? 1 : m.userData.base); }); });
   }
-  function tdSetCameraFlat() { td.cam.position.set(0, -1.55, 6.2); const l = new THREE.Vector3(0, 0, 0); td._look = l; if (td.controls) { td.controls.target.copy(l); td.controls.enableRotate = false; td.controls.update(); } else td.cam.lookAt(l); }
-  function tdLiftCam() { const n = td.faces.length || 3, d = 3.6 + n * 0.55; return new THREE.Vector3(0, -d, d * 0.57); }
-  function tdSetCameraLifted() { td.cam.position.copy(tdLiftCam()); const l = new THREE.Vector3(0, 0, 0.3); td._look = l; if (td.controls) { td.controls.target.copy(l); td.controls.enableRotate = true; td.controls.update(); } else td.cam.lookAt(l); }
+  const tdWide = () => Math.max(1, 1.5 / ((td.cam && td.cam.aspect) || 1.5));      // step back on narrow screens
+  function tdAim(pos, look, turn) {
+    td.cam.position.copy(pos); td._look = look;
+    if (td.controls) { td.controls.target.copy(look); td.controls.enabled = turn; td.controls.enableRotate = turn; td.controls.update(); } else td.cam.lookAt(look);
+  }
+  const tdFlatCam = () => new THREE.Vector3(0, -1.55, 6.2);
+  function tdSetCameraFlat() { tdAim(tdFlatCam(), new THREE.Vector3(0, 0, 0), false); }
+  function tdLiftCam() { const n = td.faces.length || 3, d = (3.6 + n * 0.55) * tdWide(); return new THREE.Vector3(0, -d, d * 0.57); }
+  function tdSetCameraLifted() { tdAim(tdLiftCam(), new THREE.Vector3(0, 0, 0.3), true); }
 
   function tdLiftMatrix(fi, total) {
     const e = new THREE.Euler(-0.22, 0, (fi - (total - 1) / 2) * 0.04);
@@ -965,7 +1044,7 @@
     const morphs = [], total = td.faces.length;
     td.faces.forEach((face, fi) => {
       const layout = tdFaceLayout(face, fi, total), col = TDFC[fi % TDFC.length];
-      face.forEach((d, di) => morphs.push({ col, fromStart: tdPos(d[0]), toStart: tdPos(d[1]), fromEnd: layout[di], toEnd: layout[di + 1] }));
+      face.forEach((d, di) => { const [a, b] = tdFlatDart(d[0], d[1]); morphs.push({ col, fromStart: a, toStart: b, fromEnd: layout[di], toEnd: layout[di + 1] }); });
     });
     return morphs;
   }
@@ -985,22 +1064,22 @@
       const layout = tdFaceLayout(face, fi, total), col = TDFC[fi % TDFC.length];
       for (let i = 0; i < face.length; i++) {
         td.trace.add(tdTube(layout[i], layout[i + 1], 0.016, col, 1));
-        const af = new THREE.Vector3().lerpVectors(layout[i], layout[i + 1], 0.6), at = new THREE.Vector3().lerpVectors(layout[i], layout[i + 1], 0.9);
+        const af = new THREE.Vector3().lerpVectors(layout[i], layout[i + 1], 0.5), at = new THREE.Vector3().lerpVectors(layout[i], layout[i + 1], 0.8);
         td.trace.add(tdArrow(af, at, col, 0.05, 0.12));
-        const dot = new THREE.Mesh(new THREE.SphereGeometry(0.04, 16, 10), new THREE.MeshBasicMaterial({ color: 0xffffff, depthTest: false }));
-        dot.position.copy(layout[i]); td.trace.add(dot);
-        const lab = tdLabel(String(face[i][0])); lab.scale.multiplyScalar(0.6); lab.position.copy(layout[i]).add(new THREE.Vector3(0.07, 0.06, 0.05)); td.trace.add(lab);
       }
+      for (let i = 0; i < face.length; i++) { const d = tdDisk(face[i][0], face.length > 12 ? 0.13 : 0.18, true); d.position.copy(layout[i]); td.trace.add(d); }
     });
-    tdExplain();
+    tdSay();
   }
   function tdAnimateLift(dirSign) {
-    td.animating = true;
-    const morphs = tdLiftMorphs(), dur = 1100, start = performance.now();
+    const ep = td.epoch;
+    td.animating = true; tdUI();
+    const morphs = tdLiftMorphs(), dur = calm() ? 1 : 1100, start = performance.now();
     const camFrom = td.cam.position.clone(), lookFrom = (td._look || new THREE.Vector3()).clone();
-    const camTo = dirSign > 0 ? tdLiftCam() : new THREE.Vector3(0, -1.55, 6.2);
+    const camTo = dirSign > 0 ? tdLiftCam() : tdFlatCam();
     const lookTo = dirSign > 0 ? new THREE.Vector3(0, 0, 0.3) : new THREE.Vector3(0, 0, 0);
     const tick = () => {
+      if (ep !== td.epoch) return;
       const raw = Math.min(1, (performance.now() - start) / dur), e = raw * raw * (3 - 2 * raw), t = dirSign > 0 ? e : 1 - e;
       tdDrawMorph(morphs, t);
       tdSetFlatOpacity(1 - t * 0.82);
@@ -1015,13 +1094,40 @@
   }
 
   // ----- Real 3D surface from Alexander Metzger's live backend (genus.fly.dev) -----
+  function tdDispose(obj) {
+    obj.traverse(c => { if (c.geometry) c.geometry.dispose(); if (c.material) (Array.isArray(c.material) ? c.material : [c.material]).forEach(m => { if (m.map) m.map.dispose(); if (m.matcap) m.matcap.dispose(); m.dispose(); }); });
+  }
   function tdRemoveSurface() {
     if (!td.surface) return;
-    td.scene.remove(td.surface.group);
-    td.surface.group.traverse(c => { if (c.geometry) c.geometry.dispose(); if (c.material) (Array.isArray(c.material) ? c.material : [c.material]).forEach(m => { if (m.map) m.map.dispose(); m.dispose(); }); });
+    td.scene.remove(td.surface.group); tdDispose(td.surface.group);
+    if (td.surface.loops) { td.scene.remove(td.surface.loops); tdDispose(td.surface.loops); }
     td.surface = null;
   }
-  function tdSetCameraSurface() { td.cam.position.set(0, -6.0, 2.95); const l = new THREE.Vector3(0, 0, 0); td._look = l; if (td.controls) { td.controls.target.copy(l); td.controls.enableRotate = true; td.controls.update(); } else td.cam.lookAt(l); }
+  // Where to look at the surface from: side on to its long axis (a chain of tori lies along one), on the side
+  // where the vertices are, a little from above, and far enough back for all of it to fit the picture.
+  function tdSurfaceCam(surf) {
+    const P = surf.mesh.geometry.attributes.position, n = P.count;
+    let sxx = 0, syy = 0, sxy = 0;
+    for (let i = 0; i < n; i++) { const x = P.getX(i), y = P.getY(i); sxx += x * x; syy += y * y; sxy += x * y; }
+    const axis = 0.5 * Math.atan2(2 * sxy, sxx - syy), spread = Math.sqrt((sxx - syy) * (sxx - syy) + 4 * sxy * sxy) / Math.max(1e-9, sxx + syy);
+    const mean = new THREE.Vector3(); surf.vertexPositions.forEach(p => mean.add(p));
+    let az = -Math.PI / 2;
+    if (spread > 0.12) { az = axis + Math.PI / 2; if (mean.x * Math.cos(az) + mean.y * Math.sin(az) < 0) az += Math.PI; }
+    else if (Math.hypot(mean.x, mean.y) > 0.3) az = Math.atan2(mean.y, mean.x);
+    const el = 0.5, up = new THREE.Vector3(0, 0, 1), tv = Math.tan(td.cam.fov * Math.PI / 360), th = tv * (td.cam.aspect || 1.5);
+    const look = a => new THREE.Vector3(Math.cos(a) * Math.cos(el), Math.sin(a) * Math.cos(el), Math.sin(el));
+    const fit = a => {
+      const dir = look(a), right = new THREE.Vector3().crossVectors(up, dir).normalize(), top = new THREE.Vector3().crossVectors(dir, right); let D = 0;
+      for (let i = 0; i < n; i++) {
+        const x = P.getX(i), y = P.getY(i), z = P.getZ(i), d = x * dir.x + y * dir.y + z * dir.z;
+        D = Math.max(D, d + Math.abs(x * top.x + y * top.y + z * top.z) / tv, d + Math.abs(x * right.x + y * right.y + z * right.z) / th);
+      }
+      return D;
+    };
+    // a round surface gets one full turn afterwards; a long one only sways, so leave room for that
+    const long = spread > 0.12, D = long ? Math.max(fit(az - TD_SWAY), fit(az), fit(az + TD_SWAY)) : fit(az);
+    return { pos: look(az).multiplyScalar(Math.max(2.4, D * 1.06)), long };
+  }
 
   function tdRequestModel(adjOverride) {
     let adj = adjOverride;
@@ -1079,6 +1185,16 @@
     return { geometry, graphLines, graphPoints };
   }
 
+  // soft studio shading for the surface, drawn once: light from the upper left, darker toward the rim
+  function tdMatcap() {
+    const S = 256, c = document.createElement('canvas'), x = c.getContext('2d'); c.width = c.height = S;
+    x.fillStyle = '#7f8c86'; x.fillRect(0, 0, S, S);
+    const g = x.createRadialGradient(S * 0.37, S * 0.31, S * 0.02, S * 0.5, S * 0.5, S * 0.56);
+    g.addColorStop(0, '#fbfcfb'); g.addColorStop(0.3, '#e9edea'); g.addColorStop(0.62, '#cdd5d0'); g.addColorStop(0.86, '#a9b4ae'); g.addColorStop(1, '#84918a');
+    x.fillStyle = g; x.beginPath(); x.arc(S / 2, S / 2, S / 2, 0, Math.PI * 2); x.fill();
+    return new THREE.CanvasTexture(c);
+  }
+
   function tdBuildSurface(model) {
     const parsed = tdParseObj(model.obj);
     parsed.geometry.computeBoundingBox();
@@ -1088,13 +1204,16 @@
     const radius = (parsed.geometry.boundingSphere && parsed.geometry.boundingSphere.radius) || 1;
     const s = 1.7 / Math.max(radius, 1e-3);
     parsed.geometry.scale(s, s, s);
+    parsed.geometry.computeBoundingBox();
     const xf = (p) => p.clone().sub(center).multiplyScalar(s);
     const group = new THREE.Group();
-    const surfMat = new THREE.MeshStandardMaterial({ color: 0xb6bcc2, roughness: 0.85, metalness: 0.0, side: THREE.DoubleSide, transparent: true, opacity: 1 });
-    group.add(new THREE.Mesh(parsed.geometry, surfMat));
-    const stroke = 0.012;
-    const graphMat = new THREE.MeshBasicMaterial({ color: 0x151719, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
-    const ptMat = new THREE.MeshBasicMaterial({ color: 0xf4f4ef, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+    const surfMat = THREE.MeshMatcapMaterial
+      ? new THREE.MeshMatcapMaterial({ matcap: tdMatcap(), side: THREE.DoubleSide, transparent: true, opacity: 1 })
+      : new THREE.MeshStandardMaterial({ color: 0xb6bcc2, roughness: 0.85, metalness: 0.0, side: THREE.DoubleSide, transparent: true, opacity: 1 });
+    const mesh = new THREE.Mesh(parsed.geometry, surfMat);
+    group.add(mesh);
+    const stroke = 0.0085;
+    const graphMat = new THREE.MeshBasicMaterial({ color: INK3, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
     const cap = new THREE.SphereGeometry(stroke * 1.1, 10, 8);
     const pathsByEdge = new Map();
     for (const line of parsed.graphLines) {
@@ -1108,19 +1227,16 @@
         pathsByEdge.get(k).push({ ends: [ma, mb], segment: seg, points: pts });
       }
     }
-    const pg = new THREE.SphereGeometry(stroke * 2.2, 18, 12);
-    const vertexPositions = new Map();
+    // each vertex is a numbered disk held just in front of the surface, so the surface hides the ones on its far side
+    const vertexPositions = new Map(), marks = [], pull = new THREE.Vector3();
     for (const pt of parsed.graphPoints) {
       const pos = xf(pt.position);
-      const dot = new THREE.Mesh(pg, ptMat); dot.position.copy(pos); group.add(dot);
-      const shown = pt.label + 1;
       vertexPositions.set(pt.label + 1, pos.clone());
-      const lab = tdLabel(String(shown)); lab.scale.multiplyScalar(0.62);
-      lab.position.copy(pt.labelPosition ? xf(pt.labelPosition) : pos.clone().multiplyScalar(1.08));
-      group.add(lab);
+      const d = tdDisk(pt.label + 1, 0.2, false); d.position.copy(pos); group.add(d); marks.push({ d, pos });
     }
-    const setOpacity = (o) => { const solid = o >= 0.999; group.traverse(c => { if (c.material) (Array.isArray(c.material) ? c.material : [c.material]).forEach(m => { m.transparent = !solid; m.opacity = o; m.needsUpdate = true; }); }); };
-    return { group, setOpacity, pathsByEdge, vertexPositions };
+    const face = cam => { for (const m of marks) m.d.position.copy(m.pos).addScaledVector(pull.subVectors(cam.position, m.pos).normalize(), 0.14); };
+    const setOpacity = (o) => { const solid = o >= 0.999; group.traverse(c => { if (c.material) (Array.isArray(c.material) ? c.material : [c.material]).forEach(m => { m.transparent = m.userData.alpha ? true : !solid; m.opacity = o; m.needsUpdate = true; }); }); };
+    return { group, mesh, setOpacity, pathsByEdge, vertexPositions, face };
   }
 
   // ----- morph: fundamental polygons (lifted faces) -> surface paths -----
@@ -1155,88 +1271,208 @@
     if (pieces.length === 0) { if (start && end) return [start.clone(), end.clone()]; return [new THREE.Vector3(), new THREE.Vector3()]; }
     return tdStitch(pieces, start, end);
   }
-  function tdSurfaceMorphData(pathsByEdge, vertexPositions) {
+
+  // On the surface each dart runs beside its edge, on the side of the face it belongs to, so every face ends up
+  // outlined in its own color. Returns a map "u>v" -> points, or null if the side cannot be told (then the darts
+  // are simply laid on the edges, as before).
+  function tdSurfaceStrands(surf) {
+    const geo = surf.mesh.geometry, P = geo.attributes.position, Nn = geo.attributes.normal;
+    const cell = 0.12, grid = new Map(), gk = (i, j, k) => i + ',' + j + ',' + k;
+    for (let i = 0; i < P.count; i++) { const k = gk(Math.floor(P.getX(i) / cell), Math.floor(P.getY(i) / cell), Math.floor(P.getZ(i) / cell)); let a = grid.get(k); if (!a) grid.set(k, a = []); a.push(i); }
+    function normalAt(p) {          // the surface normal at the mesh point nearest p
+      const ci = Math.floor(p.x / cell), cj = Math.floor(p.y / cell), ck = Math.floor(p.z / cell); let best = -1, bd = Infinity;
+      for (let i = ci - 1; i <= ci + 1; i++) for (let j = cj - 1; j <= cj + 1; j++) for (let k = ck - 1; k <= ck + 1; k++) {
+        const a = grid.get(gk(i, j, k)); if (!a) continue;
+        for (const q of a) { const dx = P.getX(q) - p.x, dy = P.getY(q) - p.y, dz = P.getZ(q) - p.z, d = dx * dx + dy * dy + dz * dz; if (d < bd) { bd = d; best = q; } }
+      }
+      return best < 0 ? null : new THREE.Vector3(Nn.getX(best), Nn.getY(best), Nn.getZ(best)).normalize();
+    }
+    const cache = new Map();
+    function pathOf(u, v) {
+      const k = u + '>' + v; if (cache.has(k)) return cache.get(k);
+      const pts = tdDirectedSurfacePath(u, v, surf.pathsByEdge, surf.vertexPositions), len = [0];
+      for (let i = 1; i < pts.length; i++) len.push(len[i - 1] + pts[i].distanceTo(pts[i - 1]));
+      const o = { pts, len, total: len[len.length - 1] }; cache.set(k, o); return o;
+    }
+    function at(o, d) {             // the point at distance d along a path
+      d = Math.max(0, Math.min(o.total, d)); let i = 1; while (i < o.len.length - 1 && o.len[i] < d) i++;
+      const span = o.len[i] - o.len[i - 1], t = span > 1e-9 ? (d - o.len[i - 1]) / span : 0;
+      return new THREE.Vector3().lerpVectors(o.pts[i - 1], o.pts[i], t);
+    }
+    // Which way did the solver turn the rotations, counterclockwise or clockwise about the normal? Ask every vertex.
+    let vote = 0;
+    ORDER.forEach(v => {
+      const pv = surf.vertexPositions.get(v), n = pv && normalAt(pv); if (!n || rot[v].length < 3) return;
+      const e1 = new THREE.Vector3(1, 0, 0); if (Math.abs(n.x) > 0.9) e1.set(0, 1, 0);
+      e1.addScaledVector(n, -e1.dot(n)).normalize(); const e2 = new THREE.Vector3().crossVectors(n, e1);
+      const ang = {};
+      rot[v].forEach(u => { const o = pathOf(v, u), d = at(o, Math.min(0.16, o.total * 0.4)).sub(pv); ang[u] = Math.atan2(d.dot(e2), d.dot(e1)); });
+      const ccw = rot[v].slice().sort((a, b) => ang[a] - ang[b]), m = ccw.length, i0 = ccw.indexOf(rot[v][0]);
+      const same = rot[v].every((u, i) => ccw[(i0 + i) % m] === u), flip = rot[v].every((u, i) => ccw[(i0 - i + 2 * m) % m] === u);
+      if (same && !flip) vote++; else if (flip && !same) vote--;
+    });
+    if (vote === 0) return null;
+    const sgn = vote > 0 ? 1 : -1;  // counterclockwise about the normal puts each face on the right of its darts
+    const out = new Map(), OFFS = 0.034, TRIM = 0.125;
+    for (const face of td.faces) for (const d of face) {
+      const o = pathOf(d[0], d[1]), trim = Math.min(TRIM, o.total * 0.3), run = o.total - 2 * trim;
+      const count = Math.max(6, Math.min(140, Math.round(run / 0.03))), res = [];
+      for (let i = 0; i <= count; i++) {
+        const sd = trim + run * i / count, p = at(o, sd), n = normalAt(p); if (!n) return null;
+        const t = at(o, sd + 0.02).sub(at(o, sd - 0.02)); t.addScaledVector(n, -t.dot(n)).normalize();
+        res.push(p.addScaledVector(new THREE.Vector3().crossVectors(t, n), sgn * OFFS));
+      }
+      out.set(d[0] + '>' + d[1], res);
+    }
+    return out;
+  }
+  function tdSurfaceMorphData(pathsByEdge, vertexPositions, strands) {
     const darts = [], vertices = [], total = td.faces.length;
     td.faces.forEach((face, fi) => {
       const layout = tdFaceLayout(face, fi, total), col = TDFC[fi % TDFC.length];
       face.forEach((d, di) => {
-        const targetPath = tdDirectedSurfacePath(d[0], d[1], pathsByEdge, vertexPositions);
+        const targetPath = (strands && strands.get(d[0] + '>' + d[1])) || tdDirectedSurfacePath(d[0], d[1], pathsByEdge, vertexPositions);
         const N = Math.max(24, Math.min(96, targetPath.length || 2));
         darts.push({ col, startPath: tdResample([layout[di], layout[di + 1]], N), targetPath: tdResample(targetPath, N) });
-        vertices.push({ start: layout[di].clone(), target: (vertexPositions.get(d[0]) || layout[di]).clone() });
+        vertices.push({ v: d[0], start: layout[di].clone(), target: (vertexPositions.get(d[0]) || layout[di]).clone() });
       });
     });
-    return { darts, vertices, edgeR0: 0.018, edgeR1: 0.02, ptR0: 0.04, ptR1: 0.03 };
+    return { darts, vertices, edgeR0: 0.018, edgeR1: strands ? 0.0125 : 0.02, ptR0: 0.04, ptR1: 0.03 };
   }
-  function tdDrawSurfaceMorph(morph, amount) {
+  function tdDrawSurfaceMorph(morph, amount, tubes) {
     tdClear(td.trace);
     const er = tdLerp(morph.edgeR0, morph.edgeR1, amount), pr = tdLerp(morph.ptR0, morph.ptR1, amount);
     for (const d of morph.darts) {
       const pts = d.startPath.map((p, i) => new THREE.Vector3().lerpVectors(p, d.targetPath[i], amount));
-      const mat = new THREE.MeshBasicMaterial({ color: d.col, depthTest: false });
-      td.trace.add(tdMakeTube(pts, er, mat, Math.max(8, pts.length - 1)));
+      if (tubes !== false) td.trace.add(tdMakeTube(pts, er, new THREE.MeshBasicMaterial({ color: d.col, depthTest: false }), Math.max(8, pts.length - 1)));
       const hi = Math.max(0, pts.length - 8);
-      td.trace.add(tdArrow(pts[hi], pts[pts.length - 1], d.col, er * 3.8, er * 8.0));
+      td.trace.add(tdArrow(pts[hi], pts[pts.length - 1], d.col, Math.max(er, 0.016) * 3.2, Math.max(er, 0.016) * 7));
     }
     for (const v of morph.vertices) {
       const pos = new THREE.Vector3().lerpVectors(v.start, v.target, amount);
-      const dot = new THREE.Mesh(new THREE.SphereGeometry(pr, 14, 10), new THREE.MeshBasicMaterial({ color: 0xf4f4ef, depthTest: false }));
-      dot.position.copy(pos); td.trace.add(dot);
+      const dot3 = new THREE.Mesh(new THREE.SphereGeometry(pr, 14, 10), new THREE.MeshBasicMaterial({ color: part(v.v) === 'pA' ? 0x223a5e : 0x1f7ae0, depthTest: false }));
+      dot3.position.copy(pos); td.trace.add(dot3);
     }
   }
-  function tdRunPhase(stepFn, dur) {
+  function tdRunPhase(stepFn, dur, ep) {
     return new Promise(resolve => {
-      const start = performance.now();
-      const tick = () => { const raw = Math.min(1, (performance.now() - start) / dur), e = raw * raw * (3 - 2 * raw); stepFn(e); if (raw < 1) requestAnimationFrame(tick); else resolve(); };
+      const start = performance.now(), len = calm() ? 1 : dur;
+      const tick = () => { if (ep !== td.epoch) { resolve(); return; } const raw = Math.min(1, (performance.now() - start) / len), e = raw * raw * (3 - 2 * raw); stepFn(e); if (raw < 1) requestAnimationFrame(tick); else resolve(); };
       tick();
     });
   }
 
   async function tdShowSurface() {
-    const exp = document.getElementById('emb3dExplain'), st = document.getElementById('emb3dStatus');
     // Every genus comes from the live solver. Genus 0 and 1 are the sphere and
     // torus as before. For genus >= 2 the solver builds a chain of tori and
     // routes each edge along that surface so that no two edges cross and every
     // vertex keeps its rotation (SanderGi/Genus, docs/3d-layout.md). If it
     // cannot route an embedding it returns an error, never a wrong picture.
-    td.animating = true;
-    st.textContent = 'Contacting genus.fly.dev for the surface…';
+    const ep = td.epoch, T = td.timeline.length;
+    td.animating = true; td.failed = false; stage.classList.add('is-busy');
+    tdSay('Asking the solver for the surface. It can take a moment to wake up.');
     let surf;
     try {
       surf = tdBuildSurface(await tdRequestModel());
     } catch (e) {
-      td.animating = false;
-      st.textContent = 'Surface request failed: ' + e.message;
-      exp.textContent = 'Could not build the surface (the solver may be asleep or offline, or it could not route this embedding). Step back ◀ and try ▶ again.';
+      if (ep !== td.epoch) return;
+      td.animating = false; td.failed = true; stage.classList.remove('is-busy');
+      tdSay(/timed out|connection failed|closed before/.test(String(e && e.message)) ? 'The solver did not answer. It may still be waking up, so try again.' : 'The solver could not draw this embedding.');
       return;
     }
+    if (ep !== td.epoch) { tdDispose(surf.group); return; }
+    stage.classList.remove('is-busy');
     tdRemoveSurface();
     td.surface = surf; surf.setOpacity(0); td.scene.add(surf.group);
-    st.textContent = 'Gluing the faces onto the surface…';
-    // Phase A: morph the lifted face-polygons onto the surface paths (surface still hidden), camera lifted -> surface
-    const morph = tdSurfaceMorphData(surf.pathsByEdge, surf.vertexPositions);
+    tdSay('Placing the faces on the surface.');
+    let strands = null; try { strands = tdSurfaceStrands(surf); } catch (e) { strands = null; }
+    // Phase A: morph the lifted face-polygons onto the surface (surface still hidden), camera lifted -> surface
+    const morph = tdSurfaceMorphData(surf.pathsByEdge, surf.vertexPositions, strands);
     const camFrom = td.cam.position.clone(), lookFrom = (td._look || new THREE.Vector3()).clone();
-    const camTo = new THREE.Vector3(0, -6.0, 2.95), lookTo = new THREE.Vector3(0, 0, 0);
+    const view = tdSurfaceCam(surf), camTo = view.pos, lookTo = new THREE.Vector3(0, 0, 0);
     await tdRunPhase(e => {
       tdDrawSurfaceMorph(morph, e);
       tdSetFlatOpacity(0.18 * (1 - e));
       td.cam.position.lerpVectors(camFrom, camTo, e);
       const l = new THREE.Vector3().lerpVectors(lookFrom, lookTo, e); td.cam.lookAt(l); td._look = l;
-    }, 1300);
-    // Phase B: cross-fade the surface (and its own graph) in, the morphed darts out
+    }, 1300, ep);
+    if (ep !== td.epoch) return;
+    // The darts stay where they landed, as the outline of each face, now drawn on the surface itself.
+    if (strands) {
+      const loops = new THREE.Group();
+      td.faces.forEach((face, fi) => {
+        const mat = new THREE.MeshBasicMaterial({ color: TDFC[fi % TDFC.length], polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3 });
+        face.forEach(d => { const pts = strands.get(d[0] + '>' + d[1]); if (pts) loops.add(tdMakeTube(pts, 0.0125, mat, Math.max(8, pts.length - 1))); });
+      });
+      surf.loops = loops; td.scene.add(loops);
+      tdDrawSurfaceMorph(morph, 1, false);
+    }
+    // Phase B: the surface and its graph fade in; what is left of the moving darts fades out
     await tdRunPhase(e => {
       surf.setOpacity(e);
       td.trace.children.forEach(c => { if (c.material) (Array.isArray(c.material) ? c.material : [c.material]).forEach(m => { m.transparent = true; m.opacity = 1 - e; }); });
-    }, 1000);
-    td.animating = false; td.step = td.timeline.length + 2;
+    }, 1000, ep);
+    if (ep !== td.epoch) return;
+    td.animating = false; td.step = T + 2;
     tdClear(td.trace); tdSetFlatOpacity(0);
-    tdSetCameraSurface();
-    st.textContent = 'Surface, drag to rotate, scroll to zoom';
-    exp.textContent = '';
-    if (td.controls) td.controls.enableRotate = true;
+    tdAim(camTo, lookTo, true);
+    tdSay();
+    if (!calm() && td.controls) td.spin = { t: 0, done: 0, long: view.long };  // one slow turn (or a sway, for a long surface), so more of it is seen once
+  }
+  function tdSpinFrame(dt) {
+    const sp = td.spin, T = sp.long ? 9 : 13; sp.t = Math.min(T, sp.t + dt);
+    const u = sp.t / T, want = sp.long ? TD_SWAY * Math.sin(2 * Math.PI * u) : 2 * Math.PI * (u * u * (3 - 2 * u)), a = want - sp.done;
+    const off = td.cam.position.clone().sub(td.controls.target).applyAxisAngle(new THREE.Vector3(0, 0, 1), a);
+    td.cam.position.copy(td.controls.target).add(off); sp.done = want;
+    if (sp.t >= T) td.spin = null;
   }
 
+  const tdPlayer = makePlayer('emb3d', tdStatus, () => {
+    if (!td.ren) return 0;
+    if (td.animating) return 160;                         // wait for the lift, or for the solver
+    if (td.failed) return 0;
+    const T = td.timeline.length;
+    if (td.step >= T + 2) return 0;
+    tdStep('forward');
+    return td.step < T ? 640 : 700;
+  });
+  $('emb3dStart').addEventListener('click', () => { tdPlayer.stop(); tdStep('start'); });
+  $('emb3dBack').addEventListener('click', () => { tdPlayer.stop(); tdStep('back'); });
+  $('emb3dFwd').addEventListener('click', () => { tdPlayer.stop(); tdStep('forward'); });
+  $('emb3dEnd').addEventListener('click', () => { tdPlayer.stop(); tdStep('end'); });
+  $('emb3dPlay').addEventListener('click', () => {
+    if (!td.ren) return;
+    if (!td.animating && td.step >= td.timeline.length + 2) tdStep('start');
+    td.failed = false; tdPlayer.toggle();
+  });
+
+  // ===== Putting it together =====
+  let embView = '2d';
+  function stopPlayers() { walkPlayer.stop(); gluePlayer.stop(); tdPlayer.stop(); }
+  // any generated output is stale once a rotation changes: put it away until the faces are traced again
+  function markStale() {
+    stopPlayers(); glueAnim++; td.epoch++; td.animating = false; td.spin = null;
+    walksView.hidden = true; polyView.hidden = true; embedView.hidden = true;
+  }
+  function open3d() {
+    // the three.js scripts are deferred, so on a slow connection they may still be on their way
+    if (typeof THREE === 'undefined' && !open3d.waited) {
+      open3d.waited = true; stage.classList.add('is-busy');
+      const t0 = Date.now(), poll = setInterval(() => {
+        if (typeof THREE !== 'undefined' || Date.now() - t0 > 12000) { clearInterval(poll); stage.classList.remove('is-busy'); if (embView === '3d' && !embedView.hidden) open3d(); }
+      }, 150);
+      return;
+    }
+    if (!td.ren || td.stale) { td.stale = false; tdShow(); } else if (td.resize) td.resize();
+  }
+  function setEmbTab(which) {
+    embView = which;
+    $('emb2dPanel').hidden = which !== '2d';
+    $('emb3dPanel').hidden = which !== '3d';
+    if (which === '3d') open3d(); else tdPlayer.stop();
+  }
   function generate() {
+    stopPlayers(); glueAnim++;
     faces = computeFaces(rot);
     seq = []; dartTotal = 0;
     faces.forEach((f, fi) => {
@@ -1247,85 +1483,72 @@
     total = seq.length;
     chi = ORDER.length - EDGES.length + faces.length;
     genus = (2 - chi) / 2;
-    s = 0;
-    walksView.hidden = false;
-    renderWalks();
+    s = 0; hotFace = null;
+    walksView.hidden = false; polyView.hidden = false; embedView.hidden = false;
+    renderWalks(false);
     renderPolys();
-    polyView.hidden = false;
     embLayout = buildEmbedding(faces);
     glueStep = 0;
-    renderEmbed();
-    embedView.hidden = false;
-    // embedding section: 2D fundamental polygons + 3D surface (tabbed), both work for all graphs
-    document.getElementById('embTab3d').classList.remove('is-disabled');
-    document.getElementById('emb3dLaunch').hidden = false;
-    document.getElementById('emb3dNote').hidden = true;
-    if (td.ren) { tdShow(); document.getElementById('emb3dControls').hidden = false; }
-    else document.getElementById('emb3dControls').hidden = true;
-    setEmbTab('2d');
+    drawGlue(glueFrame(0));
+    renderGlueText();
+    // the 3D view follows the new rotation system the next time it is looked at
+    td.stale = true;
+    if (embView === '3d') open3d();
+    const top = walksView.getBoundingClientRect().top;
+    if (top > window.innerHeight * 0.45 || top < 0) walksView.scrollIntoView({ behavior: calm() ? 'auto' : 'smooth', block: 'start' });
+    $('walkPlay').focus({ preventScroll: true });
   }
 
-  genBtn.addEventListener('click', generate);
-  stepBtn.addEventListener('click', () => { if (s < total) { s++; renderWalks(); } });
-  restartBtn.addEventListener('click', () => { s = 0; renderWalks(); });
-  glueBtn.addEventListener('click', () => { if (embLayout && glueStep < embLayout.M + embLayout.N) { glueStep++; renderEmbed(); } });
-  glueRestart.addEventListener('click', () => { glueStep = 0; renderEmbed(); });
+  $('genBtn').addEventListener('click', generate);
+  list.addEventListener('click', e => { const b = e.target.closest('.flip-btn'); if (b) cycle(+b.dataset.v, b); });
+  // a row and its vertex light up together, and the vertex itself can be clicked
+  list.addEventListener('mouseover', e => { const r = e.target.closest('.rot-row'); if (r) setHot(+r.dataset.v); });
+  list.addEventListener('mouseleave', () => setHot(null));
+  list.addEventListener('focusin', e => { const r = e.target.closest('.rot-row'); if (r) setHot(+r.dataset.v); });
+  list.addEventListener('focusout', () => setHot(null));
+  svg.addEventListener('mouseover', e => { const g = e.target.closest('.vx'); setHot(g ? +g.dataset.v : null); });
+  svg.addEventListener('mouseleave', () => setHot(null));
+  svg.addEventListener('click', e => { const g = e.target.closest('.vx'); if (g) cycle(+g.dataset.v, list.querySelector(`.flip-btn[data-v="${g.dataset.v}"]`)); });
+  walkList.addEventListener('mouseover', e => { const r = e.target.closest('.walk-row'); if (r) setHotFace(+r.dataset.f); });
+  walkList.addEventListener('mouseleave', () => setHotFace(null));
 
-  const emb3dLaunch = document.getElementById('emb3dLaunch');
-  emb3dLaunch.addEventListener('click', () => {
-    tdShow();
-    if (td.ren) { document.getElementById('emb3dControls').hidden = false; emb3dLaunch.textContent = 'Refresh 3D view'; }
-  });
-  document.getElementById('emb3dStart').addEventListener('click', () => tdStep('start'));
-  document.getElementById('emb3dBack').addEventListener('click', () => tdStep('back'));
-  document.getElementById('emb3dFwd').addEventListener('click', () => tdStep('forward'));
-  document.getElementById('emb3dEnd').addEventListener('click', () => tdStep('end'));
-
-  function setEmbTab(which) {
-    document.getElementById('emb2dPanel').hidden = which !== '2d';
-    document.getElementById('emb3dPanel').hidden = which !== '3d';
-    embTabs.querySelectorAll('.seg-item').forEach(b => { const on = b.dataset.emb === which; b.classList.toggle('is-active', on); b.setAttribute('aria-selected', on ? 'true' : 'false'); });
-    if (which === '3d' && td.ren && td.resize) td.resize();
+  // segmented choices behave as tabs: click, or arrow keys
+  function tabs(el, pick, again) {
+    const items = Array.from(el.querySelectorAll('.seg-item'));
+    function choose(b, focus) {
+      items.forEach(x => { const on = x === b; x.classList.toggle('is-active', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); x.tabIndex = on ? 0 : -1; });
+      if (focus) b.focus();
+      pick(b);
+    }
+    el.addEventListener('click', e => { const b = e.target.closest('.seg-item'); if (b && (again || !b.classList.contains('is-active'))) choose(b, false); });
+    el.addEventListener('keydown', e => {
+      const i = items.indexOf(document.activeElement); if (i < 0) return; let j = -1;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') j = (i + 1) % items.length;
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') j = (i - 1 + items.length) % items.length;
+      else if (e.key === 'Home') j = 0; else if (e.key === 'End') j = items.length - 1;
+      if (j >= 0) { e.preventDefault(); if (j !== i) choose(items[j], true); }
+    });
   }
-  embTabs.addEventListener('click', e => { const b = e.target.closest('.seg-item'); if (!b || b.classList.contains('is-disabled')) return; setEmbTab(b.dataset.emb); });
+  tabs(document.querySelector('#embedding .views'), b => setEmbTab(b.dataset.emb));
+  tabs(document.querySelector('#graph-selector .seg'), b => setGraph(b.dataset.graph), true);
 
-  // flip = reverse the cyclic order (keep first edge fixed, reverse the rest)
-  list.addEventListener('click', e => {
-    const b = e.target.closest('.flip-btn');
-    if (!b) return;
-    const v = +b.dataset.v;
-    cycleRotation(v);
-    render();
-    // any generated output is now stale, collapse until regenerated
-    if (!walksView.hidden) walksView.hidden = true;
-    if (!polyView.hidden) polyView.hidden = true;
-    if (!embedView.hidden) embedView.hidden = true;
-  });
-
-  // ===== Graph switching (selector) =====
-  const GRAPH_NAMES = { k33: '$K_{3,3}$', k5: '$K_5$', k5e: '$K_5 \\setminus e$', oct: 'the octahedral graph' };
+  // ===== Graph switching =====
   function setGraph(key) {
     const G = GRAPHS[key];
     currentGraphKey = key;
-    const titleEl = document.getElementById('editorTitle');
-    if (titleEl) { titleEl.innerHTML = '<span class="step-num">1</span>Rotation system, ' + GRAPH_NAMES[key]; if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([titleEl]).catch(() => {}); }
+    $('editorTitle').innerHTML = 'Rotation system, ' + NAME_HTML[key];
     V = G.pos; ORDER = G.order; EDGES = G.edges; partFn = G.color;
     rot = {}; ORDER.forEach(v => { rot[v] = G.rot0[v].slice(); });
     edgeIndex = {}; EDGES.forEach((e, i) => { edgeIndex[EKEY(e[0], e[1])] = i; });
     svg.setAttribute('viewBox', G.viewBox);
     faceSvg.setAttribute('viewBox', G.viewBox);
-    walksView.hidden = true; polyView.hidden = true; embedView.hidden = true;
-    render();
+    svg.setAttribute('aria-label', `${NAME_TEXT[key]}, with the rotation at each vertex`);
+    faceSvg.setAttribute('aria-label', `The facial walks traced on ${NAME_TEXT[key]}`);
+    hotV = null;
+    markStale();
+    renderRows();
+    renderGraph(null);
   }
-
-  const segEl = document.querySelector('#graph-selector .seg');
-  segEl.addEventListener('click', e => {
-    const b = e.target.closest('.seg-item');
-    if (!b || b.classList.contains('is-disabled')) return;
-    segEl.querySelectorAll('.seg-item').forEach(x => { x.classList.remove('is-active'); x.setAttribute('aria-selected', 'false'); });
-    b.classList.add('is-active'); b.setAttribute('aria-selected', 'true');
-    setGraph(b.dataset.graph);
-  });
 
   setGraph('k33');
 })();
