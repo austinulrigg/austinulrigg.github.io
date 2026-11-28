@@ -4,11 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page not found | Austin Ulrigg</title>
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } } /* page changes fade; the rest is in css/style.css under "Changing pages" */</style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap" rel="stylesheet">
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="stylesheet" href="css/style.css?v=2026-11-27-look">
+  <style>
+    /* The square is a torus: opposite sides are the same side, so the dot that leaves comes back. */
+    .lost { display: flex; align-items: center; gap: 56px; flex-wrap: wrap; }
+    .lost-torus { flex: none; width: 240px; height: 240px; margin-left: -33px; color: var(--ink); }
+    .lost-torus .side, .lost-torus .mark { fill: none; stroke: currentColor; stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; }
+    .lost-torus .trail { fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-linecap: round; opacity: 0.35; }
+    .lost-torus .dot { fill: var(--accent); }
+    .lost-text { flex: 1; min-width: min(300px, 100%); }
+    @media (max-width: 720px) {
+      .lost { gap: 20px; }
+      .lost-torus { width: 180px; height: 180px; margin-left: -24px; }
+    }
+  </style>
 </head>
 <body class="theme-about">
   <div class="page">
@@ -28,15 +42,55 @@
       </div>
     </header>
     <main class="main">
-      <div class="kicker">404</div>
-      <h1 class="headline">This page wandered off.</h1>
-      <p class="blurb">That page doesn&rsquo;t exist (or moved). Let&rsquo;s get you back.</p>
-      <a class="btn btn--primary" href="index.html">Back home &rarr;</a>
+      <div class="lost">
+        <svg class="lost-torus" viewBox="0 0 150 150" role="img" aria-label="A dot leaves a square through one side and comes back through the opposite side.">
+          <rect class="side" x="25" y="25" width="100" height="100"/>
+          <polyline class="mark" points="21,79 25,72 29,79"/><polyline class="mark" points="121,79 125,72 129,79"/>
+          <polyline class="mark" points="70,21 77,25 70,29"/><polyline class="mark" points="76,21 83,25 76,29"/>
+          <polyline class="mark" points="70,121 77,125 70,129"/><polyline class="mark" points="76,121 83,125 76,129"/>
+          <path class="trail" id="lost-trail" d="M38 60L82.9 78.6"/>
+          <circle class="dot" id="lost-dot" cx="107.9" cy="103.6" r="3.6"/>
+        </svg>
+        <div class="lost-text">
+          <div class="kicker">404</div>
+          <h1 class="headline">This page wandered off.</h1>
+          <p class="blurb">That page doesn&rsquo;t exist (or moved). Let&rsquo;s get you back.</p>
+          <a class="btn btn--primary" href="index.html">Back home &rarr;</a>
+        </div>
+      </div>
     </main>
     <footer class="footer">
       <span>&copy; 2026 Austin Ulrigg</span>
       <a href="mailto:austinul@uw.edu">austinul@uw.edu</a>
     </footer>
   </div>
+  <script>
+    /* Moves the dot across the square. Leaving through one side, it comes back through the opposite one.
+       With reduced motion switched on, the still picture above stays as it is. */
+    (function () {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var dot = document.getElementById('lost-dot'), trail = document.getElementById('lost-trail');
+      if (!dot || !trail || !window.requestAnimationFrame) return;
+      var x = 13, y = 35, vx = 41, vy = 17, points = [], last = null;
+      function frame(now) {
+        if (last === null) last = now;
+        var dt = Math.min(0.05, (now - last) / 1000); last = now;
+        x += vx * dt; y += vy * dt;
+        var wrapped = false;
+        if (x >= 100) { x -= 100; wrapped = true; }
+        if (y >= 100) { y -= 100; wrapped = true; }
+        points.push([x, y, wrapped, now]);
+        while (points.length && now - points[0][3] > 2400) points.shift();
+        var d = '';
+        for (var i = 0; i < points.length; i++) {
+          d += (i === 0 || points[i][2] ? 'M' : 'L') + (25 + points[i][0]).toFixed(1) + ' ' + (25 + points[i][1]).toFixed(1);
+        }
+        trail.setAttribute('d', d);
+        dot.setAttribute('cx', (25 + x).toFixed(1)); dot.setAttribute('cy', (25 + y).toFixed(1));
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    })();
+  </script>
 </body>
 </html>

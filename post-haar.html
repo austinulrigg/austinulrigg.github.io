@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Haar Graphs | Austin Ulrigg</title>
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } } /* page changes fade; the rest is in css/style.css under "Changing pages" */</style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap" rel="stylesheet">
@@ -30,6 +31,30 @@
     .matching-key > span::before { content:""; display:inline-block; width:23px; height:3px; margin:0 7px 4px 0; background:var(--edge); }
     .prose .opening-aside { font-size:15.5px; line-height:1.7; font-style:italic; margin:10px 0 26px; }
     @media (max-width:560px) { .fig-row { gap:27px; } }
+    /* Figure 13, a Haar graph the reader can change. js/haar-figure.js draws it and un-hides it. */
+    .haar-try-body { display:flex; gap:26px; align-items:center; justify-content:center; flex-wrap:wrap; text-align:left; }
+    .post-figure svg.haar-try-graph { flex:0 0 auto; width:340px; max-width:100%; height:auto; overflow:visible; }
+    .haar-try-graph text { font-family:'Source Serif 4',Georgia,serif; fill:var(--ink); }
+    .haar-try-walk { fill:none; stroke:var(--accent); stroke-width:9; stroke-linejoin:round; stroke-opacity:0.17; }
+    .haar-try-turning { transform-origin:180px 180px; }
+    .haar-try-a { fill:var(--ink); }
+    .haar-try-b { fill:none; stroke:var(--ink); stroke-width:1.5; }
+    .haar-try-side { flex:1 1 250px; max-width:330px; font-family:'Source Sans 3',system-ui,sans-serif; font-size:15px; color:var(--ink-soft); }
+    .haar-try-row { display:flex; align-items:center; flex-wrap:wrap; gap:8px 10px; margin:0 0 14px; }
+    .haar-try-row input[type=range] { flex:1 1 110px; min-width:90px; accent-color:var(--accent); }
+    .haar-try-set { display:flex; flex-wrap:wrap; gap:5px; }
+    .haar-try-set button, .haar-try-turn, .haar-try-row select { font:inherit; color:var(--ink); background:transparent; border:1px solid rgba(22,24,58,0.32); border-radius:4px; }
+    .haar-try-set button, .haar-try-turn { cursor:pointer; }
+    .haar-try-set button { min-width:30px; padding:3px 0; }
+    .haar-try-set button[aria-pressed="true"] { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .haar-try-set button:disabled { cursor:default; }
+    .haar-try-set button[aria-pressed="false"]:disabled { opacity:0.4; }
+    .haar-try-row select { padding:3px 6px; }
+    .haar-try-row output { font-family:KaTeX_Main,'Source Serif 4',serif; font-size:1.16em; color:var(--ink); }
+    .haar-try .matching-key { margin-top:6px; }
+    .haar-try-turn { padding:5px 10px; }
+    .haar-try-turn:hover, .haar-try-set button:not(:disabled):hover { border-color:var(--accent); }
+    .prose .haar-try-out { font-size:15px; line-height:1.55; margin:2px 0 14px; color:var(--ink-soft); }
   </style>
 </head>
 <body class="theme-writing">
@@ -228,6 +253,21 @@
           <figcaption>Figure 12. The resulting embedding, with opposite sides identified.</figcaption>
         </figure>
 
+        <figure class="post-figure haar-try" id="haar-try" hidden>
+          <div class="haar-try-body">
+            <svg class="haar-try-graph" viewBox="16 16 328 328" role="img" aria-label="A Haar graph for the chosen group, connection set, and orders."></svg>
+            <div class="haar-try-side">
+              <div class="haar-try-row"><label for="haar-n"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Γ</mi><mo>=</mo><msub><mi mathvariant="double-struck">Z</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\Gamma=\mathbb Z_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Γ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathbb">Z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></label><input id="haar-n" type="range" min="3" max="12" step="1" value="7"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo></mrow><annotation encoding="application/x-tex">n=</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span></span></span></span> <output id="haar-n-out" for="haar-n">7</output></span></div>
+              <div class="haar-try-row"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span></span><span class="haar-try-set" id="haar-S" role="group" aria-label="Elements of the connection set"></span></div>
+              <div class="haar-try-row"><label for="haar-alpha"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></label><select id="haar-alpha"></select><label for="haar-beta"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span></span></span></span></label><select id="haar-beta"></select></div>
+              <p class="haar-try-out" id="haar-out" role="status"></p>
+              <button type="button" class="haar-try-turn" id="haar-turn">Add 1 to every subscript</button>
+            </div>
+          </div>
+          <div class="matching-key" id="haar-key"></div>
+          <figcaption>Figure 13. The same calculation for other choices of <span style="white-space:nowrap"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span>, and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span></span></span></span>.</span></figcaption>
+        </figure>
+
         <ol class="fn-list">
           <li id="fn1">Because this was never really about coffee. <a href="#fnr1" aria-label="Back to footnote reference">&#8617;</a></li>
         </ol>
@@ -243,5 +283,6 @@
       <a href="mailto:austinul@uw.edu">austinul@uw.edu</a>
     </footer>
   </div>
+  <script src="js/haar-figure.js" defer></script>
 </body>
 </html>

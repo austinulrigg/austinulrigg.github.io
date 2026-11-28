@@ -97,6 +97,22 @@ body.theme-about { --glass: #ffffff; --glass-strong: #ffffff; --glass-border: rg
 .tab.is-active { border-bottom: 1px solid #5802a8; }
 .tab:focus-visible { outline: 2px solid #5802a8; outline-offset: 4px; }
 
+/* ---- Changing pages ----
+   In browsers that can do it, a click on a tab fades one page into the next, so the page color
+   changes smoothly, and the line under the current tab slides to the tab that was clicked.
+   Other browsers change pages as before. Nothing moves when reduced motion is switched on.
+   The switch for this is one line in each page's own head (@view-transition). It has to be there
+   and not here: Chrome drops the fade if any other stylesheet arrives before the rule does.
+   cv.html has no such line, so the CV tab opens the PDF as before. */
+@supports (view-transition-name: none) {
+  .tab.is-active { position: relative; border-bottom-color: transparent; }
+  .tab.is-active::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
+    background: #5802a8; view-transition-name: tab-line;
+  }
+}
+::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation-duration: 0.35s; }
+
 /* ---- Main content ---- */
 .main { padding: 36px var(--gutter) 80px; }
 

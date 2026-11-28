@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Research | Austin Ulrigg</title>
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } } /* page changes fade; the rest is in css/style.css under "Changing pages" */</style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap" rel="stylesheet">
@@ -31,6 +32,30 @@
     .entry-links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 10px; margin: 12px 0 0; font-size: 16px; line-height: 1.6; }
     .entry-links a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
     .entry-links a:hover { color: var(--ink); }
+    /* A drawing for each paper. It turns by one of its own symmetries, like the one on About. */
+    .entry {
+      display: grid; grid-template-columns: minmax(0, 1fr) 180px; grid-template-rows: auto auto auto 1fr; column-gap: 40px;
+      grid-template-areas: "top fig" "body fig" "pub fig" "links fig";
+    }
+    .entry-top { grid-area: top; }
+    .entry-body { grid-area: body; }
+    .entry-publication { grid-area: pub; }
+    .entry-links { grid-area: links; align-self: start; }
+    .entry-fig { grid-area: fig; align-self: center; margin: 0; text-align: center; }
+    .entry-fig img { display: block; width: 180px; height: 180px; transition: transform 1.2s ease; }
+    .entry:hover .entry-fig img, .entry:focus-within .entry-fig img { transform: rotate(var(--turn)); }
+    .entry-fig figcaption { margin-top: 10px; font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 14px; line-height: 1.4; color: var(--ink-faint); }
+    @media (max-width: 1239px) {
+      .entry { display: block; }
+      .entry::after { content: ""; display: block; clear: both; }
+      .entry-fig { float: right; margin: 2px 0 10px 20px; }
+      .entry-fig img { width: 104px; height: 104px; }
+      .entry-fig figcaption { display: none; }
+    }
+    @media (max-width: 560px) {
+      .entry-fig { margin-left: 16px; }
+      .entry-fig img { width: 84px; height: 84px; }
+    }
     @media (max-width: 900px) {
       .research-grid { grid-template-columns: 1fr; gap: 10px; }
       .research-intro { position: static; }
@@ -67,6 +92,10 @@
         </div>
         <div class="entries">
           <article class="entry">
+            <figure class="entry-fig">
+              <img src="images/research/k37.svg" width="180" height="180" alt="K3,7, drawn with three-fold symmetry" style="--turn:120deg">
+              <figcaption><i>K</i><sub>3,7</sub></figcaption>
+            </figure>
             <div class="entry-top">
               <a class="entry-title" href="post-toroidal-obstructions-no-k5.html">Toroidal Obstructions with No <i>K</i><sub>5</sub> Minor</a>
               <span class="entry-meta">Preprint &middot; 2026</span>
@@ -76,6 +105,10 @@
             <p class="entry-links"><a href="https://arxiv.org/abs/2611.22089">arXiv</a> <span aria-hidden="true">&middot;</span> <a href="files/toroidal-obstructions-no-k5.pdf">PDF</a> <span aria-hidden="true">&middot;</span> <a href="https://github.com/austinulrigg/toroidal-obstructions-no-k5">Supplemental data and code</a></p>
           </article>
           <article class="entry">
+            <figure class="entry-fig">
+              <img src="images/research/haar-z7-0123.svg" width="180" height="180" alt="The Haar graph H(Z7, {0, 1, 2, 3}), drawn with seven-fold symmetry" style="--turn:51.4286deg">
+              <figcaption>H(&#8484;<sub>7</sub>, {0, 1, 2, 3})</figcaption>
+            </figure>
             <div class="entry-top">
               <a class="entry-title" href="post-pisanski.html">Resolving Pisanski&rsquo;s Conjecture on Quadrilateral Embeddings</a>
               <span class="entry-meta">With A. Metzger &middot; Preprint &middot; 2026</span>
@@ -85,6 +118,10 @@
             <p class="entry-links"><a href="https://arxiv.org/abs/2610.13085">arXiv</a> <span aria-hidden="true">&middot;</span> <a href="files/Resolving_Pisanskis_Conjecture.pdf">PDF</a></p>
           </article>
           <article class="entry">
+            <figure class="entry-fig">
+              <img src="images/research/kneser-11-2.svg" width="180" height="180" alt="The bipartite Kneser graph H(11,2), drawn with five-fold symmetry" style="--turn:72deg">
+              <figcaption>H(11,2)</figcaption>
+            </figure>
             <div class="entry-top">
               <a class="entry-title" href="post-kneser-genus.html">The Genus of Bipartite Kneser Graphs</a>
               <span class="entry-meta">With A. Metzger &middot; Preprint &middot; 2026</span>
@@ -94,6 +131,10 @@
             <p class="entry-links"><a href="https://arxiv.org/abs/2610.03159">arXiv</a> <span aria-hidden="true">&middot;</span> <a href="files/The_Genus_of_Bipartite_Kneser_Graphs.pdf">PDF</a> <span aria-hidden="true">&middot;</span> <a href="https://github.com/SanderGi/Genus/tree/main/BipartiteKneser">Code and certificates</a></p>
           </article>
           <article class="entry">
+            <figure class="entry-fig">
+              <img src="images/research/cage-3-12.svg" width="180" height="180" alt="The (3,12)-cage, drawn with seven-fold symmetry" style="--turn:51.4286deg">
+              <figcaption>(3,12)-cage</figcaption>
+            </figure>
             <div class="entry-top">
               <a class="entry-title" href="post-genus-algorithm.html">An Efficient Genus Algorithm Based on Graph Rotations</a>
               <span class="entry-meta">With A. Metzger &middot; Discrete Mathematics &middot; 2026</span>
